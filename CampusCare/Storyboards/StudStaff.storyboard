@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="5Kt-zV-bc6"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="oNT-V2-Ib3"/>
                     <navigationItem key="navigationItem" id="lps-mv-2fG"/>
@@ -28,12 +28,12 @@
         <!--My Requests-->
         <scene sceneID="Eth-nc-Dk2">
             <objects>
-                <viewController id="5xy-lw-Pva" sceneMemberID="viewController">
+                <viewController id="5xy-lw-Pva" customClass="StudStaffRequests" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJ1-iR-T3c">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="FLw-Pk-YQe"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="My Requests" image="calendar.badge.clock" catalog="system" id="FfQ-vR-rCe"/>
                     <navigationItem key="navigationItem" id="Ivt-ND-i0y"/>
@@ -45,12 +45,12 @@
         <!--Home-->
         <scene sceneID="8Zi-Cn-8dz">
             <objects>
-                <viewController id="Oxg-0Q-9Sk" sceneMemberID="viewController">
+                <viewController id="Oxg-0Q-9Sk" customClass="Home" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zoa-OJ-n95">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="WKi-5K-lcJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="Wea-Zq-Zt1"/>
                     <navigationItem key="navigationItem" id="9kN-JI-Nqq"/>
@@ -65,6 +65,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="281-xg-KN6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rhD-yY-Tod">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </tabBar>
@@ -83,9 +84,6 @@
         <image name="calendar.badge.clock" catalog="system" width="128" height="109"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

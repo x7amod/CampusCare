@@ -11,50 +11,51 @@
         <!--Requests-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="ManagerRequests" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Requests" image="list.bullet.rectangle.fill" catalog="system" id="YYt-ay-e8x"/>
+                    <tabBarItem key="tabBarItem" title="Requests" image="calendar" catalog="system" id="neG-Qb-GNq"/>
+                    <navigationItem key="navigationItem" id="S9I-Cl-0eb"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-274" y="755"/>
+            <point key="canvasLocation" x="-434" y="761"/>
         </scene>
         <!--Analytics-->
         <scene sceneID="Bik-Yl-hfl">
             <objects>
-                <viewController id="2SY-Fs-L6p" sceneMemberID="viewController">
+                <viewController id="2SY-Fs-L6p" customClass="ManagerAnalytics" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZOm-SN-2Rc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="SBk-f3-jzN"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="a6Z-H8-BEP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4nS-3v-Kxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="437" y="755"/>
+            <point key="canvasLocation" x="755" y="785"/>
         </scene>
         <!--More-->
         <scene sceneID="KHp-b9-7eg">
             <objects>
-                <viewController id="RVS-Py-SWA" sceneMemberID="viewController">
+                <viewController id="RVS-Py-SWA" customClass="More" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nro-Nq-2qH">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="KTe-fF-v8d"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="bcL-Vd-aiX"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NMm-i3-aYw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1132" y="755"/>
+            <point key="canvasLocation" x="2057.2519083969464" y="754.92957746478874"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="esq-xZ-8VY">
@@ -62,11 +63,12 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="2le-00-gYS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="emJ-Ti-5DU">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="tJH-hF-ZCV"/>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="5kD-lL-2z6"/>
                         <segue destination="2SY-Fs-L6p" kind="relationship" relationship="viewControllers" id="h74-wy-8nA"/>
                         <segue destination="RVS-Py-SWA" kind="relationship" relationship="viewControllers" id="bN8-Vq-0s3"/>
                     </connections>
@@ -77,12 +79,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="chart.bar.xaxis" catalog="system" width="128" height="97"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
-        <image name="list.bullet.rectangle.fill" catalog="system" width="128" height="93"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

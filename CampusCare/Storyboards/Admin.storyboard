@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TA3-it-mRO">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
@@ -11,28 +11,28 @@
         <!--Uesr Manaegment-->
         <scene sceneID="dbb-nl-zKU">
             <objects>
-                <viewController id="zma-US-vkL" sceneMemberID="viewController">
+                <viewController id="zma-US-vkL" customClass="AdminManagement" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Va3-rs-7U4">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="uM2-RE-hjc"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Uesr Manaegment" image="calendar.and.person" catalog="system" id="W2K-JL-LFv"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZMG-A9-bix" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="797"/>
+            <point key="canvasLocation" x="76" y="747"/>
         </scene>
         <!--More-->
         <scene sceneID="7qE-f8-vbO">
             <objects>
-                <viewController id="f8N-RI-tDb" sceneMemberID="viewController">
+                <viewController id="f8N-RI-tDb" customClass="More" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jVR-J3-mXV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Saz-cj-STI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="2t3-wI-peB"/>
                 </viewController>
@@ -43,18 +43,18 @@
         <!--Analytics-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="AdminAnalytics" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="69i-PA-64D"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-880" y="785"/>
+            <point key="canvasLocation" x="-865" y="785"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="inh-Af-DMt">
@@ -62,8 +62,9 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="TA3-it-mRO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="C2v-OD-gzy">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="apn-ds-gd9"/>
@@ -80,9 +81,6 @@
         <image name="calendar.and.person" catalog="system" width="128" height="99"/>
         <image name="chart.bar.xaxis" catalog="system" width="128" height="97"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

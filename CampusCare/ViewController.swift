@@ -10,6 +10,8 @@ import FirebaseFirestore
 import Cloudinary
 
 class ViewController: UIViewController {
+    
+
 
     let cloudName: String = "ducxhdkkd"
     var uploadPreset: String = "student_upload_preset" //NEW - Name of unsigned upload preset
