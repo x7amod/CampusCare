@@ -18,8 +18,8 @@ class Login: UIViewController {
         view.addSubview(headerView)
         
         // Set page-specific title
-           headerView.setTitle("change me")  // Change this for each screen
-        
+        headerView.setTitle("change me")  // Change this for each screen
+
     }
     
 
