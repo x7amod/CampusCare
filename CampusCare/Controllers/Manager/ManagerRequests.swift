@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class ManagerRequests: UIViewController {
 
+    
+    let requestCollection = RequestCollection()
+    var requests: [RequestModel] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,10 +24,27 @@ class ManagerRequests: UIViewController {
         
         // Set page-specific title
            headerView.setTitle("Requests Pool")  // Change this for each screen
+        
+        FetchRequests()
     }
     
     
-    
+    func FetchRequests() {
+            requestCollection.fetchAllRequests { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let list):
+                        self?.requests = list
+                        print("Fetched \(list.count) requests")
+                        for r in list {
+                            print("ID: \(r.id), Title: \(r.title)")
+                        }
+                    case .failure(let error):
+                        print("❌ Error fetching requests: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
     
 
     /*
