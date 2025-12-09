@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wco-g5-oeq">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wco-g5-oeq" customClass="RequestItemView" customModule="CampusCare">
+            <rect key="frame" x="0.0" y="0.0" width="338" height="103"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gR-Q3-zV9">
                     <rect key="frame" x="16" y="8" width="33" height="20"/>
@@ -73,12 +73,21 @@
                 <constraint firstAttribute="height" constant="103" id="wGa-Pf-dRd"/>
                 <constraint firstAttribute="width" constant="338" id="y3P-sb-cTc"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                     <integer key="value" value="18"/>
                 </userDefinedRuntimeAttribute>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="CategoryLabel" destination="kLJ-EV-XvU" id="qdk-mv-cc8"/>
+                <outlet property="IDLabel" destination="TTL-Tt-mGO" id="yyQ-3I-ZqV"/>
+                <outlet property="PreoriteyLabel" destination="T0E-Ua-j3b" id="f6g-vE-iuv"/>
+                <outlet property="RoleLabel" destination="itI-FM-YSq" id="8Px-fn-PUl"/>
+                <outlet property="TimeLabel" destination="BKu-vU-GUK" id="ajP-1T-JaX"/>
+                <outlet property="TitleLabel" destination="7gR-Q3-zV9" id="aaf-hm-Ilx"/>
+            </connections>
             <point key="canvasLocation" x="11" y="-186"/>
         </view>
     </objects>

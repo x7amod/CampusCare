@@ -25,26 +25,48 @@ class ManagerRequests: UIViewController {
         // Set page-specific title
            headerView.setTitle("Requests Pool")  // Change this for each screen
         
+        // Add top padding so stack view starts below header
+          stackVIew.layoutMargins = UIEdgeInsets(top: 80, left: 0, bottom: 0, right: 0)
+          stackVIew.isLayoutMarginsRelativeArrangement = true
+        
         FetchRequests()
     }
     
     
     func FetchRequests() {
-            requestCollection.fetchAllRequests { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let list):
-                        self?.requests = list
-                        print("Fetched \(list.count) requests")
-                        for r in list {
-                            print("ID: \(r.id), Title: \(r.title)")
-                        }
-                    case .failure(let error):
-                        print("❌ Error fetching requests: \(error.localizedDescription)")
+        requestCollection.fetchAllRequests { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let list):
+                    self?.requests = list
+                    print("Fetched \(list.count) requests")
+                    
+                    // clear previous items first
+                    self?.stackVIew.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+                    for r in list {
+                        let item = RequestItemView.instantiate() // XIB-loaded instance
+                        item.configure(with: r)
+
+                        item.translatesAutoresizingMaskIntoConstraints = false
+                        item.heightAnchor.constraint(equalToConstant: 140).isActive = true
+
+                        self?.stackVIew.addArrangedSubview(item)
                     }
+
+                case .failure(let error):
+                    print("Error fetching requests: \(error.localizedDescription)")
                 }
             }
         }
+    }
+
+
+    
+    //stack view
+    @IBOutlet weak var stackVIew: UIStackView!
+    
+    
     
 
     /*
