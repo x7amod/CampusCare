@@ -17,6 +17,10 @@ struct RequestModel {
     let location: String
     let priority: String
     let title: String
+    let status:String
+    let releaseDate:Timestamp
+    let creatorID: String
+    let creatorRole: String
 }
 
 extension RequestModel {
@@ -29,7 +33,11 @@ extension RequestModel {
             let imageURL = data["imageURL"] as? String,
             let location = data["location"] as? String,
             let priority = data["priority"] as? String,
-            let title = data["title"] as? String
+            let title = data["title"] as? String,
+            let status =  data["status"] as? String,
+             let  releaseDate = data["releaseDate"] as? Timestamp,
+                let creatorID = data["creatorID"] as? String,
+            let creatorRole = data["creatorRole"] as? String
         else {
             return nil
         }
@@ -41,5 +49,9 @@ extension RequestModel {
         self.location = location
         self.priority = priority
         self.title = title
+        self.status = status
+        self.releaseDate = releaseDate
+        self.creatorID = creatorID
+        self.creatorRole = creatorRole
     }
 }
