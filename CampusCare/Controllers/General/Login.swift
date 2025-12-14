@@ -13,15 +13,22 @@ class Login: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        //header
         let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
         view.addSubview(headerView)
+       
+           headerView.setTitle("delete this when you start working")  // Change this for each screen
+        //header end
         
-        // Set page-specific title
-           headerView.setTitle("change me")  // Change this for each screen
+        
+        //put code for onload things here
+        
+        
         
     }
-    
+    //outside didload function
 
     /*
     // MARK: - Navigation
@@ -34,15 +41,6 @@ class Login: UIViewController {
     */
     
     
-    
-    @IBOutlet weak var ltest: UILabel!
- 
-    
-    @IBAction func btest(_ sender: Any) {
-        
-        ltest.textColor = .red
-        
-    }
     
 
     
