@@ -62,6 +62,23 @@ class ManagerRequests: UIViewController {
             let item = RequestItemView.instantiate()
             item.configure(with: r)
             
+            // Add tap to open details screen
+            item.onTap = { [weak self] in
+                guard let self = self else { return }
+
+                let storyboard = UIStoryboard(name: "TechManager", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "MangerDetails") as! MangerDetails
+
+                // Pass the request to the detail vc
+                vc.request = r
+
+                // Present modally
+                vc.modalPresentationStyle = .fullScreen 
+                self.present(vc, animated: true)
+            }
+
+
+
             item.translatesAutoresizingMaskIntoConstraints = false
             item.heightAnchor.constraint(equalToConstant: 140).isActive = true
             stackVIew.addArrangedSubview(item)
@@ -86,5 +103,3 @@ extension ManagerRequests: UISearchBarDelegate {
         }
     }
 }
-
-    
