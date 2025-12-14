@@ -1,13 +1,13 @@
 //
-//  StudStaffRequests.swift
+//  NewRequestsStudStaff.swift
 //  CampusCare
 //
-//  Created by BP-36-201-14 on 29/11/2025.
+//  Created by rentamac on 12/14/25.
 //
 
 import UIKit
 
-class StudStaffRequests: UIViewController {
+class NewRequestsStudStaff: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +18,10 @@ class StudStaffRequests: UIViewController {
         view.addSubview(headerView)
         
         // Set page-specific title
-           headerView.setTitle("My Requests")  // Change this for each screen
+           headerView.setTitle("New Requests")  // Change this for each screen
+        
+    
+
     }
     
 
