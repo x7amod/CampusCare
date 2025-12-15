@@ -6,12 +6,54 @@
 //
 
 import UIKit
+import FSCalendar
 
-class Schedule: UIViewController {
+class Schedule: UIViewController , FSCalendarDelegate, FSCalendarDataSource,UITableViewDelegate,UITableViewDataSource{
+    
+    @IBOutlet weak var calendar: FSCalendar!
+    
+    @IBOutlet weak var tasks: UITableView!
+    
+    var tasksForSelectedDate: [String] = []
+    
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return tasksForSelectedDate.count
+    }
+
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath)
+        cell.textLabel?.text = tasksForSelectedDate[indexPath.row]
+        return cell
+    }
+
+
+   
+    
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        calendar.delegate = self
+        calendar.dataSource = self
+        
+        calendar.headerHeight = 50
+        calendar.appearance.headerDateFormat = "MMMM yyyy"
+        calendar.appearance.headerTitleAlignment = .center
+        calendar.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 18)
+        calendar.appearance.headerTitleColor = .black
+        calendar.appearance.headerMinimumDissolvedAlpha = 0.0
+        calendar.scope = .month
+        
+        tasks.delegate = self
+        tasks.dataSource = self
 
+
+    
+        
         // Do any additional setup after loading the view.
         let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
@@ -21,7 +63,18 @@ class Schedule: UIViewController {
            headerView.setTitle("My Schedule")  // Change this for each screen
     }
     
+    
+    
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        print("User selected: \(date)")
+    }
 
+    
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 
