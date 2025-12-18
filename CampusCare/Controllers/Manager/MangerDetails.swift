@@ -1,11 +1,3 @@
-//
-//  MangerDetails.swift
-//  CampusCare
-//
-//  Created by BP-36-201-09 on 14/12/2025.
-//
-
-
 import UIKit
 import FirebaseFirestore
 
@@ -20,14 +12,15 @@ class MangerDetails: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var priorityLabel: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var img: UIImageView!
     
     //this still not work
     @IBAction func showAssign(_ sender: Any) {
-        
         let assignVC = MangerAssign()
-           assignVC.modalPresentationStyle = .fullScreen
-           self.present(assignVC, animated: true)
+        assignVC.modalPresentationStyle = .fullScreen
+        self.present(assignVC, animated: true)
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +39,24 @@ class MangerDetails: UIViewController {
             roleLabel?.text = r.location
             timeLabel?.text = DateFormatter.localizedString(from: r.releaseDate.dateValue(), dateStyle: .medium, timeStyle: .none)
             priorityLabel?.text = r.priority
+
+            // this still not work
+            // Check if imageURL is non-empty (not nil or empty)
+            if !r.imageURL.isEmpty {
+                if let url = URL(string: r.imageURL) {
+                    // Asynchronously load the image
+                    DispatchQueue.global().async {
+                        if let data = try? Data(contentsOf: url) {
+                            DispatchQueue.main.async {
+                                self.img.image = UIImage(data: data)
+                            }
+                        }
+                    }
+                }
+            } else {
+                // Optionally set a default image if URL is missing or invalid
+                self.img.image = UIImage(named: "defaultImage") // replace with your default image name
+            }
         }
 
         // Back button
@@ -55,7 +66,6 @@ class MangerDetails: UIViewController {
         backButton.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
         view.addSubview(backButton)
     }
-
 
     @objc func closeVC() {
         self.dismiss(animated: true)
