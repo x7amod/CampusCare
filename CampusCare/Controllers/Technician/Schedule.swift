@@ -14,6 +14,7 @@ class Schedule: UIViewController , FSCalendarDelegate, FSCalendarDataSource,UITa
     
     @IBOutlet weak var tasks: UITableView!
     
+    
     var tasksForSelectedDate: [String] = []
     
     func tableView(_ tableView: UITableView,
@@ -28,6 +29,32 @@ class Schedule: UIViewController , FSCalendarDelegate, FSCalendarDataSource,UITa
         cell.textLabel?.text = tasksForSelectedDate[indexPath.row]
         return cell
     }
+    
+    func calendar(_ calendar: FSCalendar,
+                  didSelect date: Date,
+                  at monthPosition: FSCalendarMonthPosition) {
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let selectedDate = formatter.string(from: date)
+
+        // TEST DATA
+        if selectedDate.hasSuffix("-10") {
+            tasksForSelectedDate = [
+                "Fix AC",
+                "Replace Light"
+            ]
+        } else if selectedDate.hasSuffix("-15") {
+            tasksForSelectedDate = [
+                "Repair Door"
+            ]
+        } else {
+            tasksForSelectedDate = []
+        }
+
+        tasks.reloadData()
+    }
+
 
 
    
@@ -66,9 +93,7 @@ class Schedule: UIViewController , FSCalendarDelegate, FSCalendarDataSource,UITa
     
     
     
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print("User selected: \(date)")
-    }
+    
 
     
     
