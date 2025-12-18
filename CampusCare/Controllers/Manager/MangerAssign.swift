@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 
 class MangerAssign: UIViewController {
+    @IBOutlet weak var dropdown: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,5 +20,18 @@ class MangerAssign: UIViewController {
             view.addSubview(headerView)
             headerView.setTitle("Request Assign")
         }
+        
+        let backButton = UIButton(frame: CGRect(x: 16, y: 50, width: 60, height: 30))
+        backButton.setTitle("Back", for: .normal)
+        backButton.setTitleColor(.systemBackground, for: .normal)
+        backButton.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
+        view.addSubview(backButton)
+    }
+    @IBAction func optionSelection(_ sender: Any) {
+        
+    }
+    
+    @objc func closeVC() {
+        self.dismiss(animated: true)
     }
 }
