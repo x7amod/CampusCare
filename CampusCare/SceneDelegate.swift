@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     window = UIWindow(windowScene: windowScene)
 
-    let technicianStoryboard = UIStoryboard(name: "TechManager", bundle: nil)
+    let technicianStoryboard = UIStoryboard(name: "Technician", bundle: nil)
     let technicianVC = technicianStoryboard.instantiateInitialViewController()
 
     window?.rootViewController = technicianVC

@@ -15,10 +15,47 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IcF-4Q-hh0">
+                                <rect key="frame" x="0.0" y="217" width="393" height="518"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZDq-DV-QuY">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="518"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ZDq-DV-QuY" firstAttribute="width" secondItem="IcF-4Q-hh0" secondAttribute="width" id="0wj-EM-gCy"/>
+                                    <constraint firstItem="ZDq-DV-QuY" firstAttribute="top" secondItem="IcF-4Q-hh0" secondAttribute="top" id="QDZ-v9-IcQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZDq-DV-QuY" secondAttribute="trailing" id="SMg-oc-mG7"/>
+                                    <constraint firstItem="ZDq-DV-QuY" firstAttribute="leading" secondItem="IcF-4Q-hh0" secondAttribute="leading" id="U53-XX-Fhr"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZDq-DV-QuY" secondAttribute="bottom" id="jfe-pD-IOC"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="qHU-ks-pax"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="xPn-Eo-tyZ"/>
+                            </scrollView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhq-ew-YdV">
+                                <rect key="frame" x="0.0" y="173" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="pPD-Nc-vcI"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstItem="IcF-4Q-hh0" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="99" id="7hL-hf-SbH"/>
+                            <constraint firstItem="IcF-4Q-hh0" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="BjY-Oy-K4j"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="IcF-4Q-hh0" secondAttribute="bottom" id="GHN-Pe-Mzg"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="IcF-4Q-hh0" secondAttribute="trailing" id="aek-Nq-vG6"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="To-do list" image="checklist" catalog="system" id="eKk-cF-uWN"/>
+                    <tabBarItem key="tabBarItem" title="To-do list" image="calendar.badge.checkmark.rtl" catalog="system" id="eKk-cF-uWN"/>
+                    <connections>
+                        <outlet property="techSearch" destination="vhq-ew-YdV" id="Ea7-yI-Z5c"/>
+                        <outlet property="techStack" destination="ZDq-DV-QuY" id="d3X-pX-cyv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,13 +151,13 @@
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
-        <image name="checklist" catalog="system" width="128" height="107"/>
+        <image name="calendar.badge.checkmark.rtl" catalog="system" width="128" height="109"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
