@@ -33,6 +33,12 @@ class TechList: UIViewController {
         techStack.isLayoutMarginsRelativeArrangement = true
         techStack.spacing = 15 // Adds space between cards
         
+        //search bar custom
+        
+      
+        
+    
+        
         
         //  techSearch.delegate = self
         fetchTechTasks()
