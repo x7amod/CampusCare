@@ -15,7 +15,7 @@ class NotificationCell: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
 
-    static let identifier = "NotificationCell" // Easy access for registration
+    static let identifier = "NotificationCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +31,7 @@ class NotificationCell: UITableViewCell {
         cardContainerView.layer.cornerRadius = 12
         cardContainerView.layer.masksToBounds = false
         
-        // Shadow (Adjust opacity/radius to match your design)
+        // drop shadow (might need adjustment)
         cardContainerView.layer.shadowColor = UIColor.black.cgColor
         cardContainerView.layer.shadowOpacity = 0.1
         cardContainerView.layer.shadowOffset = CGSize(width: 0, height: 2)

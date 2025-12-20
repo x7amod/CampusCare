@@ -18,11 +18,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
 
     window = UIWindow(windowScene: windowScene)
+    
 
-    let technicianStoryboard = UIStoryboard(name: "Technician", bundle: nil)
-    let technicianVC = technicianStoryboard.instantiateInitialViewController()
-
-    window?.rootViewController = technicianVC
+    // Load the specific storyboard as the initial UI when the app launches
+    let storyboardName = "StudStaff" // Change this to the desired storyboard name
+    let StoryboardToLaunch = UIStoryboard(name: storyboardName, bundle: nil)
+    if let InitStoryboard = StoryboardToLaunch.instantiateInitialViewController() {
+        window?.rootViewController = InitStoryboard
+    } else {
+        // Fallback: try the Main storyboard (if present) to avoid a nil rootViewController
+        print("[SceneDelegate]  \(storyboardName) storyboard has no initial view controller — falling back to Main.storyboard")
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        window?.rootViewController = mainStoryboard.instantiateInitialViewController()
+    }
     window?.makeKeyAndVisible()
     }
     
@@ -66,4 +74,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-
