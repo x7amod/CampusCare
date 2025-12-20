@@ -25,7 +25,7 @@ class ManagerRequests: UIViewController {
         view.addSubview(headerView)
         
         // Set page-specific title
-        headerView.setTitle("Requests Pool")// Change this for each screen
+        headerView.setTitle("Requests Pool") // Change this for each screen
 
         // StackView top padding
         stackVIew.layoutMargins = UIEdgeInsets(top: 130, left: 0, bottom: 0, right: 0)
@@ -72,12 +72,16 @@ class ManagerRequests: UIViewController {
                 // Pass the request to the detail vc
                 vc.request = r
 
-                // Present modally
-                vc.modalPresentationStyle = .fullScreen 
-                self.present(vc, animated: true)
+                if let nav = self.navigationController {
+                    nav.pushViewController(vc, animated: true)
+                } else {
+                    // fallback to modal if no navigation controller
+                    DispatchQueue.main.async {
+                        vc.modalPresentationStyle = .fullScreen
+                        self.present(vc, animated: true)
+                    }
+                }
             }
-
-
 
             item.translatesAutoresizingMaskIntoConstraints = false
             item.heightAnchor.constraint(equalToConstant: 140).isActive = true
