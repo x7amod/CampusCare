@@ -1,3 +1,4 @@
+import FirebaseFirestore
 
 final class RequestCollection {
     private let requestsCollectionRef = FirestoreManager.shared.db.collection("Requests")
@@ -70,4 +71,25 @@ final class RequestCollection {
                     completion(.success(results))
                 }
         }
+    
+    func assignRequest(reqID: String, techID: String, assignedDate: Timestamp, completion: @escaping (Result<Void, Error>) -> Void) {
+        let requestDocRef = requestsCollectionRef.document(reqID)
+        
+        //  update fieldss
+        let updateData: [String: Any] = [
+            "assignTechID": techID,
+            "assignedDate": assignedDate,
+            "status": "Assigned"
+        ]
+        
+        requestDocRef.updateData(updateData) { error in
+            if let error = error {
+                print("Failed to assign request: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                print(" Request successfully assigned.")
+                completion(.success(()))
+            }
+        }
+    }
 }
