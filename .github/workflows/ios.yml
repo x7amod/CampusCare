@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build Latest iPhone
+    name: Build iPhone 16
     runs-on: macos-latest
 
     steps:
@@ -35,17 +35,21 @@ jobs:
 
       - name: Build
         run: |
-          # Automatically find the latest iPhone simulator version available on the runner
-          DESTINATION=$(xcrun xctrace list devices 2>&1 | grep -E 'iPhone.*Simulator' | grep -v 'Unavailable' | head -1 | sed -E 's/.*?\((.*?)\).*/\1/')
-          
-          # Fallback if the above fails: target by name only (Xcode picks latest OS)
-          if [ -z "$DESTINATION" ]; then DESTINATION="platform=iOS Simulator,name=iPhone 16"; else DESTINATION="id=$DESTINATION"; fi
-          
           scheme=$(cat default)
-          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then filetype_parameter="workspace" && file_to_build="`ls -A | grep -i \\.xcworkspace\$`"; else filetype_parameter="project" && file_to_build="`ls -A | grep -i \\.xcodeproj\$`"; fi
-          file_to_build=`echo $file_to_build | awk '{$1=$1;print}'`
           
-          echo "Building for Destination: $DESTINATION"
+          
+          if [ "`ls -A | grep -i \\.xcworkspace\$`" ]; then 
+            filetype_parameter="workspace"
+            file_to_build="`ls -A | grep -i \\.xcworkspace\$ | head -1`"
+          else 
+            filetype_parameter="project"
+            file_to_build="`ls -A | grep -i \\.xcodeproj\$ | head -1`"
+          fi
+          
+          
+          DESTINATION="platform=iOS Simulator,name=iPhone 16"
+          
+          echo "Building $scheme for $DESTINATION..."
           
           xcodebuild build -scheme "$scheme" -"$filetype_parameter" "$file_to_build" \
           -destination "$DESTINATION" \
