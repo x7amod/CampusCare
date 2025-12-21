@@ -22,6 +22,7 @@ class Schedule: UIViewController,
     // MARK: - Outlets
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tasks: UITableView!
+    
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
