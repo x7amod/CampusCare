@@ -1,4 +1,4 @@
-name: iOS starter workflow
+name: iOS build workflow
 
 on:
   push:
@@ -17,6 +17,15 @@ jobs:
 
       - name: Select Xcode 16
         run: sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
+
+      # Cache SPM Dependencies
+      - name: Cache Swift Packages
+        uses: actions/cache@v4
+        with:
+          path: .build/packages
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
 
       - name: Set Default Scheme
         run: |
@@ -38,4 +47,5 @@ jobs:
           
           xcodebuild build -scheme "$scheme" -"$filetype_parameter" "$file_to_build" \
           -destination "platform=$platform,name=$device,OS=$os" \
+          -clonedSourcePackagesDirPath .build/packages \
           CODE_SIGNING_ALLOWED=NO
