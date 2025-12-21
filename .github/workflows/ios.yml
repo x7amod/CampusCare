@@ -17,15 +17,7 @@ jobs:
       - name: Select Xcode 16
         run: sudo xcode-select -s /Applications/Xcode_16.app/Contents/Developer
 
-      - name: Cache Swift Packages
-        uses: actions/cache@v4
-        with:
-          path: .build/packages
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
-
-      - name: Build (bypass scheme, simulator SDK)
+      - name: Build (simulator, target-based)
         run: |
           set -e
 
@@ -34,5 +26,4 @@ jobs:
             -target CampusCare \
             -sdk iphonesimulator \
             -configuration Debug \
-            -clonedSourcePackagesDirPath .build/packages \
             CODE_SIGNING_ALLOWED=NO
