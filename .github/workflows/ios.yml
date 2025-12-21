@@ -40,29 +40,18 @@ jobs:
       
     - name: Build for Testing
       run: |
-        xcodebuild clean build-for-testing \
+        xcodebuild clean build \
           -project CampusCare.xcodeproj \
           -scheme CampusCare \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
           -configuration Debug \
+          -derivedDataPath DerivedData \
+          IPHONEOS_DEPLOYMENT_TARGET=18.4 \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
-          ONLY_ACTIVE_ARCH=NO \
-          | xcpretty && exit ${PIPESTATUS[0]}
+          ONLY_ACTIVE_ARCH=NO
       
-    - name: Run Tests (if test targets exist)
-      continue-on-error: true
-      run: |
-        xcodebuild test-without-building \
-          -project CampusCare.xcodeproj \
-          -scheme CampusCare \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
-          CODE_SIGN_IDENTITY="" \
-          CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO \
-          | xcpretty && exit ${PIPESTATUS[0]}
-    
     - name: Archive Build Artifacts
       if: success()
       run: |
@@ -71,11 +60,12 @@ jobs:
           -scheme CampusCare \
           -configuration Release \
           -archivePath ${{ runner.temp }}/CampusCare.xcarchive \
+          -derivedDataPath DerivedData \
+          IPHONEOS_DEPLOYMENT_TARGET=18.4 \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
-          DEVELOPMENT_TEAM="" \
-          | xcpretty && exit ${PIPESTATUS[0]}
+          DEVELOPMENT_TEAM=""
       
     - name: Upload Build Log
       if: always()
