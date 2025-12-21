@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-    name: Build iOS (Latest iPhone Simulator)
     runs-on: macos-latest
 
     steps:
@@ -26,30 +25,52 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
-      - name: Resolve default scheme
+      - name: Locate Xcode project
         run: |
-          SCHEME=$(xcodebuild -list -json | ruby -e '
-            require "json"
-            data = JSON.parse(STDIN.read)
-            puts data["project"]["targets"][0]
-          ')
+          set -e
+
+          WORKSPACE=$(find . -name "*.xcworkspace" -maxdepth 3 | head -n 1 || true)
+          PROJECT=$(find . -name "*.xcodeproj" -maxdepth 3 | head -n 1 || true)
+
+          if [ -n "$WORKSPACE" ]; then
+            FILE="$WORKSPACE"
+            TYPE="workspace"
+          elif [ -n "$PROJECT" ]; then
+            FILE="$PROJECT"
+            TYPE="project"
+          else
+            echo "❌ No .xcworkspace or .xcodeproj found"
+            exit 1
+          fi
+
+          DIR=$(dirname "$FILE")
+
+          echo "FILE=$FILE" >> $GITHUB_ENV
+          echo "TYPE=$TYPE" >> $GITHUB_ENV
+          echo "DIR=$DIR" >> $GITHUB_ENV
+
+          echo "Found $TYPE at $FILE"
+
+      - name: Resolve scheme
+        run: |
+          set -e
+          cd "$DIR"
+
+          SCHEME=$(xcodebuild -list -json -"$TYPE" "$(basename "$FILE")" \
+            | ruby -e '
+              require "json"
+              data = JSON.parse(STDIN.read)
+              puts (data["workspace"] || data["project"])["schemes"][0]
+            ')
+
           echo "SCHEME=$SCHEME" >> $GITHUB_ENV
           echo "Using scheme: $SCHEME"
 
       - name: Build
         run: |
           set -e
+          cd "$DIR"
 
-          # Detect workspace or project
-          if ls *.xcworkspace >/dev/null 2>&1; then
-            FILETYPE="workspace"
-            FILE=$(ls *.xcworkspace | head -1)
-          else
-            FILETYPE="project"
-            FILE=$(ls *.xcodeproj | head -1)
-          fi
-
-          # Get latest available iPhone simulator device ID
           SIMULATOR_ID=$(xcrun simctl list devices available \
             | grep -E "iPhone [0-9]+" \
             | tail -n 1 \
@@ -57,13 +78,11 @@ jobs:
 
           DESTINATION="platform=iOS Simulator,id=$SIMULATOR_ID"
 
-          echo "Building $SCHEME"
-          echo "Using $FILETYPE: $FILE"
           echo "Destination: $DESTINATION"
 
           xcodebuild build \
+            -"$TYPE" "$(basename "$FILE")" \
             -scheme "$SCHEME" \
-            -"$FILETYPE" "$FILE" \
             -destination "$DESTINATION" \
-            -clonedSourcePackagesDirPath .build/packages \
+            -clonedSourcePackagesDirPath "$GITHUB_WORKSPACE/.build/packages" \
             CODE_SIGNING_ALLOWED=NO
