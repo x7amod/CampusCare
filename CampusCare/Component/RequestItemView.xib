@@ -14,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="338" height="103"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7gR-Q3-zV9">
-                    <rect key="frame" x="16" y="8" width="33" height="20"/>
+                    <rect key="frame" x="16" y="8" width="169" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="16" right="8"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
@@ -22,7 +22,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="#ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTL-Tt-mGO">
-                    <rect key="frame" x="16" y="32" width="20" height="15"/>
+                    <rect key="frame" x="16" y="32" width="169" height="15"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="16" right="8"/>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="12"/>
@@ -30,7 +30,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Role" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="itI-FM-YSq">
-                    <rect key="frame" x="16" y="51" width="33" height="20"/>
+                    <rect key="frame" x="16" y="51" width="169" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="16" right="8"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
@@ -38,7 +38,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kLJ-EV-XvU">
-                    <rect key="frame" x="16" y="72" width="69" height="20"/>
+                    <rect key="frame" x="16" y="72" width="193" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <edgeInsets key="layoutMargins" top="8" left="8" bottom="16" right="8"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
@@ -60,7 +60,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 Days Ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BKu-vU-GUK">
-                    <rect key="frame" x="260" y="78" width="59" height="14"/>
+                    <rect key="frame" x="234" y="78" width="88" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
                     <nil key="textColor"/>
@@ -88,7 +88,7 @@
                 <outlet property="TimeLabel" destination="BKu-vU-GUK" id="ajP-1T-JaX"/>
                 <outlet property="TitleLabel" destination="7gR-Q3-zV9" id="aaf-hm-Ilx"/>
             </connections>
-            <point key="canvasLocation" x="11" y="-186"/>
+            <point key="canvasLocation" x="10.687022900763358" y="-186.26760563380282"/>
         </view>
     </objects>
     <resources>
