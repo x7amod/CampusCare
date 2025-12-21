@@ -10,7 +10,9 @@ import FirebaseFirestore
 
 class MangerDetails: UIViewController {
 
-    var request: RequestModel?  // receives the data
+    var request: RequestModel? {
+        return RequestStore.shared.currentRequest
+    }  // receives the data
 
     // Outlets
     @IBOutlet weak var titleLabel: UILabel!
@@ -48,7 +50,7 @@ class MangerDetails: UIViewController {
         view.addSubview(backButton)
     }
 
-    // Populate Request
+    //  Request
     private func populateRequestDetails() {
         guard let r = request else { return }
 
@@ -59,7 +61,7 @@ class MangerDetails: UIViewController {
         timeLabel?.text = DateFormatter.localizedString(from: r.releaseDate.dateValue(), dateStyle: .medium, timeStyle: .none)
         priorityLabel?.text = r.priority
 
-        // Image loading safely
+        // Image loading
         if !r.imageURL.isEmpty, let url = URL(string: r.imageURL) {
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: url) {
@@ -80,23 +82,46 @@ class MangerDetails: UIViewController {
     }
 
     //  show Assign VC
+    var shouldShowAssign = false
+
     @IBAction func showAssign(_ sender: Any) {
-        // Instantiate Assign VC
-        guard let assignVC = storyboard?.instantiateViewController(withIdentifier: "MangerAssign") as? MangerAssign else { return }
-        guard let request = self.request else { return }
+        guard let r = self.request else {
+            print(" Request is nil in MangerDetails")
+            return
+        }
 
-        // Pass the full request, not just ID
-        assignVC.request = request
-        print("Passing full request to Assign VC:", request.id)
+        // put the request in the singleton
+        RequestStore.shared.currentRequest = r
 
-        // Present modally directly (no async needed)
+        shouldShowAssign = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if shouldShowAssign {
+            shouldShowAssign = false
+            presentAssignVC()
+        }
+    }
+
+    private func presentAssignVC() {
+//        // Read request from the store
+//        guard let request = RequestStore.shared.currentRequest else {
+//            print("No request in RequestStore")
+//            return
+//        }
+
+        let storyboard = UIStoryboard(name: "TechManager", bundle: nil)
+        let assignVC = storyboard.instantiateViewController(withIdentifier: "MangerAssign") as! MangerAssign
         assignVC.modalPresentationStyle = .fullScreen
         self.present(assignVC, animated: true)
     }
 
-    
     // close
     @objc func closeVC() {
         dismiss(animated: true)
     }
+
+
 }
