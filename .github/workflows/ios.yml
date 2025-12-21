@@ -2,13 +2,13 @@ name: iOS starter workflow
 
 on:
   push:
-    branches: [ "**" ]
+    branches: ["**"]
   pull_request:
-    branches: [ "**" ]
+    branches: ["**"]
 
 jobs:
   build:
-    name: Build iPhone 16
+    name: Build iOS (Latest iPhone Simulator)
     runs-on: macos-latest
 
     steps:
@@ -26,28 +26,44 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
-      - name: Set Default Scheme
+      - name: Resolve default scheme
         run: |
-          scheme_list=$(xcodebuild -list -json | tr -d "\n")
-          default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
-          echo $default > default
-          echo "Using default scheme: $default"
+          SCHEME=$(xcodebuild -list -json | ruby -e '
+            require "json"
+            data = JSON.parse(STDIN.read)
+            puts data["project"]["targets"][0]
+          ')
+          echo "SCHEME=$SCHEME" >> $GITHUB_ENV
+          echo "Using scheme: $SCHEME"
 
       - name: Build
         run: |
-          scheme=$(cat default)
-          
-          
-          SIMULATOR=$(xcrun simctl list devices available \
-          | grep -E "iPhone [0-9]+" \
-          | tail -n 1 \
-          | awk -F '[()]' '{print $2}')
+          set -e
 
-          DESTINATION="platform=iOS Simulator,id=$SIMULATOR"
-          
-          echo "Building $scheme for $DESTINATION..."
-          
-          xcodebuild build -scheme "$scheme" -"$filetype_parameter" "$file_to_build" \
-          -destination "$DESTINATION" \
-          -clonedSourcePackagesDirPath .build/packages \
-          CODE_SIGNING_ALLOWED=NO
+          # Detect workspace or project
+          if ls *.xcworkspace >/dev/null 2>&1; then
+            FILETYPE="workspace"
+            FILE=$(ls *.xcworkspace | head -1)
+          else
+            FILETYPE="project"
+            FILE=$(ls *.xcodeproj | head -1)
+          fi
+
+          # Get latest available iPhone simulator device ID
+          SIMULATOR_ID=$(xcrun simctl list devices available \
+            | grep -E "iPhone [0-9]+" \
+            | tail -n 1 \
+            | awk -F '[()]' '{print $2}')
+
+          DESTINATION="platform=iOS Simulator,id=$SIMULATOR_ID"
+
+          echo "Building $SCHEME"
+          echo "Using $FILETYPE: $FILE"
+          echo "Destination: $DESTINATION"
+
+          xcodebuild build \
+            -scheme "$SCHEME" \
+            -"$FILETYPE" "$FILE" \
+            -destination "$DESTINATION" \
+            -clonedSourcePackagesDirPath .build/packages \
+            CODE_SIGNING_ALLOWED=NO
