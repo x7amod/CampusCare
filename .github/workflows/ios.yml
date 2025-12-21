@@ -25,52 +25,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
-      - name: Locate Xcode project
-        run: |
-          set -e
-
-          WORKSPACE=$(find . -name "*.xcworkspace" -maxdepth 3 | head -n 1 || true)
-          PROJECT=$(find . -name "*.xcodeproj" -maxdepth 3 | head -n 1 || true)
-
-          if [ -n "$WORKSPACE" ]; then
-            FILE="$WORKSPACE"
-            TYPE="workspace"
-          elif [ -n "$PROJECT" ]; then
-            FILE="$PROJECT"
-            TYPE="project"
-          else
-            echo "❌ No .xcworkspace or .xcodeproj found"
-            exit 1
-          fi
-
-          DIR=$(dirname "$FILE")
-
-          echo "FILE=$FILE" >> $GITHUB_ENV
-          echo "TYPE=$TYPE" >> $GITHUB_ENV
-          echo "DIR=$DIR" >> $GITHUB_ENV
-
-          echo "Found $TYPE at $FILE"
-
-      - name: Resolve scheme
-        run: |
-          set -e
-          cd "$DIR"
-
-          SCHEME=$(xcodebuild -list -json -"$TYPE" "$(basename "$FILE")" \
-            | ruby -e '
-              require "json"
-              data = JSON.parse(STDIN.read)
-              puts (data["workspace"] || data["project"])["schemes"][0]
-            ')
-
-          echo "SCHEME=$SCHEME" >> $GITHUB_ENV
-          echo "Using scheme: $SCHEME"
+      - name: Set scheme
+        run: echo "SCHEME=CampusCare" >> $GITHUB_ENV
 
       - name: Build
         run: |
           set -e
-          cd "$DIR"
 
+          # Detect latest available iPhone simulator ID
           SIMULATOR_ID=$(xcrun simctl list devices available \
             | grep -E "iPhone [0-9]+" \
             | tail -n 1 \
@@ -78,11 +40,12 @@ jobs:
 
           DESTINATION="platform=iOS Simulator,id=$SIMULATOR_ID"
 
-          echo "Destination: $DESTINATION"
+          echo "Building scheme: $SCHEME"
+          echo "Using destination: $DESTINATION"
 
           xcodebuild build \
-            -"$TYPE" "$(basename "$FILE")" \
+            -project CampusCare.xcodeproj \
             -scheme "$SCHEME" \
             -destination "$DESTINATION" \
-            -clonedSourcePackagesDirPath "$GITHUB_WORKSPACE/.build/packages" \
+            -clonedSourcePackagesDirPath .build/packages \
             CODE_SIGNING_ALLOWED=NO
