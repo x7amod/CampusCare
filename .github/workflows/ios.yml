@@ -21,52 +21,38 @@ jobs:
     - name: Show Xcode version
       run: xcodebuild -version
       
-    - name: Show available schemes
-      run: xcodebuild -list -project CampusCare.xcodeproj
-      
-    - name: Cache Swift Package Manager
+    - name: Cache Build Dependencies
       uses: actions/cache@v4
       with:
         path: |
-          .build
-          ~/Library/Developer/Xcode/DerivedData
-        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          DerivedData
+          ~/Library/Caches/org.swift.swiftpm
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}-${{ hashFiles('CampusCare.xcodeproj/project.pbxproj') }}
         restore-keys: |
+          ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}-
           ${{ runner.os }}-spm-
     
     - name: Resolve Swift Package Dependencies
       run: |
         xcodebuild -resolvePackageDependencies -project CampusCare.xcodeproj -scheme CampusCare
       
-    - name: Build for Testing
+    - name: Build Project
       run: |
-        xcodebuild clean build \
+        xcodebuild build \
           -project CampusCare.xcodeproj \
           -scheme CampusCare \
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
           -configuration Debug \
           -derivedDataPath DerivedData \
+          -parallelizeTargets \
+          -jobs $(sysctl -n hw.ncpu) \
           IPHONEOS_DEPLOYMENT_TARGET=18.4 \
           CODE_SIGN_IDENTITY="" \
           CODE_SIGNING_REQUIRED=NO \
           CODE_SIGNING_ALLOWED=NO \
-          ONLY_ACTIVE_ARCH=NO
+          ONLY_ACTIVE_ARCH=YES
       
-    - name: Archive Build Artifacts
-      if: success()
-      run: |
-        xcodebuild archive \
-          -project CampusCare.xcodeproj \
-          -scheme CampusCare \
-          -configuration Release \
-          -archivePath ${{ runner.temp }}/CampusCare.xcarchive \
-          -derivedDataPath DerivedData \
-          IPHONEOS_DEPLOYMENT_TARGET=18.4 \
-          CODE_SIGN_IDENTITY="" \
-          CODE_SIGNING_REQUIRED=NO \
-          CODE_SIGNING_ALLOWED=NO \
-          DEVELOPMENT_TEAM=""
-      
+
     - name: Upload Build Log
       if: always()
       uses: actions/upload-artifact@v4
@@ -81,6 +67,7 @@ jobs:
   lint:
     name: SwiftLint
     runs-on: macos-latest
+    if: github.ref == 'refs/heads/main'
     
     steps:
     - name: Checkout repository
