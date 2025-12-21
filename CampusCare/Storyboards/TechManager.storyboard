@@ -198,7 +198,7 @@
         <!--Manger Assign-->
         <scene sceneID="N20-lC-jY4">
             <objects>
-                <viewController restorationIdentifier="MangerAssign" storyboardIdentifier="MangerAssign" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="EaK-J3-ITl" customClass="MangerAssign" customModule="CampusCare" sceneMemberID="viewController">
+                <viewController restorationIdentifier="MangerAssign" storyboardIdentifier="MangerAssign" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" id="EaK-J3-ITl" customClass="MangerAssign" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" restorationIdentifier="MangerAssign" id="HuO-Ks-Yg6">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -309,7 +309,7 @@
         <image name="chart.bar.xaxis" catalog="system" width="128" height="97"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

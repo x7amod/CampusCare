@@ -28,6 +28,17 @@ class RequestItemView: UIView {
         TimeLabel.text = DateFormatter.localizedString(from: model.releaseDate.dateValue(), dateStyle: .medium, timeStyle: .none)
         PreoriteyLabel.text = model.priority
 
+        if PreoriteyLabel.text == "High" {
+               PreoriteyLabel.backgroundColor = UIColor(red: 242/255, green: 109/255, blue: 109/255, alpha: 1) // red
+           } else if PreoriteyLabel.text == "Medium" {
+               PreoriteyLabel.backgroundColor = UIColor(red: 255/255, green: 160/255, blue: 105/255, alpha: 1) // orange
+           } else if PreoriteyLabel.text == "Low" {
+               PreoriteyLabel.backgroundColor = UIColor(red: 254/255, green: 247/255, blue: 94/255, alpha: 1) // orange
+           } else {
+               PreoriteyLabel.backgroundColor = UIColor.clear
+           }
+        
+        
         setupTap()
     }
 

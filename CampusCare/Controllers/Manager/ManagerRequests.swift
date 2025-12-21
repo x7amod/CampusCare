@@ -68,9 +68,10 @@ class ManagerRequests: UIViewController {
 
                 let storyboard = UIStoryboard(name: "TechManager", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "MangerDetails") as! MangerDetails
+             
 
                 // Pass the request to the detail vc
-                vc.request = r
+                RequestStore.shared.currentRequest = r
 
                 if let nav = self.navigationController {
                     nav.pushViewController(vc, animated: true)

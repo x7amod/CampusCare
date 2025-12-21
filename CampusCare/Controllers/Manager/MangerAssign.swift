@@ -12,8 +12,14 @@ class MangerAssign: UIViewController {
 
     @IBOutlet weak var dropdown: UIButton!
     @IBOutlet weak var picker: UIDatePicker!
-    var request: RequestModel?  // receive full request
-
+    
+      
+    
+    // Receive the request
+    var request: RequestModel? {
+        return RequestStore.shared.currentRequest
+    }
+    
     private let usersCollection = UsersCollection()
     private var technicians: [UserModel] = []
     private var selectedTechnician: UserModel?
@@ -25,8 +31,13 @@ class MangerAssign: UIViewController {
         setupHeader()
         fetchTechnicians()
         setupDropdown()
+        setupPicker()
     }
     
+    
+    private func setupPicker() {
+          picker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) // Tomorrow onwards
+      }
     @IBAction func Assign(_ sender: Any) {
         guard let req = self.request else {
             print(" ERROR: Request is nil")
@@ -38,10 +49,21 @@ class MangerAssign: UIViewController {
             return
         }
 
-        let assignedDate = Timestamp(date: picker.date)
+        let assignedDate = picker.date  // Date object
+                let now = Calendar.current.startOfDay(for: Date())
+                let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: now)!
+
+                //  if the selected date is valid
+                if assignedDate < tomorrow {
+                    print("Invalid Date")
+                    return
+                }
+
+                let timestamp = Timestamp(date: assignedDate)
+        
         
         let requestCollection = RequestCollection()
-        requestCollection.assignRequest(reqID: req.id, techID: tech.id, assignedDate: assignedDate) { result in
+        requestCollection.assignRequest(reqID: req.id, techID: tech.id, assignedDate: timestamp) { result in
             switch result {
             case .success():
                 print(" Request assigned successfully")
@@ -50,20 +72,14 @@ class MangerAssign: UIViewController {
                         self.present(managerRequestVC, animated: true)
                     }
                 }
+                // clearing the request from the store
+                RequestStore.shared.currentRequest = nil
             case .failure(let error):
                 print(" Failed to assign request: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    self.showAlert(title: "Error", message: error.localizedDescription)
-                }
             }
         }
     }
 
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
     
     private func setupHeader() {
         if let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as? CampusCareHeader {
@@ -92,8 +108,17 @@ class MangerAssign: UIViewController {
         }
     }
 
+   
+    
     private func configureDropdownMenu() {
-        let actions = technicians.map { tech in
+        // Placeholder
+        var actions: [UIAction] = [
+            UIAction(title: "Select Technician", attributes: [.disabled]) { _ in
+                
+            }
+        ]
+
+        let techActions = technicians.map { tech in
             UIAction(title: tech.username) { [weak self] _ in
                 self?.selectedTechnician = tech
                 self?.dropdown.setTitle(tech.username, for: .normal)
@@ -101,8 +126,12 @@ class MangerAssign: UIViewController {
             }
         }
 
+        actions.append(contentsOf: techActions)
+
         dropdown.menu = UIMenu(title: "Technicians", children: actions)
+        dropdown.setTitle("Select Technician", for: .normal)
     }
+
 
     @objc func closeVC() {
         dismiss(animated: true)
