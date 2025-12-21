@@ -25,27 +25,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
-      - name: Set scheme
-        run: echo "SCHEME=CampusCare" >> $GITHUB_ENV
-
-      - name: Build
+      - name: Build (Simulator SDK)
         run: |
           set -e
 
-          # Detect latest available iPhone simulator ID
-          SIMULATOR_ID=$(xcrun simctl list devices available \
-            | grep -E "iPhone [0-9]+" \
-            | tail -n 1 \
-            | awk -F '[()]' '{print $2}')
-
-          DESTINATION="platform=iOS Simulator,id=$SIMULATOR_ID"
-
-          echo "Building scheme: $SCHEME"
-          echo "Using destination: $DESTINATION"
-
           xcodebuild build \
             -project CampusCare.xcodeproj \
-            -scheme "$SCHEME" \
-            -destination "$DESTINATION" \
+            -scheme CampusCare \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
             -clonedSourcePackagesDirPath .build/packages \
             CODE_SIGNING_ALLOWED=NO
