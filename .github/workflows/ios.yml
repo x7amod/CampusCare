@@ -25,14 +25,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
-      - name: Build (Simulator SDK)
+      - name: Build (bypass scheme, simulator SDK)
         run: |
           set -e
 
           xcodebuild build \
             -project CampusCare.xcodeproj \
-            -scheme CampusCare \
+            -target CampusCare \
             -sdk iphonesimulator \
-            -destination 'generic/platform=iOS Simulator' \
+            -configuration Debug \
             -clonedSourcePackagesDirPath .build/packages \
             CODE_SIGNING_ALLOWED=NO
