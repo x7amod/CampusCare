@@ -12,6 +12,7 @@ class MangerAssign: UIViewController {
 
     @IBOutlet weak var dropdown: UIButton!
     @IBOutlet weak var picker: UIDatePicker!
+    @IBOutlet weak var AssignButton: UIButton!
     
       
     
@@ -26,6 +27,10 @@ class MangerAssign: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if request?.status == "Esclated" {
+            AssignButton.setTitle( "Reassign", for: .normal)
+        }
 
 //        print("print req id before assign: ", requestId)
         setupHeader()
@@ -85,7 +90,13 @@ class MangerAssign: UIViewController {
         if let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as? CampusCareHeader {
             headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
             view.addSubview(headerView)
-            headerView.setTitle("Request Assign")
+            if request?.status == "Esclated" {
+                
+                headerView.setTitle("Request Reassign")
+            }else {
+                headerView.setTitle("Request Assign")
+
+            }
         }
 
         let backButton = UIButton(frame: CGRect(x: 16, y: 50, width: 60, height: 30))
@@ -111,6 +122,8 @@ class MangerAssign: UIViewController {
    
     
     private func configureDropdownMenu() {
+        
+        
         // Placeholder
         var actions: [UIAction] = [
             UIAction(title: "Select Technician", attributes: [.disabled]) { _ in

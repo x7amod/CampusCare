@@ -204,10 +204,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWG-rw-khb">
-                                <rect key="frame" x="136" y="686" width="75" height="39"/>
+                                <rect key="frame" x="136" y="686" width="199" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Assign"/>
                                 <connections>
                                     <action selector="Assign:" destination="EaK-J3-ITl" eventType="touchUpInside" id="lcs-gT-RJX"/>
                                 </connections>
@@ -243,6 +243,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="qro-0S-4hI"/>
                     <connections>
+                        <outlet property="AssignButton" destination="IWG-rw-khb" id="LVF-jv-9I9"/>
                         <outlet property="dropdown" destination="gF0-ql-7Is" id="hg4-rT-VMT"/>
                         <outlet property="picker" destination="DUB-Cj-AwY" id="yPC-QD-GJL"/>
                     </connections>
