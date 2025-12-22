@@ -21,6 +21,8 @@ struct RequestModel {
     let releaseDate:Timestamp
     let creatorID: String
     let creatorRole: String
+    let assignedDate: Timestamp?
+    let assignTechID: String
 }
 
 extension RequestModel {
@@ -37,10 +39,14 @@ extension RequestModel {
             let status =  data["status"] as? String,
              let  releaseDate = data["releaseDate"] as? Timestamp,
                 let creatorID = data["creatorID"] as? String,
-            let creatorRole = data["creatorRole"] as? String
+            let creatorRole = data["creatorRole"] as? String,
+            let assignTechID = data["assignTechID"] as? String
         else {
             return nil
         }
+        
+        let assignedDate = data["assignedDate"] as? Timestamp
+
 
         self.id = document.documentID
         self.category = category
@@ -53,5 +59,9 @@ extension RequestModel {
         self.releaseDate = releaseDate
         self.creatorID = creatorID
         self.creatorRole = creatorRole
+        self.assignedDate = assignedDate
+        self.assignTechID = assignTechID
+
     }
 }
+

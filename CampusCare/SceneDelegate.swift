@@ -11,28 +11,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-///////////////
-    //func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-    guard let windowScene = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: windowScene)
+        
+        // Load the specific storyboard as the initial UI when the app launches
 
-    window = UIWindow(windowScene: windowScene)
-
-    let technicianStoryboard = UIStoryboard(name: "Technician", bundle: nil)
-    let technicianVC = technicianStoryboard.instantiateInitialViewController()
-
-    window?.rootViewController = technicianVC
-    window?.makeKeyAndVisible()
+        let storyboardName = "TechManager" // Change this to the desired storyboard name
+ 
+        let StoryboardToLaunch = UIStoryboard(name: storyboardName, bundle: nil)
+        if let InitStoryboard = StoryboardToLaunch.instantiateInitialViewController() {
+            window?.rootViewController = InitStoryboard
+        } else {
+            // Fallback: try the Main storyboard (if present) to avoid a nil rootViewController
+            print("[SceneDelegate]  \(storyboardName) storyboard has no initial view controller — falling back to Main.storyboard")
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            window?.rootViewController = mainStoryboard.instantiateInitialViewController()
+        }
+        window?.makeKeyAndVisible()
     }
-    
-    
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-      // guard let _ = (scene as? UIWindowScene) else { return }
-    //}
-////////////////
 
     
     
@@ -66,4 +64,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
-

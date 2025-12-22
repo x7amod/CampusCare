@@ -1,6 +1,48 @@
+import FirebaseFirestore
 
 final class RequestCollection {
     private let requestsCollectionRef = FirestoreManager.shared.db.collection("Requests")
+    
+    func fetchRequests(
+        assignTechID: String,
+        date: Date,
+        completion: @escaping ([RequestModel]) -> Void
+    ) {
+        // Step 2a: fetch all requests for this technician
+        requestsCollectionRef
+            .whereField("assignTechID", isEqualTo: assignTechID)
+            .getDocuments { snapshot, error in
+
+                var requests: [RequestModel] = []
+
+                if let error = error {
+                    print("Firestore error:", error)
+                    completion(requests)
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    completion(requests)
+                    return
+                }
+
+                // Step 2b: filter locally by selected day (avoids UTC issues)
+                let calendar = Calendar.current
+                requests = documents.compactMap { doc in
+                    guard let request = RequestModel(from: doc) else { return nil }
+                    if let assignedDate = request.assignedDate?.dateValue() {
+                        // Compare with the selected date in local time
+                        return calendar.isDate(assignedDate, inSameDayAs: date) ? request : nil
+                    }
+                    return nil
+                }
+
+                // Step 2c: return filtered requests
+                completion(requests)
+            }
+    }
+
+
     
     func createNewRequest(data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
         
@@ -70,4 +112,25 @@ final class RequestCollection {
                     completion(.success(results))
                 }
         }
+    
+    func assignRequest(reqID: String, techID: String, assignedDate: Timestamp, completion: @escaping (Result<Void, Error>) -> Void) {
+        let requestDocRef = requestsCollectionRef.document(reqID)
+        
+        //  update fieldss
+        let updateData: [String: Any] = [
+            "assignTechID": techID,
+            "assignedDate": assignedDate,
+            "status": "Assigned"
+        ]
+        
+        requestDocRef.updateData(updateData) { error in
+            if let error = error {
+                print("Failed to assign request: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                print(" Request successfully assigned.")
+                completion(.success(()))
+            }
+        }
+    }
 }
