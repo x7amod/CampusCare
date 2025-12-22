@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="RSX-vg-K0H">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
@@ -15,10 +15,48 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IcF-4Q-hh0">
+                                <rect key="frame" x="0.0" y="200" width="393" height="535"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZDq-DV-QuY">
+                                        <rect key="frame" x="8" y="-40" width="393" height="535"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ZDq-DV-QuY" firstAttribute="width" secondItem="IcF-4Q-hh0" secondAttribute="width" id="0wj-EM-gCy"/>
+                                    <constraint firstItem="ZDq-DV-QuY" firstAttribute="top" secondItem="IcF-4Q-hh0" secondAttribute="top" id="QDZ-v9-IcQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZDq-DV-QuY" secondAttribute="trailing" id="SMg-oc-mG7"/>
+                                    <constraint firstItem="ZDq-DV-QuY" firstAttribute="leading" secondItem="IcF-4Q-hh0" secondAttribute="leading" id="U53-XX-Fhr"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZDq-DV-QuY" secondAttribute="bottom" id="jfe-pD-IOC"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="qHU-ks-pax"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="xPn-Eo-tyZ"/>
+                            </scrollView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" text="" translatesAutoresizingMaskIntoConstraints="NO" id="vhq-ew-YdV">
+                                <rect key="frame" x="22" y="156" width="355" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="pPD-Nc-vcI"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                        <constraints>
+                            <constraint firstItem="IcF-4Q-hh0" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="99" id="7hL-hf-SbH"/>
+                            <constraint firstItem="IcF-4Q-hh0" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="BjY-Oy-K4j"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="IcF-4Q-hh0" secondAttribute="bottom" id="GHN-Pe-Mzg"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="IcF-4Q-hh0" secondAttribute="trailing" id="aek-Nq-vG6"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="To-do list" image="checklist" catalog="system" id="eKk-cF-uWN"/>
+                    <tabBarItem key="tabBarItem" title="To-do list" image="calendar.badge.checkmark.rtl" catalog="system" id="eKk-cF-uWN"/>
+                    <connections>
+                        <outlet property="techSearch" destination="vhq-ew-YdV" id="Ea7-yI-Z5c"/>
+                        <outlet property="techStack" destination="ZDq-DV-QuY" id="d3X-pX-cyv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -27,18 +65,44 @@
         <!--Schedule-->
         <scene sceneID="0Aw-Nk-3mJ">
             <objects>
-                <viewController id="kbx-lu-dr0" customClass="Schedule" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Schedule" id="kbx-lu-dr0" customClass="Schedule" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D93-aS-iW0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ucg-Nm-ktT" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="158" width="409" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="IbW-Xh-V5Y">
+                                <rect key="frame" x="-11" y="537" width="404" height="181"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" id="5ix-Y4-7PH">
+                                        <rect key="frame" x="0.0" y="50" width="404" height="47.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5ix-Y4-7PH" id="Edi-DE-VMj">
+                                            <rect key="frame" x="0.0" y="0.0" width="404" height="47.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="R5C-sj-mPA"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="ABU-gc-rQD"/>
+                    <connections>
+                        <outlet property="calendar" destination="Ucg-Nm-ktT" id="Wcj-or-YBk"/>
+                        <outlet property="tasks" destination="IbW-Xh-V5Y" id="ieg-p8-7tE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0xv-QZ-WLS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="190" y="765"/>
+            <point key="canvasLocation" x="188.54961832061068" y="764.78873239436621"/>
         </scene>
         <!--More-->
         <scene sceneID="7Eb-lp-8pU">
@@ -98,8 +162,11 @@
     </scenes>
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
-        <image name="checklist" catalog="system" width="128" height="107"/>
+        <image name="calendar.badge.checkmark.rtl" catalog="system" width="128" height="109"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

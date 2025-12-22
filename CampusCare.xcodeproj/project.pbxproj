@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24AB692F2EF88CD3005443E5 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 24AB692E2EF88CD3005443E5 /* DGCharts */; };
 		530CF8DF2ED5C2F000117B05 /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = 530CF8DE2ED5C2F000117B05 /* FirebaseAI */; };
 		530CF8E12ED5C2F000117B05 /* FirebaseAILogic in Frameworks */ = {isa = PBXBuildFile; productRef = 530CF8E02ED5C2F000117B05 /* FirebaseAILogic */; };
 		530CF8E32ED5C2F000117B05 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 530CF8E22ED5C2F000117B05 /* FirebaseAnalytics */; };
@@ -32,6 +33,7 @@
 		530CF90B2ED5C2F000117B05 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 530CF90A2ED5C2F000117B05 /* FirebaseStorage */; };
 		530CF90D2ED5C2F000117B05 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 530CF90C2ED5C2F000117B05 /* FirebaseStorageCombine-Community */; };
 		55A152072ED7310A0011B6DB /* Cloudinary in Frameworks */ = {isa = PBXBuildFile; productRef = 55A152062ED7310A0011B6DB /* Cloudinary */; };
+		7AAD3A1A2EF0327E004689C9 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 7AAD3A192EF0327E004689C9 /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				530CF8EB2ED5C2F000117B05 /* FirebaseAppDistribution-Beta in Frameworks */,
+				7AAD3A1A2EF0327E004689C9 /* FSCalendar in Frameworks */,
 				530CF8F72ED5C2F000117B05 /* FirebaseFirestore in Frameworks */,
 				530CF8EF2ED5C2F000117B05 /* FirebaseAuthCombine-Community in Frameworks */,
 				530CF9012ED5C2F000117B05 /* FirebaseInstallations in Frameworks */,
@@ -79,6 +82,7 @@
 				530CF90B2ED5C2F000117B05 /* FirebaseStorage in Frameworks */,
 				530CF9092ED5C2F000117B05 /* FirebaseRemoteConfig in Frameworks */,
 				530CF8E32ED5C2F000117B05 /* FirebaseAnalytics in Frameworks */,
+				24AB692F2EF88CD3005443E5 /* DGCharts in Frameworks */,
 				530CF9052ED5C2F000117B05 /* FirebaseMessaging in Frameworks */,
 				530CF9032ED5C2F000117B05 /* FirebaseMLModelDownloader in Frameworks */,
 				530CF9072ED5C2F000117B05 /* FirebasePerformance in Frameworks */,
@@ -156,6 +160,8 @@
 				530CF90A2ED5C2F000117B05 /* FirebaseStorage */,
 				530CF90C2ED5C2F000117B05 /* FirebaseStorageCombine-Community */,
 				55A152062ED7310A0011B6DB /* Cloudinary */,
+				7AAD3A192EF0327E004689C9 /* FSCalendar */,
+				24AB692E2EF88CD3005443E5 /* DGCharts */,
 			);
 			productName = CampusCare;
 			productReference = AC53CD432ED4439F003A3AE8 /* CampusCare.app */;
@@ -188,6 +194,8 @@
 			packageReferences = (
 				530CF8DD2ED5C2F000117B05 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				55A152052ED7310A0011B6DB /* XCRemoteSwiftPackageReference "cloudinary_ios" */,
+				7AAD3A182EF0327E004689C9 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				24AB692D2EF88CD3005443E5 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = AC53CD442ED4439F003A3AE8 /* Products */;
@@ -234,6 +242,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -261,6 +270,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -417,6 +427,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		24AB692D2EF88CD3005443E5 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		530CF8DD2ED5C2F000117B05 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -433,9 +451,22 @@
 				minimumVersion = 5.2.3;
 			};
 		};
+		7AAD3A182EF0327E004689C9 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		24AB692E2EF88CD3005443E5 /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 24AB692D2EF88CD3005443E5 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
+		};
 		530CF8DE2ED5C2F000117B05 /* FirebaseAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 530CF8DD2ED5C2F000117B05 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -560,6 +591,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 55A152052ED7310A0011B6DB /* XCRemoteSwiftPackageReference "cloudinary_ios" */;
 			productName = Cloudinary;
+		};
+		7AAD3A192EF0327E004689C9 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7AAD3A182EF0327E004689C9 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

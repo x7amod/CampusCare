@@ -1,5 +1,5 @@
 {
-  "originHash" : "877e494ce20792e8218e21ebd7c49f4ee80096368abc0d7617e97cda1d952a55",
+  "originHash" : "a91014bff5e676de99209983c05bee1ad9e05928f9649cf5b07ed4229a8de42d",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -20,6 +20,15 @@
       }
     },
     {
+      "identity" : "charts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/danielgindi/Charts",
+      "state" : {
+        "revision" : "dd9c72e3d7e751e769971092a6bd72d39198ae63",
+        "version" : "5.1.0"
+      }
+    },
+    {
       "identity" : "cloudinary_ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cloudinary/cloudinary_ios.git",
@@ -35,6 +44,15 @@
       "state" : {
         "revision" : "087bb95235f676c1a37e928769a5b6645dcbd325",
         "version" : "12.6.0"
+      }
+    },
+    {
+      "identity" : "fscalendar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WenchaoD/FSCalendar",
+      "state" : {
+        "revision" : "0fbdec5172fccb90f707472eeaea4ffe095278f6",
+        "version" : "2.8.4"
       }
     },
     {

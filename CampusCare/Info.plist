@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Privacy - Photo Library Usage Description
+Privacy - Photo Library Usage Description
+privcay - Photo Library Usage Description</key>
+	<string>Allow access to upload new request photos.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow access to take photos for new requests.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

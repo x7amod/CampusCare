@@ -1,20 +1,134 @@
+import FirebaseFirestore
 
 final class RequestCollection {
     private let requestsCollectionRef = FirestoreManager.shared.db.collection("Requests")
     
+    func fetchRequests(
+        assignTechID: String,
+        date: Date,
+        completion: @escaping ([RequestModel]) -> Void
+    ) {
+        // Step 2a: fetch all requests for this technician
+        requestsCollectionRef
+            .whereField("assignTechID", isEqualTo: assignTechID)
+            .getDocuments { snapshot, error in
+
+                var requests: [RequestModel] = []
+
+                if let error = error {
+                    print("Firestore error:", error)
+                    completion(requests)
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    completion(requests)
+                    return
+                }
+
+                // Step 2b: filter locally by selected day (avoids UTC issues)
+                let calendar = Calendar.current
+                requests = documents.compactMap { doc in
+                    guard let request = RequestModel(from: doc) else { return nil }
+                    if let assignedDate = request.assignedDate?.dateValue() {
+                        // Compare with the selected date in local time
+                        return calendar.isDate(assignedDate, inSameDayAs: date) ? request : nil
+                    }
+                    return nil
+                }
+
+                // Step 2c: return filtered requests
+                completion(requests)
+            }
+    }
+
+
+    
     func createNewRequest(data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
         
-        // 1. Send the data to Firestore to create a new document with an auto-generated ID
         requestsCollectionRef.addDocument(data: data) { error in
             
             // 2. Check the 'error' parameter
             if let error = error {
-                // 3. If an error occurred, print it and call the completion handler with the failure
-                print("🚨 Error creating new request document: \(error.localizedDescription)")
+             
+                print("Error creating new request document: \(error.localizedDescription)")
                 completion(.failure(error))
             } else {
-                // 4. If 'error' is nil, the operation was successful. Call completion with success.
+                
                 print("✅ New request document successfully created.")
+                completion(.success(()))
+            }
+        }
+    }
+    
+    func fetchAllRequests(completion: @escaping (Result<[RequestModel], Error>) -> Void) {
+            requestsCollectionRef.getDocuments { snapshot, error in
+                
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                
+                let requests: [RequestModel] = documents.compactMap { doc in
+                    RequestModel(from: doc)
+                }
+                
+                completion(.success(requests))
+            }
+        }
+    
+//prefix search
+        func searchRequests(prefix: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
+
+            // emptey search do all request
+            if prefix.isEmpty {
+                fetchAllRequests(completion: completion)
+                return
+            }
+
+            let endText = prefix + "\u{f8ff}"
+
+            requestsCollectionRef
+                .whereField("title", isGreaterThanOrEqualTo: prefix)
+                .whereField("title", isLessThanOrEqualTo: endText)
+                .getDocuments { snapshot, error in
+                    
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+                    
+                    guard let documents = snapshot?.documents else {
+                        completion(.success([]))
+                        return
+                    }
+                    
+                    let results = documents.compactMap { RequestModel(from: $0) }
+                    completion(.success(results))
+                }
+        }
+    
+    func assignRequest(reqID: String, techID: String, assignedDate: Timestamp, completion: @escaping (Result<Void, Error>) -> Void) {
+        let requestDocRef = requestsCollectionRef.document(reqID)
+        
+        //  update fieldss
+        let updateData: [String: Any] = [
+            "assignTechID": techID,
+            "assignedDate": assignedDate,
+            "status": "Assigned"
+        ]
+        
+        requestDocRef.updateData(updateData) { error in
+            if let error = error {
+                print("Failed to assign request: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                print(" Request successfully assigned.")
                 completion(.success(()))
             }
         }
