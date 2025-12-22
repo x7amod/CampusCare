@@ -6,7 +6,7 @@ final class     UsersCollection{
 
     func fetchTechnicians(completion: @escaping ([UserModel]) -> Void) {
             usersCollectionRef
-                .whereField("role", isEqualTo: "Tech")
+                .whereField("Role", isEqualTo: "Technician")
                 .getDocuments { snapshot, error in
                     if let error = error {
                         print("Error fetching users:", error)

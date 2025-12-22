@@ -91,7 +91,7 @@ class AdminAnalytics: UIViewController {
     
     private func fetchTechnicians() {
         usersCollection.fetchTechnicians { users in
-            let techUsers = users.filter { $0.role == "Tech" }
+            let techUsers = users.filter { $0.Role == "Technician" }
             
             DispatchQueue.main.async {
                 self.techNum.text = "\(techUsers.count)" // update the label with Tech count
