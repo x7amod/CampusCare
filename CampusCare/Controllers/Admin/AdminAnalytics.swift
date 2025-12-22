@@ -127,7 +127,7 @@ class AdminAnalytics: UIViewController {
         preparePriorityData()
         prepareRequestsOverTime()
     }
-
+    
     private func preparePriorityData() {
         
         HighPriorityRequests = requests.filter { $0.priority == "High" }
@@ -183,7 +183,7 @@ class AdminAnalytics: UIViewController {
         barChartView.legend.enabled = false
         barChartView.chartDescription.enabled = false
     }
-
+    
     private func prepareRequestsOverTime() {
         
         let groupedByMonth = Dictionary(grouping: requests) { request -> Int in
@@ -248,7 +248,7 @@ class AdminAnalytics: UIViewController {
         lineChartView.animate(xAxisDuration: 1.0)
         lineChartView.chartDescription.enabled = false
     }
-
+    
     @IBAction func genReport(_ sender: Any) {
         // 1️⃣ Create PDF page size
         let pdfMetaData = [
@@ -258,12 +258,12 @@ class AdminAnalytics: UIViewController {
         ]
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
-
+        
         // PDF page size (A4)
-        let pageWidth: CGFloat = 595.2   
-        let pageHeight: CGFloat = 841.8  /
+        let pageWidth: CGFloat = 595.2
+        let pageHeight: CGFloat = 841.8  
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
-
+        
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         
         let data = renderer.pdfData { (context) in
@@ -313,6 +313,7 @@ class AdminAnalytics: UIViewController {
             print("Could not save PDF: \(error.localizedDescription)")
         }
     }
+
 
     
 }
