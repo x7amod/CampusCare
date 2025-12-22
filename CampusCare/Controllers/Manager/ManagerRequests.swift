@@ -18,7 +18,15 @@ class ManagerRequests: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupHeader()
+        
+        // search Bar
+        searchBar.delegate = self
 
+        FetchRequests()
+    }
+    
+    func setupHeader() {
         // Do any additional setup after loading the view.
         let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
@@ -31,10 +39,6 @@ class ManagerRequests: UIViewController {
         stackVIew.layoutMargins = UIEdgeInsets(top: 130, left: 0, bottom: 0, right: 0)
         stackVIew.isLayoutMarginsRelativeArrangement = true
         
-        // search Bar
-        searchBar.delegate = self
-
-        FetchRequests()
     }
     
     //  fetch All
