@@ -96,6 +96,7 @@ class TechList: UIViewController {
             item.translatesAutoresizingMaskIntoConstraints = false
             item.heightAnchor.constraint(equalToConstant: 140).isActive = true
             techStack.addArrangedSubview(item)
+            techSearch.backgroundImage = .none
         }
     }
     
