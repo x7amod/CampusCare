@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Load the specific storyboard as the initial UI when the app launches
 
-        let storyboardName = "TechManager" // Change this to the desired storyboard name
+        let storyboardName = "Admin" // Change this to the desired storyboard name
  
         let StoryboardToLaunch = UIStoryboard(name: storyboardName, bundle: nil)
         if let InitStoryboard = StoryboardToLaunch.instantiateInitialViewController() {

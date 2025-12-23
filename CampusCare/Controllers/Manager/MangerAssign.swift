@@ -134,7 +134,7 @@ class MangerAssign: UIViewController {
         let techActions = technicians.map { tech in
             UIAction(title: tech.username) { [weak self] _ in
                 self?.selectedTechnician = tech
-                self?.dropdown.setTitle(tech.username, for: .normal)
+                self?.dropdown.setTitle(tech.FirstName, for: .normal)
                 print("Selected tech ID:", tech.id)
             }
         }
