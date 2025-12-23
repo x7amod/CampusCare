@@ -10,24 +10,39 @@ import UIKit
 
 
 
-
-
 class TechDetails: UIViewController {
-    
+    //components
+    @IBOutlet weak var taskTitle: UILabel!
+    @IBOutlet weak var taskLocation: UILabel!
+    @IBOutlet weak var subDate: UILabel! //release date ?
+    @IBOutlet weak var taskDescription: UILabel!
+    @IBOutlet weak var taskCategory: UILabel!
+    @IBOutlet weak var taskImg: UIImageView!
+    @IBOutlet weak var taskStatus: UIButton!
+    @IBOutlet weak var saveBtn: UIButton!
     
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //header
-        //no header
         
         
       
+        
+        
+        
+        
+        
     } ///didload end
     ///
     ///
+    
+    
+    
+    
+    
+    
     
     
     

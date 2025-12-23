@@ -18,6 +18,11 @@ class TechList: UIViewController {
     
     @IBOutlet weak var techStack: UIStackView!
     
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,6 +47,10 @@ class TechList: UIViewController {
         
         //  techSearch.delegate = self
         fetchTechTasks()
+        
+        
+        
+        
         
         
         
@@ -84,7 +93,12 @@ class TechList: UIViewController {
             item.onTap = { [weak self] in
                 guard let self = self else { return }
                 
-                print("Tech clicked on task: \(r.id ?? "Unknown ID")")
+               // print("Tech clicked on task: \(r.id ?? "Unknown ID")")
+                
+                RequestStore.shared.currentRequest = r
+                    print("Stored request: \(r.title)")
+                
+                
                 
                 
                 
