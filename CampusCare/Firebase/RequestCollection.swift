@@ -3,23 +3,6 @@ import FirebaseFirestore
 final class RequestCollection {
     private let requestsCollectionRef = FirestoreManager.shared.db.collection("Requests")
     
-    func createNewRequest(data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
-        
-        requestsCollectionRef.addDocument(data: data) { error in
-            
-            // 2. Check the 'error' parameter
-            if let error = error {
-             
-                print("Error creating new request document: \(error.localizedDescription)")
-                completion(.failure(error))
-            } else {
-                
-                print("✅ New request document successfully created.")
-                completion(.success(()))
-            }
-        }
-    }
-    
     func fetchAllRequests(completion: @escaping (Result<[RequestModel], Error>) -> Void) {
             requestsCollectionRef.getDocuments { snapshot, error in
                 
@@ -40,6 +23,65 @@ final class RequestCollection {
                 completion(.success(requests))
             }
         }
+    
+    func fetchRequests(
+        assignTechID: String,
+        date: Date,
+        completion: @escaping ([RequestModel]) -> Void
+    ) {
+        // fetch all requests for this technician
+        requestsCollectionRef
+            .whereField("assignTechID", isEqualTo: assignTechID)
+            .getDocuments { snapshot, error in
+
+                var requests: [RequestModel] = []
+
+                if let error = error {
+                    print("Firestore error:", error)
+                    completion(requests)
+                    return
+                }
+
+                guard let documents = snapshot?.documents else {
+                    completion(requests)
+                    return
+                }
+
+                //  filter locally by selected day (avoids UTC issues)
+                let calendar = Calendar.current
+                requests = documents.compactMap { doc in
+                    guard let request = RequestModel(from: doc) else { return nil }
+                    if let assignedDate = request.assignedDate?.dateValue() {
+                        // Compare with the selected date in local time
+                        return calendar.isDate(assignedDate, inSameDayAs: date) ? request : nil
+                    }
+                    return nil
+                }
+
+                //return filtered requests
+                completion(requests)
+            }
+    }
+
+
+    
+    func createNewRequest(data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        requestsCollectionRef.addDocument(data: data) { error in
+            
+            // 2. Check the 'error' parameter
+            if let error = error {
+             
+                print("Error creating new request document: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                
+                print("✅ New request document successfully created.")
+                completion(.success(()))
+            }
+        }
+    }
+    
     
 //prefix search
         func searchRequests(prefix: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
@@ -92,4 +134,41 @@ final class RequestCollection {
             }
         }
     }
+    
+    //added by reem to fetch tech tasks
+    func fetchRequestsForTech(techID: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
+        requestsCollectionRef
+            .whereField("assignTechID", isEqualTo: techID)
+           // .whereField("status", in: ["Assigned", "In Progress" , "New", ]) // Optional: filter by status
+            .getDocuments { snapshot, error in
+                
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                
+                let requests: [RequestModel] = documents.compactMap { doc in
+                    RequestModel(from: doc)
+                }
+                
+                completion(.success(requests))
+            }
+    }
+    
+    ////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

@@ -25,15 +25,8 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
 
     // Configurable collection name.
     static let collectionName = "Requests"
-
-    struct RequestModel {
-        let title: String
-        let id: String
-        let category: String
-        let date: Date
-        let status: String
-    }
     
+    // Using global RequestModel from RequestModel.swift (no local struct needed)
     // Visible (filtered) requests
     var requests: [RequestModel] = []
     // All fetched requests (unfiltered)
@@ -75,17 +68,13 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         // Set page title
         headerView.setTitle("My Requests")
         
-        // Adjust table view frame to start below the custom header
-//        TableView.frame = CGRect(x: 0, y: headerHeight, width: view.frame.width, height: view.frame.height - headerHeight)
-        
         searchBar.delegate = self
         searchBar.showsCancelButton = false
         
         TableView.dataSource = self
         TableView.delegate = self
         TableView.separatorStyle = .none
-        //TableView.tableHeaderView = searchBar
-        // Hide scroll indicators | they keep appearing for some reason
+        // Hide scroll indicators
         TableView.showsVerticalScrollIndicator = false
         TableView.showsHorizontalScrollIndicator = false
         // dismiss keyboard when dragging
@@ -118,121 +107,83 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
 
     // Setup filter button menu
     private func setupFilterMenu() {
-        // Status filter actions
-        let statusActions = [
-            UIAction(title: "All Statuses", state: selectedStatus == nil ? .on : .off) { [weak self] _ in
-                self?.selectedStatus = nil
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Pending", state: selectedStatus == "Pending" ? .on : .off) { [weak self] _ in
-                self?.selectedStatus = "Pending"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Assigned", state: selectedStatus == "Assigned" ? .on : .off) { [weak self] _ in
-                self?.selectedStatus = "Assigned"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "In-Progress", state: selectedStatus == "In-Progress" ? .on : .off) { [weak self] _ in
-                self?.selectedStatus = "In-Progress"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Complete", state: selectedStatus == "Complete" ? .on : .off) { [weak self] _ in
-                self?.selectedStatus = "Complete"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Escalated", state: selectedStatus == "Escalated" ? .on : .off) { [weak self] _ in
-                self?.selectedStatus = "Escalated"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            }
-        ]
-        let statusMenu = UIMenu(title: "Filter by Status", options: [], children: statusActions)
+        let statusMenu = createStatusMenu()
+        let categoryMenu = createCategoryMenu()
+        let sortByMenu = createSortByMenu()
+        let sortOrderMenu = createSortOrderMenu()
         
-        // Category filter actions
-        let categoryActions = [
-            UIAction(title: "All Categories", state: selectedCategory == nil ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = nil
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "AC", state: selectedCategory == "AC" ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = "AC"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Electrical", state: selectedCategory == "Electrical" ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = "Electrical"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Network", state: selectedCategory == "Network" ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = "Network"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "IT", state: selectedCategory == "IT" ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = "IT"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Building/Structural", state: selectedCategory == "Building/Structural" ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = "Building/Structural"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Plumbing", state: selectedCategory == "Plumbing" ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = "Plumbing"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Safety/Equipment", state: selectedCategory == "Safety/Equipment" ? .on : .off) { [weak self] _ in
-                self?.selectedCategory = "Safety/Equipment"
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            }
-        ]
-        let categoryMenu = UIMenu(title: "Filter by Category", options: [], children: categoryActions)
-        
-        // Sort options
-        let sortByActions = [
-            UIAction(title: "Time Submitted", state: sortBy == .timeSubmitted ? .on : .off) { [weak self] _ in
-                self?.sortBy = .timeSubmitted
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Last Update", state: sortBy == .lastUpdate ? .on : .off) { [weak self] _ in
-                self?.sortBy = .lastUpdate
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            }
-        ]
-        let sortByMenu = UIMenu(title: "Sort By", options: [], children: sortByActions)
-        
-        // Sort order
-        let sortOrderActions = [
-            UIAction(title: "Ascending", state: sortOrder == .ascending ? .on : .off) { [weak self] _ in
-                self?.sortOrder = .ascending
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            },
-            UIAction(title: "Descending", state: sortOrder == .descending ? .on : .off) { [weak self] _ in
-                self?.sortOrder = .descending
-                self?.setupFilterMenu()
-                self?.applyFiltersAndSort()
-            }
-        ]
-        let sortOrderMenu = UIMenu(title: "Sort Order", options: [], children: sortOrderActions)
-        
-        // Combine into main menu
-        let mainMenu = UIMenu(title: "", children: [statusMenu, categoryMenu, sortByMenu, sortOrderMenu])
-        
-        filterButton.menu = mainMenu
+        filterButton.menu = UIMenu(title: "", children: [statusMenu, categoryMenu, sortByMenu, sortOrderMenu])
         filterButton.showsMenuAsPrimaryAction = true
+    }
+    
+    private func createStatusMenu() -> UIMenu {
+        let statuses: [(String, String?)] = [
+            ("All Statuses", nil),
+            ("Pending", "Pending"),
+            ("Assigned", "Assigned"),
+            ("In-Progress", "In-Progress"),
+            ("Complete", "Complete"),
+            ("Escalated", "Escalated")
+        ]
+        let actions = statuses.map { title, value in
+            UIAction(title: title, state: selectedStatus == value ? .on : .off) { [weak self] _ in
+                self?.selectedStatus = value
+                self?.setupFilterMenu()
+                self?.applyFiltersAndSort()
+            }
+        }
+        return UIMenu(title: "Filter by Status", options: [], children: actions)
+    }
+    
+    private func createCategoryMenu() -> UIMenu {
+        let categories: [(String, String?)] = [
+            ("All Categories", nil),
+            ("AC", "AC"),
+            ("Electrical", "Electrical"),
+            ("Network", "Network"),
+            ("IT", "IT"),
+            ("Building/Structural", "Building/Structural"),
+            ("Plumbing", "Plumbing"),
+            ("Safety/Equipment", "Safety/Equipment")
+        ]
+        let actions = categories.map { title, value in
+            UIAction(title: title, state: selectedCategory == value ? .on : .off) { [weak self] _ in
+                self?.selectedCategory = value
+                self?.setupFilterMenu()
+                self?.applyFiltersAndSort()
+            }
+        }
+        return UIMenu(title: "Filter by Category", options: [], children: actions)
+    }
+    
+    private func createSortByMenu() -> UIMenu {
+        let options: [(String, SortOption)] = [
+            ("Time Submitted", .timeSubmitted),
+            ("Last Update", .lastUpdate)
+        ]
+        let actions = options.map { title, value in
+            UIAction(title: title, state: sortBy == value ? .on : .off) { [weak self] _ in
+                self?.sortBy = value
+                self?.setupFilterMenu()
+                self?.applyFiltersAndSort()
+            }
+        }
+        return UIMenu(title: "Sort By", options: [], children: actions)
+    }
+    
+    private func createSortOrderMenu() -> UIMenu {
+        let options: [(String, SortOrder)] = [
+            ("Ascending", .ascending),
+            ("Descending", .descending)
+        ]
+        let actions = options.map { title, value in
+            UIAction(title: title, state: sortOrder == value ? .on : .off) { [weak self] _ in
+                self?.sortOrder = value
+                self?.setupFilterMenu()
+                self?.applyFiltersAndSort()
+            }
+        }
+        return UIMenu(title: "Sort Order", options: [], children: actions)
     }
 
     // Pull-to-refresh handler
@@ -280,26 +231,28 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
             
             switch sortBy {
             case .timeSubmitted:
-                // Use the date field (releaseDate)
-                dateA = a.date
-                dateB = b.date
+                // Use the releaseDate field
+                dateA = a.releaseDate.dateValue()
+                dateB = b.releaseDate.dateValue()
             case .lastUpdate:
-                // For now use the same date field, TODO: need to add the lastUpdate field to the db later
-                dateA = a.date
-                dateB = b.date
+                // Use assignedDate if available, otherwise fall back to releaseDate
+                dateA = a.assignedDate?.dateValue() ?? a.releaseDate.dateValue()
+                dateB = b.assignedDate?.dateValue() ?? b.releaseDate.dateValue()
             }
             
             return sortOrder == .ascending ? dateA < dateB : dateA > dateB
         }
         
-        self.requests = filtered
-        DispatchQueue.main.async {
+        // Update both the data and UI on main thread atomically to prevent race conditions
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            // Update data and reload in a single atomic operation
+            self.requests = filtered
             self.TableView.reloadData()
         }
     }
 
     // Fetch from Firebase
-    // isRefresh parameter so we can end the refresh control when done
     func fetchRequestsFromFirebase(isRefresh: Bool = false) {
         // Avoid overlapping queries
         if isLoading {
@@ -320,36 +273,22 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
 
             if let error = error {
                 print("[MyRequests] fetchRequestsFromFirebase error: \(error.localizedDescription)")
+                // show alert to user about failing to connect to db
+                
                 return
             }
 
             guard let querySnapshot = querySnapshot else {
-                // No snapshot and no error — nothing to do
                 return
             }
 
             var loaded: [RequestModel] = []
 
             for document in querySnapshot.documents {
-                let data = document.data()
-
-                let title = data["title"] as? String ?? "No Title"
-                let id = (data["requestID"] as? String) ?? (data["creatorID"] as? String) ?? document.documentID
-                let category = data["category"] as? String ?? "General"
-                let status = data["status"] as? String ?? "Pending"
-
-                let timestamp = (data["date"] as? Timestamp) ?? (data["created"] as? Timestamp) ?? (data["releaseDate"] as? Timestamp)
-                let dateObject = timestamp?.dateValue() ?? Date()
-
-                let newRequest = RequestModel(
-                    title: title,
-                    id: id,
-                    category: category,
-                    date: dateObject,
-                    status: status
-                )
-
-                loaded.append(newRequest)
+                // Use the RequestModel's initializer from document
+                if let request = RequestModel(from: document) {
+                    loaded.append(request)
+                }
             }
 
             // Update storage and reapply any active filter
@@ -368,9 +307,16 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath) as! StudStaffRequestCard
+        
+        // Safety check to prevent index out of range (idk why but sometimes happens)
+        guard indexPath.row < requests.count else {
+            print("[MyRequests] cellForRowAt error: Index \(indexPath.row) out of range for requests array (count: \(requests.count))")
+            return cell
+        }
+        
         let req = requests[indexPath.row]
         
-        let timeString = req.date.timeAgoDisplay()
+        let timeString = req.releaseDate.dateValue().timeAgoDisplay()
         
         cell.configure(
             title: req.title,
@@ -387,21 +333,21 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         return 135
     }
     
-//    // Navigation Logic (Opens the new page)
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        let selectedRequest = requests[indexPath.row]
-//        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "ExpandedTicketDetails") as? ExpandedTicketDetailsViewController {
-//            detailsVC.requestData = selectedRequest
-//            self.navigationController?.pushViewController(detailsVC, animated: true)
-//        }
-//    }
-}
-// Date Extension to convert time to "time ago" format
-extension Date {
-    func timeAgoDisplay() -> String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .full
-        return formatter.localizedString(for: self, relativeTo: Date())
+    // Navigation Logic (Opens the details page with correct storyboard identifier)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        // Safety check to prevent index out of range
+        guard indexPath.row < requests.count else {
+            print("[MyRequests] Error: Index \(indexPath.row) out of range for requests array (count: \(requests.count))")
+            return
+        }
+        
+        let selectedRequest = requests[indexPath.row]
+        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "RequestDetailsStudStaff") as? ExpandedTicketDetailsViewController {
+            detailsVC.requestData = selectedRequest
+            detailsVC.modalPresentationStyle = .pageSheet
+            self.present(detailsVC, animated: true)
+        }
     }
 }
