@@ -3,12 +3,33 @@ import FirebaseFirestore
 final class RequestCollection {
     private let requestsCollectionRef = FirestoreManager.shared.db.collection("Requests")
     
+    func fetchAllRequests(completion: @escaping (Result<[RequestModel], Error>) -> Void) {
+            requestsCollectionRef.getDocuments { snapshot, error in
+                
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                
+                let requests: [RequestModel] = documents.compactMap { doc in
+                    RequestModel(from: doc)
+                }
+                
+                completion(.success(requests))
+            }
+        }
+    
     func fetchRequests(
         assignTechID: String,
         date: Date,
         completion: @escaping ([RequestModel]) -> Void
     ) {
-        // Step 2a: fetch all requests for this technician
+        // fetch all requests for this technician
         requestsCollectionRef
             .whereField("assignTechID", isEqualTo: assignTechID)
             .getDocuments { snapshot, error in
@@ -26,7 +47,7 @@ final class RequestCollection {
                     return
                 }
 
-                // Step 2b: filter locally by selected day (avoids UTC issues)
+                //  filter locally by selected day (avoids UTC issues)
                 let calendar = Calendar.current
                 requests = documents.compactMap { doc in
                     guard let request = RequestModel(from: doc) else { return nil }
@@ -37,7 +58,7 @@ final class RequestCollection {
                     return nil
                 }
 
-                // Step 2c: return filtered requests
+                //return filtered requests
                 completion(requests)
             }
     }
@@ -61,26 +82,6 @@ final class RequestCollection {
         }
     }
     
-    func fetchAllRequests(completion: @escaping (Result<[RequestModel], Error>) -> Void) {
-            requestsCollectionRef.getDocuments { snapshot, error in
-                
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let documents = snapshot?.documents else {
-                    completion(.success([]))
-                    return
-                }
-                
-                let requests: [RequestModel] = documents.compactMap { doc in
-                    RequestModel(from: doc)
-                }
-                
-                completion(.success(requests))
-            }
-        }
     
 //prefix search
         func searchRequests(prefix: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
