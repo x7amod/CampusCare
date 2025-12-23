@@ -15,7 +15,8 @@ class AdminAnalytics: UIViewController {
     @IBOutlet weak var techNum: UILabel!
     @IBOutlet weak var reqNum: UILabel!
     @IBOutlet weak var chartContainer: UIView!
-    
+    @IBOutlet weak var OpenRequestView: UIView!
+    @IBOutlet weak var AvTechView: UIView!
     
     //collection
     let requestCollection = RequestCollection()
@@ -41,7 +42,27 @@ class AdminAnalytics: UIViewController {
         fetchTechnicians()
         FetchRequests()
         setupChart()
+        setupShadow()
+        
     }
+    
+    private func setupShadow() {
+
+        // AvTechView shadow
+        AvTechView.layer.shadowColor = UIColor.black.cgColor
+        AvTechView.layer.shadowOpacity = 0.25
+        AvTechView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        AvTechView.layer.shadowRadius = 3
+        AvTechView.layer.masksToBounds = false
+
+        // OpenRequestView shadow
+        OpenRequestView.layer.shadowColor = UIColor.black.cgColor
+        OpenRequestView.layer.shadowOpacity = 0.25
+        OpenRequestView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        OpenRequestView.layer.shadowRadius = 3
+        OpenRequestView.layer.masksToBounds = false
+    }
+
     
     private func setupChart(){
         let containerFrame = chartContainer.bounds
@@ -65,20 +86,14 @@ class AdminAnalytics: UIViewController {
         case 0:
             barChartView.isHidden = false
             lineChartView.isHidden = true
-            print("111111")
         case 1:
             barChartView.isHidden = true
             lineChartView.isHidden = false
-            print("22222")
         default:
             print("not exist")
         }
     }
-    
-    private func getChartData() {
-        // re
-    }
-    
+
     private func setupHeader() {
         // Do any additional setup after loading the view.
         let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
@@ -158,8 +173,10 @@ class AdminAnalytics: UIViewController {
         dataSet.valueFont = .systemFont(ofSize: 12)
         
         let data = BarChartData(dataSet: dataSet)
+        data.setValueFormatter(DefaultValueFormatter(decimals: 0))
         data.barWidth = 0.5
         barChartView.data = data
+        
         
         // X Axis
         let xAxis = barChartView.xAxis
@@ -219,7 +236,8 @@ class AdminAnalytics: UIViewController {
         
         let data = LineChartData(dataSet: dataSet)
         lineChartView.data = data
-        
+        data.setValueFormatter(DefaultValueFormatter(decimals: 0))
+
         // X-axis
         let xAxis = lineChartView.xAxis
         xAxis.valueFormatter = IndexAxisValueFormatter(values: monthLabels)
@@ -250,7 +268,6 @@ class AdminAnalytics: UIViewController {
     }
     
     @IBAction func genReport(_ sender: Any) {
-        // 1️⃣ Create PDF page size
         let pdfMetaData = [
             kCGPDFContextCreator: "CampusCare",
             kCGPDFContextAuthor: "Admin",
@@ -259,56 +276,66 @@ class AdminAnalytics: UIViewController {
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
         
-        // PDF page size (A4)
         let pageWidth: CGFloat = 595.2
-        let pageHeight: CGFloat = 841.8  
+        let pageHeight: CGFloat = 841.8
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
         
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         
-        let data = renderer.pdfData { (context) in
+        barChartView.isHidden = false
+        lineChartView.isHidden = false
+        
+        let data = renderer.pdfData { context in
+            
+            func drawHeader(yPosition: CGFloat) -> CGFloat {
+                var y = yPosition
+                let title = "CampusCare Analytics Report"
+                let titleAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.boldSystemFont(ofSize: 20)]
+                let titleSize = title.size(withAttributes: titleAttributes)
+                title.draw(at: CGPoint(x: (pageWidth - titleSize.width)/2, y: y), withAttributes: titleAttributes)
+                y += titleSize.height + 20
+                
+                let infoText = "Total Requests: \(numRequest)\nOpen Requests: \(openRequest)"
+                let infoAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 16)]
+                infoText.draw(at: CGPoint(x: 40, y: y), withAttributes: infoAttributes)
+                y += 50
+                return y
+            }
+            
+            // Bar Chart
             context.beginPage()
-            
-            var yPosition: CGFloat = 20
-            
-            let title = "CampusCare Analytics Report"
-            let titleAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.boldSystemFont(ofSize: 20)
-            ]
-            let titleSize = title.size(withAttributes: titleAttributes)
-            title.draw(at: CGPoint(x: (pageWidth - titleSize.width)/2, y: yPosition), withAttributes: titleAttributes)
-            
-            yPosition += titleSize.height + 20
-            
-            let infoText = "Total Requests: \(numRequest)\nOpen Requests: \(openRequest)"
-            let infoAttributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 16)
-            ]
-            infoText.draw(at: CGPoint(x: 40, y: yPosition), withAttributes: infoAttributes)
-            yPosition += 50
+            var yPos: CGFloat = 20
+            yPos = drawHeader(yPosition: yPos)
             
             if let barImage = barChartView.getChartImage(transparent: false) {
                 let aspectRatio = barImage.size.width / barImage.size.height
                 let chartWidth = pageWidth - 80
                 let chartHeight = chartWidth / aspectRatio
-                barImage.draw(in: CGRect(x: 40, y: yPosition, width: chartWidth, height: chartHeight))
-                yPosition += chartHeight + 30
+                barImage.draw(in: CGRect(x: 40, y: yPos, width: chartWidth, height: chartHeight))
             }
+            
+            //  Line Chart
+            context.beginPage()
+            yPos = 20
+            yPos = drawHeader(yPosition: yPos)
             
             if let lineImage = lineChartView.getChartImage(transparent: false) {
                 let aspectRatio = lineImage.size.width / lineImage.size.height
                 let chartWidth = pageWidth - 80
                 let chartHeight = chartWidth / aspectRatio
-                lineImage.draw(in: CGRect(x: 40, y: yPosition, width: chartWidth, height: chartHeight))
-                yPosition += chartHeight + 30
+                lineImage.draw(in: CGRect(x: 40, y: yPos, width: chartWidth, height: chartHeight))
             }
         }
         
+        // restore previous chart visibility
+        lineChartView.isHidden = true
+        
+        // Save / share PDF
         let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("AnalyticsReport.pdf")
         do {
             try data.write(to: tempURL)
             let activityVC = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)
-            present(activityVC, animated: true, completion: nil)
+            present(activityVC, animated: true)
         } catch {
             print("Could not save PDF: \(error.localizedDescription)")
         }
