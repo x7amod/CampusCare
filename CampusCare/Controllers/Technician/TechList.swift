@@ -13,10 +13,19 @@ class TechList: UIViewController {
     
     let requestCollection = RequestCollection()
     var requests: [RequestModel] = []
+   private var currentTechID: String? {
+           return UserStore.shared.currentUserID
+       }
+    
     
     @IBOutlet weak var techSearch: UISearchBar!
     
     @IBOutlet weak var techStack: UIStackView!
+    
+    
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +54,10 @@ class TechList: UIViewController {
         
         
         
+        
+        
+        
+        
     }
     private func setupHeader() {
         if let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as? CampusCareHeader {
@@ -55,20 +68,80 @@ class TechList: UIViewController {
     }
     
     // 5. Fetch Logic
+    //func fetchTechTasks() {
+         //Currently fetching all to test, later you can filter by Tech ID
+      //  requestCollection.fetchAllRequests { [weak self] result in
+        //    DispatchQueue.main.async {
+          //      switch result {
+            //    case .success(let list):
+              //      self?.requests = list
+                //    self?.reloadStackView()
+               // case .failure(let error):
+                 //   print("Error: \(error.localizedDescription)")
+                //}
+            //}
+        //}
+    //}
+ 
     func fetchTechTasks() {
-        // Currently fetching all to test, later you can filter by Tech ID
-        requestCollection.fetchAllRequests { [weak self] result in
+        guard let techID = currentTechID else {
+            print("Error: No technician ID found")
+            showEmptyState()
+            return
+        }
+        
+        // Use the new tech-specific method
+        requestCollection.fetchRequestsForTech(techID: techID) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let list):
-                    self?.requests = list
-                    self?.reloadStackView()
+                    if list.isEmpty {
+                        self?.showEmptyState()
+                    } else {
+                        self?.requests = list
+                        self?.reloadStackView()
+                    }
                 case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
+                    print("Error fetching tech tasks: \(error.localizedDescription)")
+                    self?.showEmptyState()
                 }
             }
         }
     }
+    
+    
+    
+    
+    private func showEmptyState() {
+        let label = UILabel()
+        label.text = "No tasks assigned yet"
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.textColor = .systemGray
+        techStack.addArrangedSubview(label)
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // 6. UI Rendering Logic
     func reloadStackView() {
@@ -84,7 +157,12 @@ class TechList: UIViewController {
             item.onTap = { [weak self] in
                 guard let self = self else { return }
                 
-                print("Tech clicked on task: \(r.id ?? "Unknown ID")")
+               // print("Tech clicked on task: \(r.id ?? "Unknown ID")")
+                
+                RequestStore.shared.currentRequest = r
+                    print("Stored request: \(r.title)")
+                
+                
                 
                 
                 
@@ -96,7 +174,7 @@ class TechList: UIViewController {
             item.translatesAutoresizingMaskIntoConstraints = false
             item.heightAnchor.constraint(equalToConstant: 140).isActive = true
             techStack.addArrangedSubview(item)
-            techSearch.backgroundImage = .none
+            techSearch.searchBarStyle = .minimal
         }
     }
     
@@ -111,19 +189,41 @@ class TechList: UIViewController {
     // 7. Search Bar Implementation
     extension TechList: UISearchBarDelegate {
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            
+            guard let techID = currentTechID else { return }
+            
             if searchText.isEmpty {
                 fetchTechTasks()
                 return
             }
             
-            requestCollection.searchRequests(prefix: searchText) { [weak self] result in
-                DispatchQueue.main.async {
-                    if case .success(let list) = result {
-                        self?.requests = list
-                        self?.reloadStackView()
+            
+            requestCollection.fetchRequestsForTech(techID: techID) { [weak self] result in
+                    DispatchQueue.main.async {
+                        if case .success(let list) = result {
+                            // Filter locally by title
+                            let filtered = list.filter { request in
+                                request.title.lowercased().contains(searchText.lowercased())
+                            }
+                            self?.requests = filtered
+                            self?.reloadStackView()
+                        }
                     }
-                }
-            }
+            
+            
+            
+            
+            
+            
+            
+           // requestCollection.searchRequests(prefix: searchText) { [weak self] result in
+               // DispatchQueue.main.async {
+                //    if case .success(let list) = result {
+                     //   self?.requests = list
+                    //    self?.reloadStackView()
+                  //  }
+               // }
+           }//comment this is rollback
         }
     }
 

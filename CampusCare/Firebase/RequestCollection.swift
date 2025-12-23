@@ -134,4 +134,41 @@ final class RequestCollection {
             }
         }
     }
+    
+    //added by reem to fetch tech tasks
+    func fetchRequestsForTech(techID: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
+        requestsCollectionRef
+            .whereField("assignTechID", isEqualTo: techID)
+           // .whereField("status", in: ["Assigned", "In Progress" , "New", ]) // Optional: filter by status
+            .getDocuments { snapshot, error in
+                
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                
+                let requests: [RequestModel] = documents.compactMap { doc in
+                    RequestModel(from: doc)
+                }
+                
+                completion(.success(requests))
+            }
+    }
+    
+    ////
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
