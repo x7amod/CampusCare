@@ -118,7 +118,7 @@
             </objects>
             <point key="canvasLocation" x="2218" y="-151"/>
         </scene>
-        <!--New Requests Stud Staff-->
+        <!--Item-->
         <scene sceneID="z97-5d-4bf">
             <objects>
                 <viewController storyboardIdentifier="NewRequestsStudStaff" id="aLg-3g-zoz" customClass="NewRequestsStudStaff" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
@@ -248,6 +248,7 @@
                         <viewLayoutGuide key="contentLayoutGuide" id="80G-Cg-8xu"/>
                         <viewLayoutGuide key="frameLayoutGuide" id="e3s-i2-Odm"/>
                     </scrollView>
+                    <tabBarItem key="tabBarItem" title="Item" id="DNH-Xe-RiW"/>
                     <connections>
                         <outlet property="categoryButton" destination="FIr-9g-Z7g" id="Esr-39-qC9"/>
                         <outlet property="descriptionTextView" destination="D68-wr-eGU" id="yFi-AF-R7R"/>
@@ -259,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3JB-LP-cgg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2212" y="519"/>
+            <point key="canvasLocation" x="1442" y="308"/>
         </scene>
         <!--Ticket Details-->
         <scene sceneID="bvx-RK-f9R">
