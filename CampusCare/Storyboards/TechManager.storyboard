@@ -35,7 +35,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="eg3-xs-IGS"/>
                             </scrollView>
                             <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Xfn-xy-PhQ">
-                                <rect key="frame" x="16" y="161" width="370" height="56"/>
+                                <rect key="frame" x="16" y="161" width="236" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.89803922179999995" green="0.89803922179999995" blue="0.91372549530000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -43,6 +43,18 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="bfD-9o-rsm"/>
                                 </connections>
                             </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xix-XF-baM">
+                                <rect key="frame" x="261" y="169" width="125" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Filter"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -56,6 +68,7 @@
                     <tabBarItem key="tabBarItem" title="Requests" image="calendar" catalog="system" id="neG-Qb-GNq"/>
                     <navigationItem key="navigationItem" id="S9I-Cl-0eb"/>
                     <connections>
+                        <outlet property="filterDrop" destination="xix-XF-baM" id="myh-Or-tuD"/>
                         <outlet property="searchBar" destination="Xfn-xy-PhQ" id="qfX-nK-Hah"/>
                         <outlet property="stackVIew" destination="C9l-Bf-4cN" id="w41-Yk-LOy"/>
                     </connections>
@@ -447,7 +460,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

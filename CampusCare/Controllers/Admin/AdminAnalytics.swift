@@ -20,7 +20,7 @@ class AdminAnalytics: UIViewController {
     
     //collection
     let requestCollection = RequestCollection()
-    private let usersCollection = UsersCollection()
+    private let usersCollection = UsersCollection.shared
     
     
     //charts
@@ -39,10 +39,20 @@ class AdminAnalytics: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupHeader()
-        fetchTechnicians()
-        FetchRequests()
-        setupChart()
-        setupShadow()
+        usersCollection.isCurrentUserAdmin { [weak self] isAdmin in
+            guard let self = self else { return }
+
+            DispatchQueue.main.async {
+                if isAdmin {
+                    self.fetchTechnicians()
+                    self.FetchRequests()
+                    self.setupChart()
+                    self.setupShadow()
+                } else {
+                    self.showSimpleAlert(title: "Access Denied", message: "You are not authorized to view this data.")
+                }
+            }
+        }
         
     }
     

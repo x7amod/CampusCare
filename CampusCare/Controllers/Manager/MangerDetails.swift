@@ -13,6 +13,9 @@ class MangerDetails: UIViewController {
     var request: RequestModel? {
         return RequestStore.shared.currentRequest
     }  // receives the data
+    
+    //collection:
+    let usersCollection = UsersCollection.shared
 
     // Outlets
     @IBOutlet weak var titleLabel: UILabel!
@@ -29,7 +32,15 @@ class MangerDetails: UIViewController {
 
         setupHeader()
         setupBackButton()
-        populateRequestDetails()
+        usersCollection.isCurrentUserManager { [weak self] isManager in
+            DispatchQueue.main.async {
+                if isManager {
+                    self?.populateRequestDetails()
+                } else {
+                    self?.showSimpleAlert(title: "Access Denied", message: "You are not authorized to view requests.")
+                }
+            }
+        }
     }
     
     //Header
@@ -60,6 +71,9 @@ class MangerDetails: UIViewController {
         roleLabel?.text = r.location
         timeLabel?.text = DateFormatter.localizedString(from: r.releaseDate.dateValue(), dateStyle: .medium, timeStyle: .none)
         priorityLabel?.text = r.priority
+        updateAssignButton(for: r.status)
+
+       
 
         // Image loading
         if !r.imageURL.isEmpty, let url = URL(string: r.imageURL) {
@@ -77,8 +91,10 @@ class MangerDetails: UIViewController {
         } else {
             img?.image = UIImage(named: "defaultImage")
         }
+      
         
-        print(r.id)
+//        print(r.id)
+        
     }
 
     //  show Assign VC
@@ -103,6 +119,19 @@ class MangerDetails: UIViewController {
             shouldShowAssign = false
             presentAssignVC()
         }
+    }
+    
+    private func updateAssignButton(for status: String) {
+        let disabledStatuses: Set<String> = [
+            "Complete",
+            "In-Progress",
+            "Assigned"
+        ]
+        
+        let isDisabled = disabledStatuses.contains(status)
+        
+        button.isEnabled = !isDisabled
+        button.alpha = isDisabled ? 0.5 : 1.0
     }
 
     private func presentAssignVC() {

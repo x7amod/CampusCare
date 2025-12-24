@@ -13,23 +13,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        window = UIWindow(windowScene: windowScene)
-        
-        // Load the specific storyboard as the initial UI when the app launches
-
-        let storyboardName = "StudStaff" // Change this to the desired storyboard name
-        
-        let StoryboardToLaunch = UIStoryboard(name: storyboardName, bundle: nil)
-        if let InitStoryboard = StoryboardToLaunch.instantiateInitialViewController() {
-            window?.rootViewController = InitStoryboard
-        } else {
-            // Fallback: try the Main storyboard (if present) to avoid a nil rootViewController
-            print("[SceneDelegate]  \(storyboardName) storyboard has no initial view controller — falling back to Main.storyboard")
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            window?.rootViewController = mainStoryboard.instantiateInitialViewController()
-        }
-        window?.makeKeyAndVisible()
+//        
+//        window = UIWindow(windowScene: windowScene)
+//        
+//        // Load the specific storyboard as the initial UI when the app launches
+//
+//        let storyboardName = "Admin" // Change this to the desired storyboard name
+//        
+//        let StoryboardToLaunch = UIStoryboard(name: storyboardName, bundle: nil)
+//        if let InitStoryboard = StoryboardToLaunch.instantiateInitialViewController() {
+//            window?.rootViewController = InitStoryboard
+//        } else {
+//            // Fallback: try the Main storyboard (if present) to avoid a nil rootViewController
+//            print("[SceneDelegate]  \(storyboardName) storyboard has no initial view controller — falling back to Main.storyboard")
+//            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//            window?.rootViewController = mainStoryboard.instantiateInitialViewController()
+//        }
+//        window?.makeKeyAndVisible()
     }
 
     
