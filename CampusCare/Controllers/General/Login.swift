@@ -129,18 +129,3 @@ class Login: UIViewController {
         
     }
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
