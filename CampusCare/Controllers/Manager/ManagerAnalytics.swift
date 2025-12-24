@@ -11,6 +11,14 @@ import UIKit
 import DGCharts
 
 class ManagerAnalytics: UIViewController {
+    
+    
+    let formalBlueColors: [UIColor] = [
+        UIColor(red: 0/255, green: 51/255, blue: 102/255, alpha: 1),   // Dark Blue
+        UIColor(red: 0/255, green: 102/255, blue: 204/255, alpha: 1),  // Blue
+        UIColor(red: 51/255, green: 153/255, blue: 255/255, alpha: 1), // Light Blue
+        UIColor(red: 102/255, green: 178/255, blue: 255/255, alpha: 1) // Lighter Blue
+    ]
 
     
     let requestCollection = RequestCollection()
@@ -31,6 +39,7 @@ class ManagerAnalytics: UIViewController {
     @IBOutlet weak var pendingNum: UILabel!
     @IBOutlet weak var completedNum: UILabel!
 
+    @IBOutlet weak var chartTitle: UILabel!
     @IBOutlet weak var chartTypeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var chartContainerView: UIView!
     
@@ -88,7 +97,7 @@ class ManagerAnalytics: UIViewController {
         }.count
 
         let completed = allRequests.filter {
-            $0.status.lowercased() == "completed"
+            $0.status.lowercased() == "complete"
         }.count
 
         totalNum.text = "\(total)"
@@ -116,9 +125,15 @@ class ManagerAnalytics: UIViewController {
     private func showChart(index: Int) {
         chartContainerView.subviews.forEach { $0.removeFromSuperview() }
         switch index {
-        case 0: chartContainerView.addSubview(pieChartView)
-        case 1: chartContainerView.addSubview(barChartView)
-        case 2: chartContainerView.addSubview(lineChartView)
+        case 0:
+            chartContainerView.addSubview(pieChartView)
+            chartTitle.text = "Tasks Per Technician"
+        case 1:
+            chartContainerView.addSubview(barChartView)
+            chartTitle.text = "Average Resolution Time"
+        case 2:
+            chartContainerView.addSubview(lineChartView)
+            chartTitle.text = "Weekly Resolution Trend"
         default: break
         }
     }
@@ -144,7 +159,7 @@ class ManagerAnalytics: UIViewController {
     
     func updatePieChart() {
         let completedRequests = allRequests.filter {
-            $0.status.lowercased() == "completed"
+            $0.status.lowercased() == "complete"
         }
 
         let grouped = Dictionary(grouping: completedRequests, by: { $0.assignTechID })
@@ -157,7 +172,7 @@ class ManagerAnalytics: UIViewController {
         }
 
         let dataSet = PieChartDataSet(entries: entries, label: "Tasks per Technician")
-        dataSet.colors = ChartColorTemplates.material()
+        dataSet.colors = formalBlueColors
 
         pieChartView.data = PieChartData(dataSet: dataSet)
     }
@@ -188,13 +203,14 @@ class ManagerAnalytics: UIViewController {
         }
 
         let dataSet = BarChartDataSet(entries: entries, label: "Avg Resolution Time (hrs)")
-        dataSet.colors = ChartColorTemplates.material()
+        dataSet.colors = formalBlueColors
 
         barChartView.data = BarChartData(dataSet: dataSet)
     }
     
     
     func updateLineChart() {
+        
         let completedDates = allRequests.compactMap {
             $0.completedDate?.dateValue()
         }
@@ -213,7 +229,10 @@ class ManagerAnalytics: UIViewController {
             }
 
         let dataSet = LineChartDataSet(entries: entries, label: "Weekly Completed Tasks")
-        dataSet.colors = [.systemBlue]
+        dataSet.colors = [formalBlueColors[1]]       // Line color
+        dataSet.circleColors = [formalBlueColors[0]] // Circle points color
+        dataSet.circleHoleColor = .white            // Optional: circle center
+
 
         lineChartView.data = LineChartData(dataSet: dataSet)
     }
