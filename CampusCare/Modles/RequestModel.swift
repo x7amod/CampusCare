@@ -23,6 +23,10 @@ struct RequestModel {
     let creatorRole: String
     let assignedDate: Timestamp?
     let assignTechID: String
+    // NEW FIELDS
+    let inProgressDate: Timestamp?
+    let completedDate: Timestamp?
+    let lastUpdateDate: Timestamp?
 }
 
 extension RequestModel {
@@ -46,6 +50,10 @@ extension RequestModel {
         }
         
         let assignedDate = data["assignedDate"] as? Timestamp
+        //
+        let inProgressDate = data["inProgressDate"] as? Timestamp
+        let completedDate = data["completedDate"] as? Timestamp
+        let lastUpdateDate = data["lastUpdateDate"] as? Timestamp
 
 
         self.id = document.documentID
@@ -61,6 +69,12 @@ extension RequestModel {
         self.creatorRole = creatorRole
         self.assignedDate = assignedDate
         self.assignTechID = assignTechID
+        
+        // ASSIGN NEW FIELDS
+        self.inProgressDate = inProgressDate
+        self.completedDate = completedDate
+        self.lastUpdateDate = lastUpdateDate
 
     }
 }
+
