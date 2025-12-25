@@ -28,12 +28,12 @@ class ManagerRequests: UIViewController {
     
     func setupHeader() {
         // Do any additional setup after loading the view.
-        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        view.addSubview(headerView)
-        
-        // Set page-specific title
-        headerView.setTitle("Requests Pool") // Change this for each screen
+//        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
+//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+//        view.addSubview(headerView)
+//        
+//        // Set page-specific title
+//        headerView.setTitle("Requests Pool") // Change this for each screen
 
         // StackView top padding
         stackVIew.layoutMargins = UIEdgeInsets(top: 130, left: 0, bottom: 0, right: 0)

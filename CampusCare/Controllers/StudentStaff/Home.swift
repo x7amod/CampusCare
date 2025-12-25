@@ -56,6 +56,9 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
                     self?.recentRequestTableView.reloadData()
                 }
             case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.showSimpleAlert(title: "Error", message: "Failed to fetch recent requests.")
+                }
                 print("[Home] Error fetching recent requests: \(error.localizedDescription)")
             }
         }
@@ -101,18 +104,6 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: - Actions
     
-    @IBAction func newRequestTapped(_ sender: Any) {
-        if let newRequestVC = self.storyboard?.instantiateViewController(withIdentifier: "NewRequestsStudStaff") {
-            // Check if we have a navigation controller
-            if let navController = self.navigationController {
-                navController.pushViewController(newRequestVC, animated: true)
-            } else {
-                // Present modally if no navigation controller
-                newRequestVC.modalPresentationStyle = .fullScreen
-                self.present(newRequestVC, animated: true)
-            }
-        }
-    }
     
     
 }

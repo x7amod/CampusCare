@@ -27,7 +27,7 @@ class MangerDetails: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupHeader()
+        //setupHeader()
         setupBackButton()
         populateRequestDetails()
     }

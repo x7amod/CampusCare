@@ -33,7 +33,7 @@ class MangerAssign: UIViewController {
         }
 
 //        print("print req id before assign: ", requestId)
-        setupHeader()
+        //setupHeader()
         fetchTechnicians()
         setupDropdown()
         setupPicker()

@@ -38,7 +38,7 @@ class AdminAnalytics: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupHeader()
+        //setupHeader()
         fetchTechnicians()
         FetchRequests()
         setupChart()

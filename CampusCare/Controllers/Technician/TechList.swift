@@ -31,12 +31,12 @@ class TechList: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        view.addSubview(headerView)
-        
-        // Set page-specific title
-        headerView.setTitle("My Tasks")  // Change this for each screen
+//        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
+//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+//        view.addSubview(headerView)
+//        
+//        // Set page-specific title
+//        headerView.setTitle("My Tasks")  // Change this for each screen
         
         techStack.layoutMargins = UIEdgeInsets(top: 130, left: 16, bottom: 20, right: 16)
         techStack.isLayoutMarginsRelativeArrangement = true
