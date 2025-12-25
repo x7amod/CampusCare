@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Uesr Manaegment-->
+        <!--User Management-->
         <scene sceneID="dbb-nl-zKU">
             <objects>
                 <viewController id="zma-US-vkL" customClass="AdminManagement" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
@@ -41,14 +41,15 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="uM2-RE-hjc"/>
+                        <viewLayoutGuide key="safeArea" id="0Pc-I4-yO5"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Uesr Manaegment" image="calendar.and.person" catalog="system" id="W2K-JL-LFv"/>
+                    <navigationItem key="navigationItem" title="User Management" id="yBz-EF-m64"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZMG-A9-bix" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="70.992366412213741" y="784.50704225352115"/>
+            <point key="canvasLocation" x="88" y="785"/>
         </scene>
         <!--More-->
         <scene sceneID="7qE-f8-vbO">
@@ -57,10 +58,11 @@
                     <view key="view" contentMode="scaleToFill" id="jVR-J3-mXV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Saz-cj-STI"/>
+                        <viewLayoutGuide key="safeArea" id="aWi-1I-SRs"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="2t3-wI-peB"/>
+                    <navigationItem key="navigationItem" title="More" id="EPn-R2-2EH"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pOX-ib-Ur0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -69,29 +71,18 @@
         <!--Analytics-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="AdminAnalytics" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Analytics" id="Y6W-OH-hqX" customClass="AdminAnalytics" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VlM-BO-Vyv">
-                                <rect key="frame" x="16" y="339" width="361" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Request Number"/>
-                                    <segment title="Priority-level"/>
-                                </segments>
-                                <connections>
-                                    <action selector="chartChange:" destination="Y6W-OH-hqX" eventType="valueChanged" id="zcE-MD-bQZ"/>
-                                </connections>
-                            </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXf-WX-tX2">
-                                <rect key="frame" x="16" y="386" width="361" height="307"/>
+                                <rect key="frame" x="16" y="353" width="361" height="307"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slg-5H-nrb">
-                                <rect key="frame" x="205" y="181" width="172" height="128"/>
+                                <rect key="frame" x="212" y="132" width="172" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SD8-6Q-fu7">
@@ -122,7 +113,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxF-E0-aQ6">
-                                <rect key="frame" x="16" y="181" width="172" height="128"/>
+                                <rect key="frame" x="16" y="132" width="172" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Avaliable Technician" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTx-Vv-W86">
@@ -153,7 +144,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8G-cN-1ff">
-                                <rect key="frame" x="16" y="727" width="361" height="40"/>
+                                <rect key="frame" x="16" y="710" width="361" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="ButtonsColor"/>
                                 <color key="tintColor" name="text_not_selected"/>
@@ -171,11 +162,23 @@
                                     <action selector="genReport:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Flw-60-gc6"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VlM-BO-Vyv">
+                                <rect key="frame" x="16" y="305" width="361" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Request Number"/>
+                                    <segment title="Priority-level"/>
+                                </segments>
+                                <connections>
+                                    <action selector="chartChange:" destination="Y6W-OH-hqX" eventType="valueChanged" id="zcE-MD-bQZ"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <viewLayoutGuide key="safeArea" id="LbC-d1-RUc"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="69i-PA-64D"/>
+                    <navigationItem key="navigationItem" title="Analytics" id="u2q-G5-fUC"/>
                     <connections>
                         <outlet property="AvTechView" destination="dxF-E0-aQ6" id="lI1-VI-geq"/>
                         <outlet property="OpenRequestView" destination="slg-5H-nrb" id="K7F-Ti-ekx"/>
@@ -186,7 +189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-866.41221374045801" y="784.50704225352115"/>
+            <point key="canvasLocation" x="-811" y="808"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="inh-Af-DMt">
@@ -199,19 +202,36 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="apn-ds-gd9"/>
-                        <segue destination="zma-US-vkL" kind="relationship" relationship="viewControllers" id="N2q-pt-s7W"/>
-                        <segue destination="f8N-RI-tDb" kind="relationship" relationship="viewControllers" id="y0Y-qR-ABq"/>
+                        <segue destination="Mt6-ZG-Hz3" kind="relationship" relationship="viewControllers" id="kww-k9-LZS"/>
+                        <segue destination="S8t-IZ-Y3e" kind="relationship" relationship="viewControllers" id="PiH-QC-U3g"/>
+                        <segue destination="LpN-sn-TNb" kind="relationship" relationship="viewControllers" id="0nd-nM-MQ7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="idi-2C-mzP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="100" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="88" y="-637"/>
+        </scene>
+        <!--Analytics-->
+        <scene sceneID="sKg-nh-Ykn">
+            <objects>
+                <navigationController title="Analytics" id="Mt6-ZG-Hz3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="oFJ-8o-0Qr"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="X0y-rc-2fm">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="yzb-Jc-vlQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vYx-0U-Bw0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-811" y="75"/>
         </scene>
         <!--AddUserMana-->
         <scene sceneID="Ofn-dR-Z9J">
             <objects>
-                <viewController id="zhB-G4-oSU" userLabel="AddUserMana" customClass="AdminManagement" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add User" id="zhB-G4-oSU" userLabel="AddUserMana" customClass="AdminManagement" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Dt-n5-kP0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -382,13 +402,13 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="1lB-82-9RW"/>
                             </scrollView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="rac-vb-NB6"/>
+                        <viewLayoutGuide key="safeArea" id="Ch5-p8-HUB"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
-                            <constraint firstItem="rac-vb-NB6" firstAttribute="bottom" secondItem="5uB-7Y-G1q" secondAttribute="bottom" id="29P-tC-Rbm"/>
-                            <constraint firstItem="5uB-7Y-G1q" firstAttribute="top" secondItem="rac-vb-NB6" secondAttribute="top" id="KrC-VU-jft"/>
-                            <constraint firstItem="5uB-7Y-G1q" firstAttribute="leading" secondItem="rac-vb-NB6" secondAttribute="leading" id="MC1-Jl-uHa"/>
-                            <constraint firstItem="rac-vb-NB6" firstAttribute="trailing" secondItem="5uB-7Y-G1q" secondAttribute="trailing" id="WT3-yc-4ZT"/>
+                            <constraint firstItem="Ch5-p8-HUB" firstAttribute="bottom" secondItem="5uB-7Y-G1q" secondAttribute="bottom" id="29P-tC-Rbm"/>
+                            <constraint firstItem="5uB-7Y-G1q" firstAttribute="top" secondItem="Ch5-p8-HUB" secondAttribute="top" id="KrC-VU-jft"/>
+                            <constraint firstItem="5uB-7Y-G1q" firstAttribute="leading" secondItem="Ch5-p8-HUB" secondAttribute="leading" id="MC1-Jl-uHa"/>
+                            <constraint firstItem="Ch5-p8-HUB" firstAttribute="trailing" secondItem="5uB-7Y-G1q" secondAttribute="trailing" id="WT3-yc-4ZT"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Uesr Manaegment" image="calendar.and.person" catalog="system" id="xDb-2O-m3X"/>
@@ -583,13 +603,13 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="DeL-Bn-tEP"/>
                             </scrollView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="rqq-DF-8mn"/>
+                        <viewLayoutGuide key="safeArea" id="c08-JE-ni8"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
-                            <constraint firstItem="rqq-DF-8mn" firstAttribute="bottom" secondItem="xRh-vA-KUw" secondAttribute="bottom" id="Egh-4O-l2D"/>
-                            <constraint firstItem="xRh-vA-KUw" firstAttribute="top" secondItem="rqq-DF-8mn" secondAttribute="top" id="FNZ-1a-5XO"/>
-                            <constraint firstItem="xRh-vA-KUw" firstAttribute="leading" secondItem="rqq-DF-8mn" secondAttribute="leading" id="WSQ-af-D5y"/>
-                            <constraint firstItem="rqq-DF-8mn" firstAttribute="trailing" secondItem="xRh-vA-KUw" secondAttribute="trailing" id="hZg-xx-Gtm"/>
+                            <constraint firstItem="c08-JE-ni8" firstAttribute="bottom" secondItem="xRh-vA-KUw" secondAttribute="bottom" id="Egh-4O-l2D"/>
+                            <constraint firstItem="xRh-vA-KUw" firstAttribute="top" secondItem="c08-JE-ni8" secondAttribute="top" id="FNZ-1a-5XO"/>
+                            <constraint firstItem="xRh-vA-KUw" firstAttribute="leading" secondItem="c08-JE-ni8" secondAttribute="leading" id="WSQ-af-D5y"/>
+                            <constraint firstItem="c08-JE-ni8" firstAttribute="trailing" secondItem="xRh-vA-KUw" secondAttribute="trailing" id="hZg-xx-Gtm"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Uesr Manaegment" image="calendar.and.person" catalog="system" id="sVi-gN-2la"/>
@@ -773,13 +793,13 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="thW-Vh-O0S"/>
                             </scrollView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Bf4-TB-oSg"/>
+                        <viewLayoutGuide key="safeArea" id="3ba-oB-HjT"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
-                            <constraint firstItem="Bf4-TB-oSg" firstAttribute="trailing" secondItem="kx6-Lb-DgY" secondAttribute="trailing" id="S1O-9N-dNQ"/>
-                            <constraint firstItem="kx6-Lb-DgY" firstAttribute="leading" secondItem="Bf4-TB-oSg" secondAttribute="leading" id="dve-9L-xwT"/>
-                            <constraint firstItem="Bf4-TB-oSg" firstAttribute="bottom" secondItem="kx6-Lb-DgY" secondAttribute="bottom" id="n4N-If-idK"/>
-                            <constraint firstItem="kx6-Lb-DgY" firstAttribute="top" secondItem="Bf4-TB-oSg" secondAttribute="top" id="qZ7-Gb-neP"/>
+                            <constraint firstItem="3ba-oB-HjT" firstAttribute="trailing" secondItem="kx6-Lb-DgY" secondAttribute="trailing" id="S1O-9N-dNQ"/>
+                            <constraint firstItem="kx6-Lb-DgY" firstAttribute="leading" secondItem="3ba-oB-HjT" secondAttribute="leading" id="dve-9L-xwT"/>
+                            <constraint firstItem="3ba-oB-HjT" firstAttribute="bottom" secondItem="kx6-Lb-DgY" secondAttribute="bottom" id="n4N-If-idK"/>
+                            <constraint firstItem="kx6-Lb-DgY" firstAttribute="top" secondItem="3ba-oB-HjT" secondAttribute="top" id="qZ7-Gb-neP"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Uesr Manaegment" image="calendar.and.person" catalog="system" id="m1W-K8-0lm"/>
@@ -788,6 +808,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3SP-8L-tQk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1027" y="1515"/>
+        </scene>
+        <!--User Management-->
+        <scene sceneID="VGe-C9-Raq">
+            <objects>
+                <navigationController title="User Management" id="S8t-IZ-Y3e" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="User Management" image="calendar.and.person" catalog="system" id="JCD-O5-zw3"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Ypz-P3-k9c">
+                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="zma-US-vkL" kind="relationship" relationship="rootViewController" id="NQL-RJ-iH8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fV3-kI-0KW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="88" y="75"/>
+        </scene>
+        <!--More-->
+        <scene sceneID="DEq-hm-yFb">
+            <objects>
+                <navigationController title="More" id="LpN-sn-TNb" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="swE-ox-4gP"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="y1o-IX-xhv">
+                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="f8N-RI-tDb" kind="relationship" relationship="rootViewController" id="YE1-8Q-uEN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OY3-wG-MXI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1027" y="75"/>
         </scene>
     </scenes>
     <resources>

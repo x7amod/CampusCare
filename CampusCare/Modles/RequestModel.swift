@@ -18,6 +18,7 @@ struct RequestModel {
     let inProgressDate: Timestamp?
     let completedDate: Timestamp?
     let lastUpdateDate: Timestamp?
+    let deadline: Timestamp?
     
     //  Initializers
     
@@ -71,6 +72,7 @@ struct RequestModel {
         self.inProgressDate = data["inProgressDate"] as? Timestamp
         self.completedDate = data["completedDate"] as? Timestamp
         self.lastUpdateDate = data["lastUpdateDate"] as? Timestamp
+        self.deadline = data["deadline"] as? Timestamp
         
         // Debug print - FIXED: Use .formattedString instead of .toString()
         print("Created RequestModel: \(title) for tech: \(assignTechID)")

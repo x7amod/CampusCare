@@ -98,12 +98,12 @@ class Schedule: UIViewController,
         tasks.register(UITableViewCell.self, forCellReuseIdentifier: "TaskCell")
 
         // Header
-        let headerView = Bundle.main
-            .loadNibNamed("CampusCareHeader", owner: nil, options: nil)?
-            .first as! CampusCareHeader
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        headerView.setTitle("My Schedule")
-        view.addSubview(headerView)
+//        let headerView = Bundle.main
+//            .loadNibNamed("CampusCareHeader", owner: nil, options: nil)?
+//            .first as! CampusCareHeader
+//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+//        headerView.setTitle("My Schedule")
+//        view.addSubview(headerView)
         
         // Debug existing data
         debugFirestoreData()

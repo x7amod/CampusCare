@@ -69,11 +69,11 @@ class ManagerAnalytics: UIViewController {
         styleCard(pendingTasksCardView)
         styleCard(completedTasksCardView)
         
-        if let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as? CampusCareHeader {
-            headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-            view.addSubview(headerView)
-            headerView.setTitle("Analytics")
-        }
+//        if let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as? CampusCareHeader {
+//            headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+//            view.addSubview(headerView)
+//            headerView.setTitle("Analytics")
+//        }
 
     }
 

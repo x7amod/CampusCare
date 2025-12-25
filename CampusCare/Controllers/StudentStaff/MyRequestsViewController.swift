@@ -59,14 +59,14 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // custom header
-        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-        let headerHeight: CGFloat = 80
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: headerHeight)
-        view.addSubview(headerView)
-        
-        // Set page title
-        headerView.setTitle("My Requests")
+//        // custom header
+//        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
+//        let headerHeight: CGFloat = 80
+//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: headerHeight)
+//        view.addSubview(headerView)
+//        
+//        // Set page title
+//        headerView.setTitle("My Requests")
         
         searchBar.delegate = self
         searchBar.showsCancelButton = false

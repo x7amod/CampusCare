@@ -239,13 +239,14 @@ final class RequestCollection {
                 }
         }
         
-        func assignRequest(reqID: String, techID: String, assignedDate: Timestamp, completion: @escaping (Result<Void, Error>) -> Void) {
+        func assignRequest(reqID: String, techID: String, assignedDate: Timestamp, deadline: Timestamp, completion: @escaping (Result<Void, Error>) -> Void) {
             let requestDocRef = requestsCollectionRef.document(reqID)
             
             //  update fieldss
             let updateData: [String: Any] = [
                 "assignTechID": techID,
                 "assignedDate": assignedDate,
+                "deadline": deadline,
                 "status": "Assigned"
             ]
             
