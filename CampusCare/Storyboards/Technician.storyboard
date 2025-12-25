@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--To-do list-->
+        <!--To-Do List-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="TechList" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="To-Do List" id="Y6W-OH-hqX" customClass="TechList" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,6 +55,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="To-do list" image="calendar.badge.checkmark.rtl" catalog="system" id="eKk-cF-uWN"/>
+                    <navigationItem key="navigationItem" title="To-Do List" id="0O7-8n-nb8"/>
                     <connections>
                         <outlet property="techSearch" destination="vhq-ew-YdV" id="Ea7-yI-Z5c"/>
                         <outlet property="techStack" destination="ZDq-DV-QuY" id="d3X-pX-cyv"/>
@@ -62,7 +63,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-622.13740458015263" y="764.78873239436621"/>
+            <point key="canvasLocation" x="-653" y="1576"/>
         </scene>
         <!--Tech Details-->
         <scene sceneID="an9-GX-ymf">
@@ -187,7 +188,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hnG-C6-s8F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-666.41221374045801" y="1441.549295774648"/>
+            <point key="canvasLocation" x="-697" y="2253"/>
+        </scene>
+        <!--To-Do List-->
+        <scene sceneID="niu-Wm-Y3e">
+            <objects>
+                <navigationController id="z7s-8W-X3r" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="To-Do List" image="calendar.badge.checkmark.rtl" catalog="system" id="rS0-wM-cJI"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="7Id-HC-e4c">
+                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="KYZ-Dm-RP7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1mm-e1-L8j" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-654" y="858"/>
         </scene>
         <!--Schedule-->
         <scene sceneID="0Aw-Nk-3mJ">
@@ -208,10 +226,10 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" id="5ix-Y4-7PH">
-                                        <rect key="frame" x="0.0" y="50" width="404" height="47.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="404" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5ix-Y4-7PH" id="Edi-DE-VMj">
-                                            <rect key="frame" x="0.0" y="0.0" width="404" height="47.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="404" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -222,6 +240,7 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="ABU-gc-rQD"/>
+                    <navigationItem key="navigationItem" title="Schedule" id="Mya-SR-LKd"/>
                     <connections>
                         <outlet property="calendar" destination="Ucg-Nm-ktT" id="Wcj-or-YBk"/>
                         <outlet property="tasks" destination="IbW-Xh-V5Y" id="ieg-p8-7tE"/>
@@ -229,7 +248,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0xv-QZ-WLS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="188.54961832061068" y="764.78873239436621"/>
+            <point key="canvasLocation" x="158" y="1576"/>
         </scene>
         <!--More-->
         <scene sceneID="7Eb-lp-8pU">
@@ -238,6 +257,16 @@
                     <view key="view" contentMode="scaleToFill" id="bj1-Dn-kBN">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y6A-ji-DpL">
+                                <rect key="frame" x="38" y="233" width="316" height="350"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">?? idk what is this here (left side) please check if u have done something to this page cause I can't make the nav bar show up (header)</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Qfu-2i-SHf"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
@@ -245,7 +274,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKp-c3-bWf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1901.5267175572519" y="763.38028169014092"/>
+            <point key="canvasLocation" x="1870.9923664122136" y="1574.6478873239437"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="JpH-CH-cbc">
@@ -258,21 +287,57 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="xVd-FD-xxw"/>
-                        <segue destination="kbx-lu-dr0" kind="relationship" relationship="viewControllers" id="03A-1C-6r7"/>
-                        <segue destination="Gbd-sR-WhJ" kind="relationship" relationship="viewControllers" id="JN1-hg-DdM"/>
+                        <segue destination="z7s-8W-X3r" kind="relationship" relationship="viewControllers" id="0Ul-uT-Ixl"/>
+                        <segue destination="abV-0x-NY4" kind="relationship" relationship="viewControllers" id="lI7-gY-qm5"/>
+                        <segue destination="K43-nA-NUY" kind="relationship" relationship="viewControllers" id="1Sg-Gu-wF6"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAV-2W-imS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.64122137404578" y="3.5211267605633805"/>
         </scene>
+        <!--Schedule-->
+        <scene sceneID="EWS-De-6e7">
+            <objects>
+                <navigationController id="abV-0x-NY4" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="2hq-t7-RtM"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="HZc-r6-4WL">
+                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="kbx-lu-dr0" kind="relationship" relationship="rootViewController" id="Rb8-Zv-Iac"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BWw-HO-46i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="858"/>
+        </scene>
+        <!--More-->
+        <scene sceneID="MXV-od-FlX">
+            <objects>
+                <navigationController id="K43-nA-NUY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="sa6-Xh-YoH"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="emi-tk-aHk">
+                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Gbd-sR-WhJ" kind="relationship" relationship="rootViewController" id="Loi-Fm-rNg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6nb-TD-gXE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="859"/>
+        </scene>
         <!--More-->
         <scene sceneID="jbj-Y4-IGb">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cMM-v3-AZu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Gbd-sR-WhJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="LE8-4i-aRi"/>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="EQY-NN-QNE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cHY-zj-zzU">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -282,9 +347,8 @@
                         <segue destination="X82-xq-pUb" kind="relationship" relationship="rootViewController" id="2tN-bl-pw7"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cMM-v3-AZu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="974.80916030534343" y="763.38028169014092"/>
+            <point key="canvasLocation" x="944" y="1575"/>
         </scene>
     </scenes>
     <resources>
@@ -301,7 +365,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tableCellPlainBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

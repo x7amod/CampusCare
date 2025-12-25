@@ -66,7 +66,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Requests" image="calendar" catalog="system" id="neG-Qb-GNq"/>
-                    <navigationItem key="navigationItem" id="S9I-Cl-0eb"/>
+                    <navigationItem key="navigationItem" title="Requests" id="S9I-Cl-0eb"/>
                     <connections>
                         <outlet property="filterDrop" destination="xix-XF-baM" id="myh-Or-tuD"/>
                         <outlet property="searchBar" destination="Xfn-xy-PhQ" id="qfX-nK-Hah"/>
@@ -75,7 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-44.776119402985074" y="783.98169336384433"/>
+            <point key="canvasLocation" x="10" y="1463"/>
         </scene>
         <!--Manger Details-->
         <scene sceneID="VNe-AA-h4A">
@@ -217,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UzM-Sv-s6o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2429.8507462686566" y="1512.3569794050343"/>
+            <point key="canvasLocation" x="2442" y="1463"/>
         </scene>
         <!--Manger Assign-->
         <scene sceneID="N20-lC-jY4">
@@ -288,7 +288,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="th2-nT-JW5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2428.3582089552237" y="2316.2471395881007"/>
+            <point key="canvasLocation" x="2442" y="2191"/>
         </scene>
         <!--Analytics-->
         <scene sceneID="Bik-Yl-hfl">
@@ -398,6 +398,7 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="a6Z-H8-BEP"/>
+                    <navigationItem key="navigationItem" title="Analytics" id="Iyz-0o-M7b"/>
                     <connections>
                         <outlet property="chartContainerView" destination="hrY-L1-dTZ" id="ZF2-zg-Keb"/>
                         <outlet property="chartTitle" destination="ajk-oE-NAA" id="eWB-gz-k3x"/>
@@ -412,7 +413,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4nS-3v-Kxa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="732.83582089552237" y="783.98169336384433"/>
+            <point key="canvasLocation" x="788" y="1463"/>
         </scene>
         <!--More-->
         <scene sceneID="KHp-b9-7eg">
@@ -425,10 +426,11 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="bcL-Vd-aiX"/>
+                    <navigationItem key="navigationItem" title="More" id="61z-rf-b3E"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NMm-i3-aYw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2057.2519083969464" y="754.92957746478874"/>
+            <point key="canvasLocation" x="1597" y="1463"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="esq-xZ-8VY">
@@ -441,14 +443,65 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="5kD-lL-2z6"/>
-                        <segue destination="2SY-Fs-L6p" kind="relationship" relationship="viewControllers" id="h74-wy-8nA"/>
-                        <segue destination="RVS-Py-SWA" kind="relationship" relationship="viewControllers" id="bN8-Vq-0s3"/>
+                        <segue destination="TWQ-73-Uh8" kind="relationship" relationship="viewControllers" id="uBG-9n-Isb"/>
+                        <segue destination="bzk-fU-l9L" kind="relationship" relationship="viewControllers" id="vvF-Yv-S8F"/>
+                        <segue destination="DJ5-y0-JHh" kind="relationship" relationship="viewControllers" id="APr-bM-jNT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X5z-DY-1oL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="436" y="8"/>
+        </scene>
+        <!--Requests-->
+        <scene sceneID="6Xz-FR-8rl">
+            <objects>
+                <navigationController title="Requests" id="TWQ-73-Uh8" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Requests" image="calendar" catalog="system" id="5c6-KW-h1a"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="4B6-oP-1Ik">
+                        <rect key="frame" x="0.0" y="124" width="402" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="P7O-hh-L1s"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mRd-fm-waW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="9" y="770"/>
+        </scene>
+        <!--Analytics-->
+        <scene sceneID="Pse-ze-HRd">
+            <objects>
+                <navigationController title="Analytics" id="bzk-fU-l9L" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="TxY-3N-TlA"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="zur-zJ-34A">
+                        <rect key="frame" x="0.0" y="124" width="402" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2SY-Fs-L6p" kind="relationship" relationship="rootViewController" id="Ysq-nS-qfe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G3F-qk-JJi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="787" y="770"/>
+        </scene>
+        <!--More-->
+        <scene sceneID="cr1-G7-e3z">
+            <objects>
+                <navigationController title="More" id="DJ5-y0-JHh" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="e7g-Nb-f78"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Aq8-py-sVl">
+                        <rect key="frame" x="0.0" y="124" width="402" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="RVS-Py-SWA" kind="relationship" relationship="rootViewController" id="t5P-xF-NlL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ofh-mV-mpQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1596" y="763"/>
         </scene>
     </scenes>
     <resources>
@@ -468,7 +521,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

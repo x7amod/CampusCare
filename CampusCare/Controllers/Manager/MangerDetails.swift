@@ -30,7 +30,7 @@ class MangerDetails: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupHeader()
+        //setupHeader()
         setupBackButton()
         usersCollection.isCurrentUserManager { [weak self] isManager in
             DispatchQueue.main.async {

@@ -21,7 +21,7 @@ class MangerAssign: UIViewController {
         return RequestStore.shared.currentRequest
     }
     
-    private let usersCollection = UsersCollection.shared
+    private let usersCollection = UsersCollection()
     private var technicians: [UserModel] = []
     private var selectedTechnician: UserModel?
 
@@ -33,103 +33,54 @@ class MangerAssign: UIViewController {
         }
 
 //        print("print req id before assign: ", requestId)
-        setupHeader()
-        usersCollection.isCurrentUserManager { [weak self] isManager in
-            DispatchQueue.main.async {
-                if isManager {
-                    self?.fetchTechnicians()
-                    self?.setupDropdown()
-                    self?.setupPicker()
-                } else {
-                    self?.showSimpleAlert(title: "Access Denied", message: "You are not authorized to view requests.")
-                }
-            }
-        }
+        //setupHeader()
+        fetchTechnicians()
+        setupDropdown()
+        setupPicker()
     }
     
     
     private func setupPicker() {
           picker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) // Tomorrow onwards
       }
-    
     @IBAction func Assign(_ sender: Any) {
-        // is current user is Manager
-        usersCollection.isCurrentUserManager { [weak self] isManager in
-            guard let self = self else { return }
+        guard let req = self.request else {
+            print(" ERROR: Request is nil")
+            return
+        }
+        
+        guard let tech = selectedTechnician else {
+            print(" ERROR: No technician selected")
+            return
+        }
 
-            DispatchQueue.main.async {
-                if !isManager {
-                    self.showSimpleAlert(
-                        title: "Access Denied",
-                        message: "You are not authorized to assign requests."
-                    )
-                    return
-                }
-
-                // Check if the request exists
-                guard let req = self.request else {
-                    // print(" ERROR: Request is nil")
-                    self.showSimpleAlert(
-                        title: "Error",
-                        message: "Request is nil"
-                    )
-                    return
-                }
-                
-                // 3️⃣ Check if a technician is selected
-                guard let tech = self.selectedTechnician else {
-                    self.showSimpleAlert(
-                        title: "Error",
-                        message: "No technician selected"
-                    )
-                    
-                    print(" ERROR: No technician selected")
-                    return
-                }
-
-                //  Check if assigned date is valid
-                let assignedDate = self.picker.date  // Date object
+        let assignedDate = picker.date  // Date object
                 let now = Calendar.current.startOfDay(for: Date())
                 let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: now)!
 
                 //  if the selected date is valid
                 if assignedDate < tomorrow {
-                    self.showSimpleAlert(
-                        title: "Error",
-                        message: "Invalid date"
-                    )
                     print("Invalid Date")
                     return
                 }
 
                 let timestamp = Timestamp(date: assignedDate)
-                
-                //  Assign the request
-                let requestCollection = RequestCollection()
-                requestCollection.assignRequest(reqID: req.id, techID: tech.id, assignedDate: timestamp) { result in
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success():
-                            // Request assigned successfully
-                            self.showSimpleAlert(
-                                title: "alret",
-                                message: "Request assigned successfully"
-                            )
-                            // print(" Request assigned successfully")
-                            
-                            // back to Manager Requests
-                            if let managerRequestVC = self.storyboard?.instantiateViewController(withIdentifier: "MangerRequest") {
-                                self.present(managerRequestVC, animated: true)
-                            }
-                            
-                            // clearing the request from the store
-                            RequestStore.shared.currentRequest = nil
-                            
-                        case .failure(let error):
-                            print(" Failed to assign request: \(error.localizedDescription)")
-                        }
+        
+        
+        let requestCollection = RequestCollection()
+        requestCollection.assignRequest(reqID: req.id, techID: tech.id, assignedDate: timestamp) { result in
+            switch result {
+            case .success():
+                print(" Request assigned successfully")
+                DispatchQueue.main.async {
+                    if let managerRequestVC = self.storyboard?.instantiateViewController(withIdentifier: "MangerRequest") {
+                        self.present(managerRequestVC, animated: true)
                     }
                 }
+                // clearing the request from the store
+                RequestStore.shared.currentRequest = nil
+            case .failure(let error):
+                print(" Failed to assign request: \(error.localizedDescription)")
             }
         }
     }

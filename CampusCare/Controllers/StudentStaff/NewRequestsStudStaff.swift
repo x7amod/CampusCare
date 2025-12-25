@@ -10,26 +10,21 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class NewRequestsStudStaff: UIViewController {
-    var selectedCategory: String = ""
-    var selectedPriority: String = ""
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        descriptionTextView.text = ""
-        
 
-        // Do any additional setup after loading the view.
-        let headerView = Bundle.main.loadNibNamed("CampusCareHeader",owner:nil,options:nil)?.first as! CampusCareHeader
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        view.addSubview(headerView)
-        
-        // Set page-specific title
-        headerView.setTitle("New Requests")  // Change this for each screen
+//        // Do any additional setup after loading the view.
+//        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
+//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+//        view.addSubview(headerView)
+//        
+//        // Set page-specific title
+//           headerView.setTitle("New Requests")  // Change this for each screen
         
         
         setupDropdownButton(categoryButton)
-        setupDropdownButton(priorityButton)
+          setupDropdownButton(priorityButton)
         
         
         func setupDropdownButton(_ button: UIButton) {
@@ -45,68 +40,59 @@ class NewRequestsStudStaff: UIViewController {
             button.layer.cornerRadius = 8
             button.backgroundColor = UIColor.systemGray6
         }
+    
+
     }
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var categoryButton: UIButton!
-    @IBOutlet weak var priorityButton: UIButton!
-    @IBOutlet weak var descriptionTextView: UITextView!
-    
-    
-    
     @IBAction func categoryTapped(_ sender: UIButton) {
         let alert = UIAlertController(
-            title: "Select Category",
-            message: nil,
-            preferredStyle: .actionSheet
-        )
+                title: "Select Category",
+                message: nil,
+                preferredStyle: .actionSheet
+            )
 
-        let categories = [
-            "Electrical", "Plumbing", "AC",
-            "Network/WIFI", "IT Equipment",
-            "Safety & Equipment", "Building/Structural", "Other"
-        ]
+            let categories = ["Electrical", "Plumbing", "AC", "Network/WIFI" , "IT Equipment", "Safety & Equipment", "Building/Structural", "Other"]
 
-        for category in categories {
-            alert.addAction(UIAlertAction(title: category, style: .default) { _ in
-                self.selectedCategory = category
-                sender.setTitle(category, for: .normal)
-            })
-        }
+            for category in categories {
+                alert.addAction(UIAlertAction(title: category, style: .default) { _ in
+                    self.selectedCategory = category
+                    sender.setTitle(category, for: .normal)
+                })
+            }
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(alert, animated: true)
+        
+        
     }
-
     
-    
-    
+    @IBOutlet weak var priorityButton: UIButton!
     @IBAction func priorityTapped(_ sender: UIButton) {
         let alert = UIAlertController(
-            title: "Select Priority",
-            message: nil,
-            preferredStyle: .actionSheet
-        )
+                title: "Select Priority",
+                message: nil,
+                preferredStyle: .actionSheet
+            )
 
-        let priorities = ["Low", "Medium", "High"]
+            let priorities = ["Low", "Medium", "High"]
 
-        for priority in priorities {
-            alert.addAction(UIAlertAction(title: priority, style: .default) { _ in
-                self.selectedPriority = priority
-                sender.setTitle(priority, for: .normal)
-            })
-        }
+            for priority in priorities {
+                alert.addAction(UIAlertAction(title: priority, style: .default) { _ in
+                    self.selectedPriority = priority
+                    sender.setTitle(priority, for: .normal)
+                })
+            }
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            present(alert, animated: true)
+        
     }
-
     
+    @IBOutlet weak var descriptionTextView: UITextView!
     
-    
-    
-    //for designinng the photo border
     @IBOutlet weak var uplodingPhotoButton: UIButton!
     func addDashedBorder() {
         let layer = CAShapeLayer()
@@ -117,32 +103,29 @@ class NewRequestsStudStaff: UIViewController {
         layer.path = UIBezierPath(roundedRect: uplodingPhotoButton.bounds, cornerRadius: 8).cgPath
         uplodingPhotoButton.layer.addSublayer(layer)
     }
-    
-    
     @IBAction func uplodingPhotoTapped(_ sender: UIButton) {
-    openImagePicker()
+        openImagePicker()
     }
     
-    //this is for selecting one of the options (uploading photo/taking photo)
     func openImagePicker() {
-    let alert = UIAlertController(
-    title: "Select Photo",
-    message: nil,
-    preferredStyle: .actionSheet
-    )
+        let alert = UIAlertController(
+            title: "Select Photo",
+            message: nil,
+            preferredStyle: .actionSheet
+        )
 
-    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-    alert.addAction(UIAlertAction(title: "Camera", style: .default) { _ in
-    self.openPicker(sourceType: .camera)
-    })
-    }
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(UIAlertAction(title: "Camera", style: .default) { _ in
+                self.openPicker(sourceType: .camera)
+            })
+        }
 
-    alert.addAction(UIAlertAction(title: "Photo Library", style: .default) { _ in
-    self.openPicker(sourceType: .photoLibrary)
-    })
+        alert.addAction(UIAlertAction(title: "Photo Library", style: .default) { _ in
+            self.openPicker(sourceType: .photoLibrary)
+        })
 
-    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    present(alert, animated: true)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(alert, animated: true)
     }
     
     func openPicker(sourceType: UIImagePickerController.SourceType) {
@@ -154,87 +137,73 @@ class NewRequestsStudStaff: UIViewController {
     }
     
     
- 
-    
-
     
     
     
-    
-    
-    
-    
-    // to Submit button and save to firebase
     @IBAction func submitButtonTapped(_ sender: Any) {
-
-        let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let location = locationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let description = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-
-        if title.isEmpty ||
-           location.isEmpty ||
-           selectedCategory.isEmpty ||
-           selectedPriority.isEmpty ||
-           description.isEmpty {
-
-            showAlert(title: "Error", message: "Please fill all fields")
-            return
-        }
-
-        let userId = Auth.auth().currentUser?.uid ?? "test-user"
-        let ticketId = generateTicketId()
-
-        let data: [String: Any] = [
-            "ticketId": ticketId,
-            "title": title,
-            "location": location,
-            "category": selectedCategory,
-            "priority": selectedPriority,
-            "description": description,
-            "status": "Pending",
-            "userId": userId,
-            "createdAt": Timestamp()
-        ]
-
-        Firestore.firestore()
-            .collection("Requests")
-            .addDocument(data: data) { error in
-                if let error = error {
-                    self.showAlert(title: "Error", message: error.localizedDescription)
-                    return
-                }
-
-                self.showSuccessAlert(ticketId: ticketId)
+        guard let title = titleTextField.text, !title.isEmpty,
+                  let location = locationTextField.text, !location.isEmpty,
+                  let category = selectedCategory,
+                  let priority = selectedPriority else {
+                showAlert("Please fill all fields")
+                return
             }
+
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+
+            let data: [String: Any] = [
+                "title": title,
+                "location": location,
+                "category": category,
+                "priority": priority,
+                "description": descriptionTextView.text ?? "",
+                "status": "pending",
+                "createdBy": uid,
+                "createdAt": Timestamp(date: Date())
+            ]
+
+            db.collection("repairRequests").addDocument(data: data) { _ in
+                self.navigationController?.popViewController(animated: true)
+            }
+        func showAlert(_ message: String) {
+            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
     }
-
     
-    func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-
-
+    var selectedCategory: String?
+    var selectedPriority: String?
     
-   
     let db = Firestore.firestore()
     
    
+    
+    
     override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    addDashedBorder()
-    }
-   }
+           super.viewDidLayoutSubviews()
+           addDashedBorder()
+       }
+    
+    
+    
+    
+    
+   
+    
+    
+    
     
 
+    
+   }
+    
 extension NewRequestsStudStaff: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
-    )
-    {
+    ) {
         picker.dismiss(animated: true)
 
         if let image = info[.editedImage] as? UIImage {
@@ -247,35 +216,6 @@ extension NewRequestsStudStaff: UIImagePickerControllerDelegate, UINavigationCon
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
-    
-   
-    func generateTicketId() -> String {
-        let random = Int.random(in: 01...9999)
-        return "Ticket ID-\(random)"
-    }
-
-    
-    
-    //Return user to Home
-    func goToHomeTab() {
-        tabBarController?.selectedIndex = 0
-    }
-    //Success popup
-    func showSuccessAlert(ticketId: String) {
-        let alert = UIAlertController(
-            title: "Success",
-            message: "Request submitted successfully.\nTicket ID: \(ticketId)",
-            preferredStyle: .alert
-        )
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            self.goToHomeTab()
-        })
-        present(alert, animated: true)
-    }
-
-    
-    
 }
 
     
