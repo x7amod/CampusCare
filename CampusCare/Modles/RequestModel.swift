@@ -27,6 +27,7 @@ struct RequestModel {
     let inProgressDate: Timestamp?
     let completedDate: Timestamp?
     let lastUpdateDate: Timestamp?
+    let deadline: Timestamp?
 }
 
 extension RequestModel {
@@ -54,6 +55,8 @@ extension RequestModel {
         let inProgressDate = data["inProgressDate"] as? Timestamp
         let completedDate = data["completedDate"] as? Timestamp
         let lastUpdateDate = data["lastUpdateDate"] as? Timestamp
+        let deadline = data["deadline"] as? Timestamp
+        
 
 
         self.id = document.documentID
@@ -74,6 +77,7 @@ extension RequestModel {
         self.inProgressDate = inProgressDate
         self.completedDate = completedDate
         self.lastUpdateDate = lastUpdateDate
+        self.deadline = deadline
 
     }
 }
