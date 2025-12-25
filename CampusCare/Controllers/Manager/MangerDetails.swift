@@ -29,9 +29,9 @@ class MangerDetails: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Request Details"
         //setupHeader()
-        setupBackButton()
+
         usersCollection.isCurrentUserManager { [weak self] isManager in
             DispatchQueue.main.async {
                 if isManager {
@@ -52,14 +52,6 @@ class MangerDetails: UIViewController {
         }
     }
 
-    // back Button
-    private func setupBackButton() {
-        let backButton = UIButton(frame: CGRect(x: 16, y: 50, width: 60, height: 30))
-        backButton.setTitle("Back", for: .normal)
-        backButton.setTitleColor(.systemBackground, for: .normal)
-        backButton.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
-        view.addSubview(backButton)
-    }
 
     //  Request
     private func populateRequestDetails() {
@@ -144,13 +136,10 @@ class MangerDetails: UIViewController {
         let storyboard = UIStoryboard(name: "TechManager", bundle: nil)
         let assignVC = storyboard.instantiateViewController(withIdentifier: "MangerAssign") as! MangerAssign
         assignVC.modalPresentationStyle = .fullScreen
-        self.present(assignVC, animated: true)
+        self.navigationController?.pushViewController(assignVC, animated: true)
+
     }
 
-    // close
-    @objc func closeVC() {
-        dismiss(animated: true)
-    }
-
+  
 
 }

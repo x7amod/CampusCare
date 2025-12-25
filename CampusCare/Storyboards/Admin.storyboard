@@ -76,24 +76,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VlM-BO-Vyv">
-                                <rect key="frame" x="16" y="339" width="361" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Request Number"/>
-                                    <segment title="Priority-level"/>
-                                </segments>
-                                <connections>
-                                    <action selector="chartChange:" destination="Y6W-OH-hqX" eventType="valueChanged" id="zcE-MD-bQZ"/>
-                                </connections>
-                            </segmentedControl>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SXf-WX-tX2">
-                                <rect key="frame" x="16" y="386" width="361" height="307"/>
+                                <rect key="frame" x="16" y="353" width="361" height="307"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slg-5H-nrb">
-                                <rect key="frame" x="205" y="181" width="172" height="128"/>
+                                <rect key="frame" x="212" y="132" width="172" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SD8-6Q-fu7">
@@ -124,7 +113,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dxF-E0-aQ6">
-                                <rect key="frame" x="16" y="181" width="172" height="128"/>
+                                <rect key="frame" x="16" y="132" width="172" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Avaliable Technician" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTx-Vv-W86">
@@ -155,7 +144,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8G-cN-1ff">
-                                <rect key="frame" x="16" y="727" width="361" height="40"/>
+                                <rect key="frame" x="16" y="710" width="361" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="ButtonsColor"/>
                                 <color key="tintColor" name="text_not_selected"/>
@@ -173,6 +162,17 @@
                                     <action selector="genReport:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Flw-60-gc6"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VlM-BO-Vyv">
+                                <rect key="frame" x="16" y="305" width="361" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Request Number"/>
+                                    <segment title="Priority-level"/>
+                                </segments>
+                                <connections>
+                                    <action selector="chartChange:" destination="Y6W-OH-hqX" eventType="valueChanged" id="zcE-MD-bQZ"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LbC-d1-RUc"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -216,8 +216,8 @@
             <objects>
                 <navigationController title="Analytics" id="Mt6-ZG-Hz3" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="oFJ-8o-0Qr"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="X0y-rc-2fm">
-                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="X0y-rc-2fm">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -860,7 +860,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

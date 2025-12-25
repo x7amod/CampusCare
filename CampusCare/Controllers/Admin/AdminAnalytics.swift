@@ -15,7 +15,7 @@ class AdminAnalytics: UIViewController {
     @IBOutlet weak var techNum: UILabel!
     @IBOutlet weak var reqNum: UILabel!
     @IBOutlet weak var chartContainer: UIView!
-    @IBOutlet weak var OpenRequestView: UIView!
+    @IBOutlet weak  var OpenRequestView: UIView!
     @IBOutlet weak var AvTechView: UIView!
     
     //collection
