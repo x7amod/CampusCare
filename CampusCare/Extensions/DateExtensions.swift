@@ -69,6 +69,56 @@ import FirebaseFirestore
  */
 
 extension Date {
+    func utcString() -> String {
+         let formatter = DateFormatter()
+         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+         formatter.timeZone = TimeZone(identifier: "UTC")
+         return formatter.string(from: self)
+     }
+     
+     func toStringLocal(format: String = "yyyy-MM-dd HH:mm:ss Z") -> String {
+         let formatter = DateFormatter()
+         formatter.dateFormat = format
+         formatter.timeZone = TimeZone.current
+         return formatter.string(from: self)
+     }
+
+    
+    var formattedString: String {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+           formatter.timeZone = TimeZone.current
+           return formatter.string(from: self)
+       }
+       
+       func normalized() -> Date {
+           let calendar = Calendar.current
+           let components = calendar.dateComponents([.year, .month, .day], from: self)
+           return calendar.date(from: components) ?? self
+       }
+       
+       // For debugging - local time string
+       /*func toStringLocal(format: String = "yyyy-MM-dd HH:mm:ss") -> String {
+           let formatter = DateFormatter()
+           formatter.dateFormat = format
+           formatter.timeZone = TimeZone.current
+           return formatter.string(from: self)
+       }*/
+
+    // Remove the parameter to avoid ambiguity
+       var toString: String {
+           let formatter = DateFormatter()
+           formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+           formatter.timeZone = TimeZone.current
+           return formatter.string(from: self)
+       }
+       
+      
+
+    //added by malak i need for the calnedar
+  
+    
+    
     /// Converts a Date to a "time ago" display format (e.g., "2 hours ago", "3 days ago")
     func timeAgoDisplay() -> String {
         let formatter = RelativeDateTimeFormatter()
@@ -95,11 +145,21 @@ extension Date {
 }
 
 extension Timestamp {
+    
+    func toReadableString() -> String {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .short
+            formatter.timeZone = TimeZone.current
+            return formatter.string(from: self.dateValue())
+        }
+
+
     /// Converts a Firebase Timestamp to a readable Date string
     /// Example: "Dec 24, 2025 at 3:30 PM"
-    func toReadableString() -> String {
+    /*func toReadableString() -> String {
         return self.dateValue().toReadableString()
-    }
+    }*/
     
     /// Converts a Firebase Timestamp to a readable Date string with custom styles
     func toReadableString(dateStyle: DateFormatter.Style, timeStyle: DateFormatter.Style) -> String {
