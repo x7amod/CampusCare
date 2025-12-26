@@ -17,6 +17,99 @@ class Schedule: UIViewController,
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var tasks: UITableView!
     
+    @IBOutlet weak var monthLabel: UILabel!
+    
+    @IBOutlet weak var monthPicker: UIDatePicker!
+    
+    @IBAction func previousMonthTapped(_ sender: UIButton) {
+        
+        moveCurrentPage(to: -1)
+    }
+    
+    
+    @IBAction func nextMonthTapped(_ sender: UIButton) {
+        
+        moveCurrentPage(to: 1)
+    }
+    
+    func moveCurrentPage(to offset: Int) {
+        let currentPage = calendar.currentPage
+        var dateComponents = DateComponents()
+        dateComponents.month = offset
+        if let newPage = Calendar.current.date(byAdding: dateComponents, to: currentPage) {
+            calendar.setCurrentPage(newPage, animated: true)
+            updateMonthLabel(for: newPage)
+        }
+    }
+
+    func updateMonthLabel(for date: Date) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        monthLabel.text = formatter.string(from: date)
+    }
+    
+    
+    @objc func monthLabelTapped() {
+        // Create a view controller for the picker
+        let pickerVC = UIViewController()
+        pickerVC.preferredContentSize = CGSize(width: view.frame.width, height: 250)
+        
+        // Create the date picker
+        let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 250))
+        picker.datePickerMode = .date
+        picker.preferredDatePickerStyle = .wheels
+        picker.locale = Locale(identifier: "en_US")
+        
+        pickerVC.view.addSubview(picker)
+        
+        // Present as action sheet
+        let alert = UIAlertController(title: "Select Date", message: nil, preferredStyle: .actionSheet)
+        alert.setValue(pickerVC, forKey: "contentViewController")
+        
+        // Done action
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+            let selectedDate = picker.date
+            
+            // Scroll FSCalendar to the selected month
+            self.calendar.setCurrentPage(selectedDate, animated: true)
+            self.calendar.select(selectedDate)
+            self.updateMonthLabel(for: selectedDate)
+            self.fetchTasks(for: selectedDate)
+        }))
+        
+        // Cancel action
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(alert, animated: true)
+    }
+
+    
+    func showSelectedDate(date: Date) {
+        // Set FSCalendar to the selected date
+        calendar.setCurrentPage(date, animated: true)
+        calendar.select(date) // Optional: highlight the selected date
+        updateMonthLabel(for: date) // Update your label with the full month/year
+    }
+
+
+
+    // Called when user changes picker value
+    @IBAction func monthPickerChanged(_ sender: UIDatePicker) {
+        let selectedDate = sender.date
+        
+        // Update FSCalendar to show selected date
+        calendar.setCurrentPage(selectedDate, animated: true)
+        calendar.select(selectedDate) // Optional: highlight the date
+        
+        // Update label
+        updateMonthLabel(for: selectedDate)
+    }
+
+
+
+
+
+    
     func testTimezoneConversion() {
         print("\nTESTING TIMEZONE CONVERSION")
         
@@ -84,13 +177,36 @@ class Schedule: UIViewController,
         print("Current Tech ID: \(assignTechID)")
 
         // Calendar setup
+        // Calendar setup
         calendar.delegate = self
         calendar.dataSource = self
+
         calendar.scope = .month
-        calendar.headerHeight = 50
+        calendar.scrollEnabled = true
+        calendar.scrollDirection = .horizontal
+
+        calendar.headerHeight = 0
         calendar.appearance.headerDateFormat = "MMMM yyyy"
         calendar.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 18)
-        calendar.appearance.headerTitleColor = .black
+        calendar.appearance.headerTitleColor = .label
+        
+        updateMonthLabel(for: calendar.currentPage)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(monthLabelTapped))
+        monthLabel.isUserInteractionEnabled = true
+        monthLabel.addGestureRecognizer(tapGesture)
+        
+        monthPicker.datePickerMode = .date
+        monthPicker.preferredDatePickerStyle = .wheels
+        monthPicker.locale = Locale(identifier: "en_US") // shows month first
+        monthPicker.isHidden = true // start hidden
+
+
+
+
+       
+
+
         
         // TableView setup
         tasks.delegate = self
@@ -225,7 +341,7 @@ class Schedule: UIViewController,
             assignTechID: "L9MGa8esCfQNcLOKed3VjrXHvio2",
             selectedDate: testDate
         ) { requests in
-            print("🧪 Query result: \(requests.count) tasks")
+            print("Query result: \(requests.count) tasks")
             for request in requests {
                 if let assignedDate = request.assignedDate {
                     let taskDate = assignedDate.dateValue()
@@ -466,10 +582,10 @@ class Schedule: UIViewController,
             let dateString: String
             if let assignedDate = task.assignedDate {
                 dateString = assignedDate.dateValue().toStringLocal(format: "h:mm a")
-                print("📋 Creating cell for task: \(task.title) at \(dateString)")
+                print("Creating cell for task: \(task.title) at \(dateString)")
             } else {
                 dateString = "No time set"
-                print("📋 Creating cell for task: \(task.title) (no time)")
+                print("Creating cell for task: \(task.title) (no time)")
             }
             
             cell.textLabel?.text = "\(task.title) • \(task.status) • \(dateString)"
@@ -481,11 +597,14 @@ class Schedule: UIViewController,
             // Color code by priority
             switch task.priority.lowercased() {
             case "high":
-                cell.backgroundColor = UIColor(red: 1.0, green: 0.9, blue: 0.9, alpha: 1.0)
+                cell.backgroundColor = UIColor(red: 254/255, green: 247/255, blue: 94/255, alpha: 0.3)
+              
             case "medium":
-                cell.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 0.9, alpha: 1.0)
+                cell.backgroundColor = UIColor(red: 255/255, green: 160/255, blue: 105/255, alpha: 0.3)
+            
             case "low":
-                cell.backgroundColor = UIColor(red: 0.9, green: 1.0, blue: 0.9, alpha: 1.0)
+                cell.backgroundColor = UIColor(red: 254/255, green: 109/255, blue: 109/255, alpha: 0.3)
+                
             default:
                 cell.backgroundColor = .white
             }
