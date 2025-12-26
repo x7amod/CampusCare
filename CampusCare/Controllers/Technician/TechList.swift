@@ -141,8 +141,6 @@ class TechList: UIViewController {
     
     
     
-    
-    
     // 6. UI Rendering Logic
     func reloadStackView() {
         // Clear previous items
@@ -154,16 +152,25 @@ class TechList: UIViewController {
             item.configure(with: r)
             
             // Handle Taps (Navigation to details)
-            item.onTap = { [weak self] in
-                guard let self = self else { return }
+           // item.onTap = { [weak self] in
+               // guard let self = self else { return }
                 
                // print("Tech clicked on task: \(r.id ?? "Unknown ID")")
                 
+              //  RequestStore.shared.currentRequest = r
+                  //  print("Stored request: \(r.title)")
+                //pepsi
+            item.onTap = { [weak self] in
+                guard let self = self else { return }
+                
+                // Store in RequestStore (for safety/backup)
                 RequestStore.shared.currentRequest = r
-                    print("Stored request: \(r.title)")
+                print("Navigating to details for: \(r.title)")
                 
+                // Navigate via segue
+                self.performSegue(withIdentifier: "showTechDetails", sender: r)
                 
-                
+                //pepsi ssafe
                 
                 
             }
@@ -177,6 +184,23 @@ class TechList: UIViewController {
             techSearch.searchBarStyle = .minimal
         }
     }
+   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showTechDetails" {
+            if let destinationVC = segue.destination as? TechDetails,
+               let selectedRequest = sender as? RequestModel {
+                // Pass the data directly
+                destinationVC.request = selectedRequest
+            }
+        }
+    }
+    
+    //pepsi important - error click on task 
+    
+    
+    
+    
+    
     
     
 }
