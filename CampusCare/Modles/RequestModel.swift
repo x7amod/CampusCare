@@ -9,7 +9,7 @@ struct RequestModel {
     let location: String
     let priority: String
     let title: String
-    let status: String
+    var status: String
     let releaseDate: Timestamp
     let creatorID: String
     let creatorRole: String

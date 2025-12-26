@@ -286,6 +286,44 @@ final class RequestCollection {
                 }
         }
         
+    //update status function
+    func updateRequestStatus(requestID: String,
+                            status: String,
+                            completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        var updateData: [String: Any] = [
+            "status": status,
+            "lastUpdateDate": Timestamp(date: Date())
+        ]
+        
+        // Add specific dates based on status
+        if status == "In Progress" {
+            updateData["inProgressDate"] = Timestamp(date: Date())
+        } else if status == "Complete" {
+            updateData["completedDate"] = Timestamp(date: Date())
+        }
+        
+        requestsCollectionRef.document(requestID).updateData(updateData) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
         ////
 
+    
+    
+    
 }
