@@ -24,9 +24,57 @@ final class     UsersCollection{
                 }
         }
 
-   
+    //to get  the current login user id
+    func getCurrentUserId() -> String? {
+        return Auth.auth().currentUser?.uid
+    }
 
-    // Get full user info (firstname, lastname, role, department, username)
+    func isCurrentUserManager(completion: @escaping (Bool) -> Void) {
+            guard let uid = getCurrentUserId() else {
+                completion(false)
+                return
+            }
+
+            getUserInfo(uid: uid) { data in
+                guard let data = data, let role = data["Role"] as? String else {
+                    completion(false)
+                    return
+                }
+                completion(role == "Manager")
+            }
+        }
+
+    func isCurrentUserAdmin(completion: @escaping (Bool) -> Void) {
+            guard let uid = getCurrentUserId() else {
+                completion(false)
+                return
+            }
+
+            getUserInfo(uid: uid) { data in
+                guard let data = data, let role = data["Role"] as? String else {
+                    completion(false)
+                    return
+                }
+                completion(role == "Admin")
+            }
+        }
+
+    func isCurrentUserTech(completion: @escaping (Bool) -> Void) {
+            guard let uid = getCurrentUserId() else {
+                completion(false)
+                return
+            }
+
+            getUserInfo(uid: uid) { data in
+                guard let data = data, let role = data["Role"] as? String else {
+                    completion(false)
+                    return
+                }
+                completion(role == "Technician")
+            }
+        }
+
+    // Get full user info (first, last, role, department, userId, email)
         func getUserInfo(uid: String, completion: @escaping (_ data: [String: Any]?) -> Void) {
             usersCollectionRef.document(uid).getDocument { snapshot, error in
                 if let error = error {
