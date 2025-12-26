@@ -4,6 +4,39 @@ final class RequestCollection {
     private let requestsCollectionRef = FirestoreManager.shared.db.collection("Requests")
     private let db = Firestore.firestore()
     
+    
+    func fetchTechnicians(
+            completion: @escaping (Result<[String: String], Error>) -> Void
+        ) {
+            db.collection("Users")
+                .whereField("Role", isEqualTo: "Technician")
+                .getDocuments { snapshot, error in
+
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+
+                    guard let documents = snapshot?.documents else {
+                        completion(.success([:]))
+                        return
+                    }
+
+                    var techMap: [String: String] = [:]
+
+                    documents.forEach { doc in
+                        if let user = UserModel(from: doc) {
+                            techMap[user.id] =
+                                "\(user.FirstName) \(user.LastName)"
+                        }
+                    }
+
+                    completion(.success(techMap))
+                }
+        }
+    
+    
+    
     func fetchAllRequests(completion: @escaping (Result<[RequestModel], Error>) -> Void) {
         requestsCollectionRef.getDocuments { snapshot, error in
             
@@ -24,125 +57,8 @@ final class RequestCollection {
             completion(.success(requests))
         }
     }
-    // RequestCollection.swift - Keep this function ONLY here
-    /*func getRequestsForDate(assignTechID: String,
-                            selectedDate: Date,
-                            completion: @escaping ([RequestModel]) -> Void) {
-        
-        // Get local start and end of day
-        let calendar = Calendar.current
-        let startOfDayLocal = calendar.startOfDay(for: selectedDate)
-        guard let endOfDayLocal = calendar.date(byAdding: .day, value: 1, to: startOfDayLocal) else {
-            print(" Could not calculate end of day")
-            completion([])
-            return
-        }
-        
-        print("\nQUERY DEBUG =========================================")
-        print("Technician ID: \(assignTechID)")
-        print("Selected Date (local): \(selectedDate.toStringLocal())")
-        print("Start of Day (local): \(startOfDayLocal.toStringLocal())")
-        print("End of Day (local): \(endOfDayLocal.toStringLocal())")
-        
-        // Convert to UTC for Firestore
-        let utcTimeZone = TimeZone(identifier: "UTC")!
-        var utcCalendar = Calendar.current
-        utcCalendar.timeZone = utcTimeZone
-        
-        // Get UTC start of day (midnight UTC)
-        let utcStartComponents = utcCalendar.dateComponents(in: utcTimeZone, from: startOfDayLocal)
-        guard let utcStart = utcCalendar.date(from: DateComponents(
-            year: utcStartComponents.year,
-            month: utcStartComponents.month,
-            day: utcStartComponents.day,
-            hour: 0,
-            minute: 0,
-            second: 0
-        )) else {
-            print(" Could not create UTC start date")
-            completion([])
-            return
-        }
-        
-        // Get UTC end of day (next day midnight UTC)
-        guard let utcEnd = utcCalendar.date(byAdding: .day, value: 1, to: utcStart) else {
-            print("Could not create UTC end date")
-            completion([])
-            return
-        }
-        
-        print("UTC Start: \(utcStart.toStringLocal())")
-        print("UTC End: \(utcEnd.toStringLocal())")
-        
-        // Convert to Timestamps
-        let startTimestamp = Timestamp(date: utcStart)
-        let endTimestamp = Timestamp(date: utcEnd)
-        
-        print("Start Timestamp: \(startTimestamp.seconds) seconds")
-        print("End Timestamp: \(endTimestamp.seconds) seconds")
-        print("====================================================\n")
-        
-        // Perform the query
-        db.collection("Requests")
-            .whereField("assignTechID", isEqualTo: assignTechID)
-            .whereField("assignedDate", isGreaterThanOrEqualTo: startTimestamp)
-            .whereField("assignedDate", isLessThan: endTimestamp)
-            .getDocuments { snapshot, error in
-                
-                if let error = error {
-                    print("❌ Firestore query error: \(error.localizedDescription)")
-                    completion([])
-                    return
-                }
-                
-                guard let documents = snapshot?.documents else {
-                    print("📭 No documents found for date \(selectedDate.toStringLocal(format: "yyyy-MM-dd"))")
-                    completion([])
-                    return
-                }
-                
-                print("✅ Found \(documents.count) documents")
-                
-                // Debug each found document
-                for document in documents {
-                    let data = document.data()
-                    if let assignedDate = data["assignedDate"] as? Timestamp {
-                        let localDate = assignedDate.dateValue()
-                        let utcDate = assignedDate.dateValue() // Same date, but interpret as UTC
-                        
-                        print("📄 Document: \(data["title"] as? String ?? "No title")")
-                        print("   Document ID: \(document.documentID)")
-                        print("   Assigned Date (UTC): \(assignedDate.dateValue().utcString())")
-                        print("   Assigned Date (Local): \(localDate.toStringLocal())")
-                        print("   Tech ID: \(data["assignTechID"] as? String ?? "None")")
-                        
-                        // Check if it falls within our UTC range
-                        let isInRange = utcDate >= utcStart && utcDate < utcEnd
-                        print("   Within UTC range? \(isInRange)")
-                    } else {
-                        print("📄 Document: \(data["title"] as? String ?? "No title") - NO ASSIGNED DATE")
-                    }
-                }
-                
-                // Convert to RequestModel objects
-                let requests = documents.compactMap { document -> RequestModel? in
-                    guard let request = RequestModel(from: document) else {
-                        print("⚠️ Failed to create RequestModel for document: \(document.documentID)")
-                        return nil
-                    }
-                    
-                    // Debug the created model
-                    if let assignedDate = request.assignedDate {
-                        print("✅ Created RequestModel: \(request.title) for tech: \(request.assignTechID)")
-                        print("   Assigned Date: \(assignedDate.dateValue().toStringLocal())")
-                    }
-                    
-                    return request
-                }
-                
-                completion(requests)
-            }
-    }*/
+
+    
     func getRequestsForDate(assignTechID: String,
                             selectedDate: Date,
                             completion: @escaping ([RequestModel]) -> Void) {
