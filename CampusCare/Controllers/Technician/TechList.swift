@@ -23,7 +23,12 @@ class TechList: UIViewController {
     @IBOutlet weak var techStack: UIStackView!
     
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Refresh data when returning from details
+        fetchTechTasks()
+    }
     
     
     
