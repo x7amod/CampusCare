@@ -140,13 +140,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ab4-R1-r7t">
-                                <rect key="frame" x="16" y="581" width="67" height="21"/>
+                                <rect key="frame" x="16" y="536" width="67" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9U-8J-HRD">
-                                <rect key="frame" x="10" y="691" width="373" height="39"/>
+                                <rect key="frame" x="10" y="646" width="373" height="39"/>
                                 <color key="backgroundColor" name="ButtonsColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Save Changes">
@@ -154,7 +154,7 @@
                                 </buttonConfiguration>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="click to update" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9D-IV-DmU">
-                                <rect key="frame" x="15" y="605" width="79.666666666666671" height="13.333333333333371"/>
+                                <rect key="frame" x="15" y="560" width="79.666666666666671" height="13.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -192,7 +192,7 @@
                             <constraint firstItem="TNz-HD-rat" firstAttribute="top" secondItem="RRb-xo-YB5" secondAttribute="bottom" constant="28" id="B4g-GG-vC1"/>
                             <constraint firstItem="Z3d-8G-0Mw" firstAttribute="leading" secondItem="ab4-R1-r7t" secondAttribute="trailing" constant="46" id="CfH-aT-Taf"/>
                             <constraint firstItem="Uaa-4G-lZo" firstAttribute="top" secondItem="TNz-HD-rat" secondAttribute="bottom" constant="78" id="Efu-9g-erm"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="P9U-8J-HRD" secondAttribute="bottom" constant="5" id="HKt-JX-66H"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="P9U-8J-HRD" secondAttribute="bottom" constant="50" id="HKt-JX-66H"/>
                             <constraint firstItem="fYX-4N-QJa" firstAttribute="top" secondItem="Qwl-p7-ayi" secondAttribute="bottom" constant="20" id="Ihc-YL-Gul"/>
                             <constraint firstItem="TNz-HD-rat" firstAttribute="top" secondItem="fYX-4N-QJa" secondAttribute="bottom" constant="8" symbolic="YES" id="KDk-ke-rlQ"/>
                             <constraint firstItem="P9U-8J-HRD" firstAttribute="centerX" secondItem="434-mQ-JcZ" secondAttribute="centerX" id="LEC-Ih-aNB"/>
