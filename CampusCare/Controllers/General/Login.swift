@@ -10,11 +10,45 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class Login: UIViewController {
+    
+    
+    
+   
+    
+
+    
     override func viewDidLoad(){
         super.viewDidLoad()
+        setupPasswordToggle()
+    }
+    
+   
+    
+
+    func setupPasswordToggle() {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        button.tintColor = .gray
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        button.addTarget(self, action: #selector(togglePassword), for: .touchUpInside)
+        passwordTextField.rightView = button
+        passwordTextField.rightViewMode = .always
+    }
+    @objc func togglePassword(_ sender: UIButton) {
+        passwordTextField.isSecureTextEntry.toggle()
+
+        let imageName = passwordTextField.isSecureTextEntry ? "eye.slash" : "eye"
+        sender.setImage(UIImage(systemName: imageName), for: .normal)
+
+        // Fix cursor jump issue
+        if let text = passwordTextField.text {
+            passwordTextField.text = ""
+            passwordTextField.text = text
+        }
     }
     
     @IBOutlet weak var emailTextField: UITextField!
+
     
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -110,22 +144,5 @@ class Login: UIViewController {
         present(alert, animated: true)
     }
 
-    
-    @IBAction func forgotPasswordTapped(_ sender: UIButton) {
-        guard let email = emailTextField.text, !email.isEmpty else {
-            showAlert(title: "Error", message: "Enter your email first")
-            return
-        }
 
-        Auth.auth().sendPasswordReset(withEmail: email) { [weak self] error in
-            if let error = error {
-                self?.showAlert(title: "Error", message: error.localizedDescription)
-            } else {
-                self?.showAlert(title: "Email Sent", message: "Password reset email sent")
-        }
-        }
-        
-        
-        
-    }
 }

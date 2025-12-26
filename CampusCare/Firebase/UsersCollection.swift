@@ -23,7 +23,7 @@ final class     UsersCollection{
                     completion(users)
                 }
         }
-    
+
     //to get  the current login user id
     func getCurrentUserId() -> String? {
         return Auth.auth().currentUser?.uid
@@ -43,7 +43,7 @@ final class     UsersCollection{
                 completion(role == "Manager")
             }
         }
-    
+
     func isCurrentUserAdmin(completion: @escaping (Bool) -> Void) {
             guard let uid = getCurrentUserId() else {
                 completion(false)
@@ -58,7 +58,7 @@ final class     UsersCollection{
                 completion(role == "Admin")
             }
         }
-    
+
     func isCurrentUserTech(completion: @escaping (Bool) -> Void) {
             guard let uid = getCurrentUserId() else {
                 completion(false)
@@ -90,6 +90,69 @@ final class     UsersCollection{
                 }
 
                 completion(data)
+            }
+        }
+         
+     //get all user
+    func fetchAllUsers(completion: @escaping (Result<[UserModel], Error>) -> Void) {
+            usersCollectionRef.getDocuments { snapshot, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                
+                let users: [UserModel] = documents.compactMap { doc in
+                    UserModel(from: doc)
+                }
+                
+                completion(.success(users))
+            }
+        }
+    
+    
+    
+    //fetch users by role
+    func fetchUsersByRole(_ role: String, completion: @escaping ([UserModel]) -> Void) {
+           usersCollectionRef
+               .whereField("Role", isEqualTo: role)
+               .getDocuments { snapshot, error in
+                   if let error = error {
+                       print("Error fetching users by role:", error)
+                       completion([])
+                       return
+            }
+
+                   let users = snapshot?.documents.compactMap { UserModel(from: $0) } ?? []
+                   completion(users)
+            }
+       }
+    
+    //updating user info
+    func updateUser(uid: String, fields: [String: Any], completion: @escaping (Bool) -> Void) {
+           usersCollectionRef.document(uid).updateData(fields) { error in
+               if let error = error {
+                   print("Error updating user:", error)
+                   completion(false)
+                   return
+               }
+               completion(true)
+           }
+       }
+    
+    //deleting user
+    func deleteUserDocument(uid: String, completion: @escaping (Bool) -> Void) {
+            usersCollectionRef.document(uid).delete { error in
+                if let error = error {
+                    print("Error deleting user doc:", error)
+                    completion(false)
+                    return
+                }
+                completion(true)
             }
         }
     }
