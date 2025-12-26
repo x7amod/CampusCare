@@ -1,11 +1,3 @@
-//
-//  RequestModel.swift
-//  CampusCare
-//
-//  Created by BP-36-213-15 on 08/12/2025.
-//
-
-
 import Foundation
 import FirebaseFirestore
 
@@ -17,22 +9,32 @@ struct RequestModel {
     let location: String
     let priority: String
     let title: String
-    let status:String
-    let releaseDate:Timestamp
+    let status: String
+    let releaseDate: Timestamp
     let creatorID: String
     let creatorRole: String
     let assignedDate: Timestamp?
     let assignTechID: String
-    // NEW FIELDS
     let inProgressDate: Timestamp?
     let completedDate: Timestamp?
     let lastUpdateDate: Timestamp?
-}
-
-extension RequestModel {
+    let deadline: Timestamp?
+    
+    //  Initializers
+    
+    // Initializer for DocumentSnapshot
     init?(from document: DocumentSnapshot) {
-        let data = document.data() ?? [:]
-
+        guard let data = document.data() else { return nil }
+        self.init(id: document.documentID, data: data)
+    }
+    
+    // Initializer for QueryDocumentSnapshot
+    init?(from queryDocument: QueryDocumentSnapshot) {
+        self.init(id: queryDocument.documentID, data: queryDocument.data())
+    }
+    
+    // Convenience initializer for dictionary data
+    private init?(id: String, data: [String: Any]) {
         guard
             let category = data["category"] as? String,
             let description = data["description"] as? String,
@@ -40,23 +42,19 @@ extension RequestModel {
             let location = data["location"] as? String,
             let priority = data["priority"] as? String,
             let title = data["title"] as? String,
-            let status =  data["status"] as? String,
-             let  releaseDate = data["releaseDate"] as? Timestamp,
-                let creatorID = data["creatorID"] as? String,
+            let status = data["status"] as? String,
+            let releaseDate = data["releaseDate"] as? Timestamp,
+            let creatorID = data["creatorID"] as? String,
             let creatorRole = data["creatorRole"] as? String,
             let assignTechID = data["assignTechID"] as? String
         else {
+            print("Failed to parse required fields for RequestModel")
+            print("   Missing or invalid data in document ID: \(id)")
+            print("   Data keys: \(data.keys)")
             return nil
         }
         
-        let assignedDate = data["assignedDate"] as? Timestamp
-        //
-        let inProgressDate = data["inProgressDate"] as? Timestamp
-        let completedDate = data["completedDate"] as? Timestamp
-        let lastUpdateDate = data["lastUpdateDate"] as? Timestamp
-
-
-        self.id = document.documentID
+        self.id = id
         self.category = category
         self.description = description
         self.imageURL = imageURL
@@ -67,14 +65,27 @@ extension RequestModel {
         self.releaseDate = releaseDate
         self.creatorID = creatorID
         self.creatorRole = creatorRole
-        self.assignedDate = assignedDate
         self.assignTechID = assignTechID
         
-        // ASSIGN NEW FIELDS
-        self.inProgressDate = inProgressDate
-        self.completedDate = completedDate
-        self.lastUpdateDate = lastUpdateDate
-
+        // Optional fields
+        self.assignedDate = data["assignedDate"] as? Timestamp
+        self.inProgressDate = data["inProgressDate"] as? Timestamp
+        self.completedDate = data["completedDate"] as? Timestamp
+        self.lastUpdateDate = data["lastUpdateDate"] as? Timestamp
+        self.deadline = data["deadline"] as? Timestamp
+        
+        // Debug print - FIXED: Use .formattedString instead of .toString()
+        print("Created RequestModel: \(title) for tech: \(assignTechID)")
+        if let assignedDate = self.assignedDate {
+            print("   Assigned Date: \(assignedDate.dateValue().formattedString)")
+        }
     }
 }
 
+// Added this for backward compatibility
+extension RequestModel {
+    // This allows both initializers to work
+    init?(document: QueryDocumentSnapshot) {
+        self.init(from: document)
+    }
+}

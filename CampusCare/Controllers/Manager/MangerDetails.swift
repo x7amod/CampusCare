@@ -13,6 +13,9 @@ class MangerDetails: UIViewController {
     var request: RequestModel? {
         return RequestStore.shared.currentRequest
     }  // receives the data
+    
+    //collection:
+    let usersCollection = UsersCollection.shared
 
     // Outlets
     @IBOutlet weak var titleLabel: UILabel!
@@ -26,10 +29,18 @@ class MangerDetails: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Request Details"
+        //setupHeader()
 
-        setupHeader()
-        setupBackButton()
-        populateRequestDetails()
+        usersCollection.isCurrentUserManager { [weak self] isManager in
+            DispatchQueue.main.async {
+                if isManager {
+                    self?.populateRequestDetails()
+                } else {
+                    self?.showSimpleAlert(title: "Access Denied", message: "You are not authorized to view requests.")
+                }
+            }
+        }
     }
     
     //Header
@@ -41,14 +52,6 @@ class MangerDetails: UIViewController {
         }
     }
 
-    // back Button
-    private func setupBackButton() {
-        let backButton = UIButton(frame: CGRect(x: 16, y: 50, width: 60, height: 30))
-        backButton.setTitle("Back", for: .normal)
-        backButton.setTitleColor(.systemBackground, for: .normal)
-        backButton.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
-        view.addSubview(backButton)
-    }
 
     //  Request
     private func populateRequestDetails() {
@@ -60,6 +63,9 @@ class MangerDetails: UIViewController {
         roleLabel?.text = r.location
         timeLabel?.text = DateFormatter.localizedString(from: r.releaseDate.dateValue(), dateStyle: .medium, timeStyle: .none)
         priorityLabel?.text = r.priority
+        updateAssignButton(for: r.status)
+
+       
 
         // Image loading
         if !r.imageURL.isEmpty, let url = URL(string: r.imageURL) {
@@ -77,8 +83,10 @@ class MangerDetails: UIViewController {
         } else {
             img?.image = UIImage(named: "defaultImage")
         }
+      
         
-        print(r.id)
+//        print(r.id)
+        
     }
 
     //  show Assign VC
@@ -104,6 +112,19 @@ class MangerDetails: UIViewController {
             presentAssignVC()
         }
     }
+    
+    private func updateAssignButton(for status: String) {
+        let disabledStatuses: Set<String> = [
+            "Complete",
+            "In-Progress",
+            "Assigned"
+        ]
+        
+        let isDisabled = disabledStatuses.contains(status)
+        
+        button.isEnabled = !isDisabled
+        button.alpha = isDisabled ? 0.5 : 1.0
+    }
 
     private func presentAssignVC() {
 //        // Read request from the store
@@ -115,13 +136,10 @@ class MangerDetails: UIViewController {
         let storyboard = UIStoryboard(name: "TechManager", bundle: nil)
         let assignVC = storyboard.instantiateViewController(withIdentifier: "MangerAssign") as! MangerAssign
         assignVC.modalPresentationStyle = .fullScreen
-        self.present(assignVC, animated: true)
+        self.navigationController?.pushViewController(assignVC, animated: true)
+
     }
 
-    // close
-    @objc func closeVC() {
-        dismiss(animated: true)
-    }
-
+  
 
 }

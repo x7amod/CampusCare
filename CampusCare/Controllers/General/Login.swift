@@ -92,6 +92,16 @@ class Login: UIViewController {
                 return
             }
 
+            //added by reem to store tech id
+            UserStore.shared.currentUserID = uid
+                    UserStore.shared.currentUserRole = role
+                    UserStore.shared.currentUsername = data["Username"] as? String
+                    UserStore.shared.currentTechID = uid
+            ////////
+            
+            
+            
+            
             // Route user by role
             self?.openHomeScreen(for: role)
         }
@@ -136,18 +146,3 @@ class Login: UIViewController {
 
 
 }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-

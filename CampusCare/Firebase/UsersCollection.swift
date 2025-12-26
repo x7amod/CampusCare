@@ -1,4 +1,6 @@
 import FirebaseFirestore
+import FirebaseAuth
+
 final class     UsersCollection{
     static let shared = UsersCollection()
 
@@ -106,8 +108,3 @@ final class     UsersCollection{
             }
         }
     }
-
-    
-
-
-
