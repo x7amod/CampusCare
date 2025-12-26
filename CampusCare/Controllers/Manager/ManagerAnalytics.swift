@@ -9,6 +9,8 @@
 
 import UIKit
 import DGCharts
+import FirebaseFirestore
+
 
 class ManagerAnalytics: UIViewController {
     
@@ -17,12 +19,23 @@ class ManagerAnalytics: UIViewController {
         UIColor(red: 0/255, green: 51/255, blue: 102/255, alpha: 1),   // Dark Blue
         UIColor(red: 0/255, green: 102/255, blue: 204/255, alpha: 1),  // Blue
         UIColor(red: 51/255, green: 153/255, blue: 255/255, alpha: 1), // Light Blue
-        UIColor(red: 102/255, green: 178/255, blue: 255/255, alpha: 1) // Lighter Blue
+        UIColor(red: 102/255, green: 178/255, blue: 255/255, alpha: 1), // Lighter Blue
+        UIColor(red: 207/255, green: 216/255, blue: 220/255, alpha: 1), // Soft Gray
+           UIColor(red: 200/255, green: 230/255, blue: 201/255, alpha: 1), // Pastel Green
+           UIColor(red: 255/255, green: 224/255, blue: 178/255, alpha: 1), // Pastel Orange
+           UIColor(red: 225/255, green: 190/255, blue: 231/255, alpha: 1), // Pastel Purple
+           UIColor(red: 255/255, green: 205/255, blue: 210/255, alpha: 1), // Pastel Red
+           UIColor(red: 187/255, green: 222/255, blue: 251/255, alpha: 1), // Pastel Blue
+           UIColor(red: 255/255, green: 245/255, blue: 157/255, alpha: 1), // Soft Yellow
+           UIColor(red: 220/255, green: 237/255, blue: 200/255, alpha: 1)  // Sage Green
+    
     ]
 
     
     let requestCollection = RequestCollection()
     private var allRequests: [RequestModel] = []
+    private var techNameByID: [String: String] = [:]
+
 
 
     // Chart views
@@ -64,16 +77,13 @@ class ManagerAnalytics: UIViewController {
         chartTypeSegmentedControl.selectedSegmentIndex = 0
         showChart(index: 0)
         fetchAnalyticsData()
+        loadTechnicians()
+
         
         styleCard(totalRequestsCardView)
         styleCard(pendingTasksCardView)
         styleCard(completedTasksCardView)
-        
-//        if let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as? CampusCareHeader {
-//            headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-//            view.addSubview(headerView)
-//            headerView.setTitle("Analytics")
-//        }
+
 
     }
 
@@ -137,6 +147,23 @@ class ManagerAnalytics: UIViewController {
         default: break
         }
     }
+    
+    func loadTechnicians() {
+        requestCollection.fetchTechnicians { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let techMap):
+                    self?.techNameByID = techMap
+                    self?.updateAllCharts()
+
+                case .failure(let error):
+                    print("Failed to fetch technicians:", error)
+                }
+            }
+        }
+    }
+
+
 
     
     
@@ -164,10 +191,12 @@ class ManagerAnalytics: UIViewController {
 
         let grouped = Dictionary(grouping: completedRequests, by: { $0.assignTechID })
 
-        let entries = grouped.map {
-            PieChartDataEntry(
-                value: Double($0.value.count),
-                label: "Tech \($0.key)"
+        let entries = grouped.map { (techID, requests) in
+            let techName = techNameByID[techID] ?? "Unknown Technician"
+
+            return PieChartDataEntry(
+                value: Double(requests.count),
+                label: techName
             )
         }
 
@@ -176,6 +205,7 @@ class ManagerAnalytics: UIViewController {
 
         pieChartView.data = PieChartData(dataSet: dataSet)
     }
+
     
     
     func updateBarChart() {
@@ -206,6 +236,15 @@ class ManagerAnalytics: UIViewController {
         dataSet.colors = formalBlueColors
 
         barChartView.data = BarChartData(dataSet: dataSet)
+        
+        let techNames = grouped.keys.map {
+            techNameByID[$0] ?? "Unknown"
+        }
+
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: techNames)
+        barChartView.xAxis.granularity = 1
+        barChartView.xAxis.labelPosition = .bottom
+
     }
     
     
@@ -229,9 +268,9 @@ class ManagerAnalytics: UIViewController {
             }
 
         let dataSet = LineChartDataSet(entries: entries, label: "Weekly Completed Tasks")
-        dataSet.colors = [formalBlueColors[1]]       // Line color
-        dataSet.circleColors = [formalBlueColors[0]] // Circle points color
-        dataSet.circleHoleColor = .white            // Optional: circle center
+        dataSet.colors = [formalBlueColors[1]]       
+        dataSet.circleColors = [formalBlueColors[0]]
+        dataSet.circleHoleColor = .white
 
 
         lineChartView.data = LineChartData(dataSet: dataSet)
