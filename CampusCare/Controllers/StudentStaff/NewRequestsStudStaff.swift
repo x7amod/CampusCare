@@ -142,12 +142,17 @@ class NewRequestsStudStaff: UIViewController {
     
     @IBAction func submitButtonTapped(_ sender: Any) {
         guard let title = titleTextField.text, !title.isEmpty,
-                  let location = locationTextField.text, !location.isEmpty,
-                  let category = selectedCategory,
-                  let priority = selectedPriority else {
-                showAlert("Please fill all fields")
-                return
-            }
+              let location = locationTextField.text, !location.isEmpty,
+              let category = selectedCategory,
+              let priority = selectedPriority else {
+
+            showSimpleAlert(
+                title: "Error",
+                message: "Please fill all fields"
+            )
+            return
+        }
+
 
             guard let uid = Auth.auth().currentUser?.uid else { return }
 
@@ -165,11 +170,7 @@ class NewRequestsStudStaff: UIViewController {
             db.collection("repairRequests").addDocument(data: data) { _ in
                 self.navigationController?.popViewController(animated: true)
             }
-        func showAlert(_ message: String) {
-            let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
+        
     }
     
     var selectedCategory: String?

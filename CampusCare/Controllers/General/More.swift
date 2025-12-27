@@ -13,12 +13,7 @@ class More: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        view.addSubview(headerView)
-        
-        // Set page-specific title
-           headerView.setTitle("Rewards")  // Change this for each screen
+      
     }
     
 
