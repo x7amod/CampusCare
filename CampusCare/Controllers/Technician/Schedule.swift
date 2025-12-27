@@ -185,12 +185,11 @@ class Schedule: UIViewController,
         calendar.scrollEnabled = true
         calendar.scrollDirection = .horizontal
 
-        calendar.headerHeight = 0
+        calendar.headerHeight = 50
         calendar.appearance.headerDateFormat = "MMMM yyyy"
         calendar.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 18)
         calendar.appearance.headerTitleColor = .label
         
-        updateMonthLabel(for: calendar.currentPage)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(monthLabelTapped))
         monthLabel.isUserInteractionEnabled = true
