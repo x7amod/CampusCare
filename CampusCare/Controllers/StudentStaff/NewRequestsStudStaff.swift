@@ -164,7 +164,20 @@ class NewRequestsStudStaff: UIViewController {
                 "description": descriptionTextView.text ?? "",
                 "status": "pending",
                 "createdBy": uid,
-                "createdAt": Timestamp(date: Date())
+                "createdAt": Timestamp(date: Date()),
+                "creatorID": "",
+                "creatorRole": "",
+                "imageURL": "",
+                "releaseDate": "",
+                "completedDate": "",
+                "deadline": "",
+                "assingedDate": "",
+                "assignTechID": "",
+                "inProgressDate": "",
+                "lastUpdatedDate": "",
+                
+
+                
             ]
 
             db.collection("repairRequests").addDocument(data: data) { _ in
@@ -185,17 +198,6 @@ class NewRequestsStudStaff: UIViewController {
            super.viewDidLayoutSubviews()
            addDashedBorder()
        }
-    
-    
-    
-    
-    
-   
-    
-    
-    
-    
-
     
    }
     
