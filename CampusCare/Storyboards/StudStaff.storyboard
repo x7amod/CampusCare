@@ -116,7 +116,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="402" height="599.66666666666663"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Greetings xxxx!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RXY-84-4la">
-                                                <rect key="frame" x="16" y="16" width="176" height="29.999999999999993"/>
+                                                <rect key="frame" x="16" y="16" width="176" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -543,6 +543,7 @@
             <objects>
                 <navigationController title="Home" id="zaE-O8-SCT" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="oO8-Xr-ah3"/>
+                    <navigationItem key="navigationItem" id="AE6-F0-8LA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5z6-FY-s5k">
                         <rect key="frame" x="0.0" y="124" width="402" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
