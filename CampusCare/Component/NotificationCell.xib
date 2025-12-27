@@ -7,14 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationCell" customModule="CampusCare" customModuleProvider="target">
-            <connections>
-                <outlet property="cardContainerView" destination="Zjm-B6-mBe" id="gcA-3c-FVL"/>
-                <outlet property="statusLabel" destination="6Th-Cu-re7" id="mHH-L5-Thr"/>
-                <outlet property="timeLabel" destination="4d2-E7-lVz" id="7n3-PH-rBP"/>
-                <outlet property="titleLabel" destination="7hA-9y-ZO2" id="PQQ-Eg-K0Y"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationCell" customModule="CampusCare" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationCellID" rowHeight="116" id="KGk-i7-Jjw" customClass="NotificationCell" customModule="CampusCare" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="361" height="116"/>
@@ -67,6 +60,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="cardContainerView" destination="Zjm-B6-mBe" id="nnJ-5K-IKP"/>
+                <outlet property="statusLabel" destination="6Th-Cu-re7" id="515-bm-8OE"/>
+                <outlet property="timeLabel" destination="4d2-E7-lVz" id="bjT-KK-mis"/>
+                <outlet property="titleLabel" destination="7hA-9y-ZO2" id="Ec7-RX-cbN"/>
+            </connections>
             <point key="canvasLocation" x="86.25954198473282" y="30.281690140845072"/>
         </tableViewCell>
     </objects>

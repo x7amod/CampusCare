@@ -21,6 +21,9 @@ AppCheck.setAppCheckProviderFactory(AppCheckDebugProviderFactory())
 print("AppCheck Debug provider enabled for simulator")
 #endif
 
+// Apply global navigation bar styling
+NavigationBarStyleManager.shared.applyGlobalNavigationBarStyle()
+
 return true
 }
 
