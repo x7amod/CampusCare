@@ -38,9 +38,27 @@ class NotificationCell: UITableViewCell {
         cardContainerView.layer.shadowRadius = 4
     }
 
+    /// Configure cell with NotificationModel
+    func configure(with notification: NotificationModel) {
+        titleLabel.text = notification.title
+        statusLabel.text = notification.body
+        timeLabel.text = notification.createdAt.timeAgoDisplay()
+        
+        // Visual indicator for unread notifications
+        if !notification.isRead {
+            cardContainerView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.05)
+            titleLabel.font = .boldSystemFont(ofSize: titleLabel.font.pointSize)
+        } else {
+            cardContainerView.backgroundColor = .systemBackground
+            titleLabel.font = .systemFont(ofSize: titleLabel.font.pointSize)
+        }
+    }
+    
+    /// Legacy configure method for backward compatibility
     func configure(requestID: String, title: String, status: String, time: String) {
         titleLabel.text = "\(requestID) - \(title)"
         statusLabel.text = status
         timeLabel.text = time
     }
 }
+

@@ -1,19 +1,18 @@
 //
-//  MoreViewController.swift
+//  ContactUs.swift
 //  CampusCare
 //
-//  Created by BP-36-201-14 on 29/11/2025.
+//  Created by rentamac on 12/27/25.
 //
 
 import UIKit
 
-class More: UIViewController {
+class ContactUs: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-      
     }
     
 

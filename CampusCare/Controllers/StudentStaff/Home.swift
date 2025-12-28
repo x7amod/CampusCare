@@ -9,28 +9,65 @@ import UIKit
 import FirebaseFirestore
 
 class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBAction func openChatButtonTapped(_ sender: UIButton) {
+        // 1️⃣ Instantiate ChatViewController
+        let chatVC = storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
 
-    @IBOutlet weak var announcementView: UIView!
+        // 2️⃣ Set the other user's UID
+        // For testing, you can hardcode another user's UID
+        chatVC.otherUserId = "OTHER_USER_UID" // <-- replace with a real UID
+
+        // 3️⃣ Push ChatViewController
+        navigationController?.pushViewController(chatVC, animated: true)
+    }
+    
+    
+
     @IBOutlet weak var recentRequestTableView: UITableView!
-    @IBOutlet weak var imgPageControl: UIPageControl!
     @IBOutlet weak var announcementImage: UIImageView!
     @IBOutlet weak var greetingLabel: UILabel!
+    @IBOutlet weak var announcementStackView: UIStackView!
     
     private var recentRequests: [RequestModel] = []
     private let requestCollection = RequestCollection()
+    private let announcementsCollection = AnnouncementsCollection()
+    private let usersCollection = UsersCollection.shared
+    private let imageCache = ImageCacheManager.shared
+    
+    // Announcement cycling properties
+    private var announcements: [AnnouncementModel] = []
+    private var loadedImages: [UIImage] = []
+    private var currentAnnouncementIndex: Int = 0
+    private var announcementTimer: Timer?
+    private let announcementInterval: TimeInterval = 5.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableView()
+        setupAnnouncementImageView()
         fetchRecentRequests()
+        fetchAnnouncements()
+        updateGreeting()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Refresh recent requests when view appears
         fetchRecentRequests()
+        startAnnouncementTimer()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        stopAnnouncementTimer()
+    }
+    
+    deinit {
+        stopAnnouncementTimer()
+    }
+    
+    // MARK: - Setup Methods
     
     private func setupTableView() {
         recentRequestTableView.dataSource = self
@@ -42,12 +79,18 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
         recentRequestTableView.register(UINib(nibName: "StudStaffRequestCard", bundle: nil), forCellReuseIdentifier: "RequestCell")
     }
     
+    private func setupAnnouncementImageView() {
+        announcementImage?.contentMode = .scaleAspectFill
+        announcementImage?.clipsToBounds = true
+        announcementImage?.layer.cornerRadius = 14
+    }
+    
+    // MARK: - Data Fetching
+    
     private func fetchRecentRequests() {
-        // Fetch all requests and get the 2 most recent
         requestCollection.fetchAllRequests { [weak self] result in
             switch result {
             case .success(let allRequests):
-                // Sort by releaseDate descending and take first 2
                 let sortedRequests = allRequests.sorted { $0.releaseDate.dateValue() > $1.releaseDate.dateValue() }
                 let recentTwo = Array(sortedRequests.prefix(2))
                 
@@ -62,6 +105,117 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
                 print("[Home] Error fetching recent requests: \(error.localizedDescription)")
             }
         }
+    }
+    
+    private func fetchAnnouncements() {
+        print("[Home] Fetching announcements...")
+        
+        announcementsCollection.fetchActiveAnnouncements { [weak self] result in
+            switch result {
+            case .success(let announcements):
+                print("[Home] Received \(announcements.count) active announcements")
+                
+                guard !announcements.isEmpty else {
+                    print("[Home] No active announcements to display")
+                    DispatchQueue.main.async {
+                        self?.announcementImage?.image = nil
+                    }
+                    return
+                }
+                
+                self?.announcements = announcements.sorted()
+                self?.preloadAnnouncementImages()
+                
+            case .failure(let error):
+                print("[Home] Error fetching announcements: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self?.announcementImage?.image = nil
+                }
+            }
+        }
+    }
+    
+    private func preloadAnnouncementImages() {
+        let group = DispatchGroup()
+        var downloadedImages: [Int: UIImage] = [:]
+        
+        for (index, announcement) in announcements.enumerated() {
+            group.enter()
+            imageCache.downloadImage(from: announcement.imageURL) { image in
+                if let image = image {
+                    downloadedImages[index] = image
+                }
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .main) { [weak self] in
+            guard let self = self else { return }
+            
+            // Create ordered array of images
+            self.loadedImages = (0..<self.announcements.count).compactMap { downloadedImages[$0] }
+            
+            // Display first image
+            if let firstImage = self.loadedImages.first {
+                self.announcementImage?.image = firstImage
+                
+                // Start cycling if more than one image
+                if self.loadedImages.count > 1 {
+                    self.startAnnouncementTimer()
+                }
+            }
+        }
+    }
+    
+    private func updateGreeting() {
+        guard let userID = UserStore.shared.currentUserID else {
+            greetingLabel?.text = "Greetings!"
+            return
+        }
+        
+        usersCollection.fetchUserFirstName(userID: userID) { [weak self] firstName in
+            DispatchQueue.main.async {
+                if let firstName = firstName {
+                    self?.greetingLabel?.text = "Hello \(firstName)!"
+                } else {
+                    self?.greetingLabel?.text = "Greetings!"
+                }
+            }
+        }
+    }
+    
+    // MARK: - Announcement Timer
+    
+    private func startAnnouncementTimer() {
+        stopAnnouncementTimer()
+        
+        guard loadedImages.count > 1 else { return }
+        
+        announcementTimer = Timer.scheduledTimer(withTimeInterval: announcementInterval, repeats: true) { [weak self] _ in
+            self?.showNextAnnouncement()
+        }
+    }
+    
+    private func stopAnnouncementTimer() {
+        announcementTimer?.invalidate()
+        announcementTimer = nil
+    }
+    
+    private func showNextAnnouncement() {
+        guard !loadedImages.isEmpty, let imageView = announcementImage else { return }
+        
+        let nextIndex = (currentAnnouncementIndex + 1) % loadedImages.count
+        let nextImage = loadedImages[nextIndex]
+        
+        // Use built-in transition animation
+        UIView.transition(with: imageView,
+                         duration: 0.35,
+                         options: .transitionCrossDissolve,
+                         animations: {
+            imageView.image = nextImage
+        }, completion: nil)
+        
+        currentAnnouncementIndex = nextIndex
     }
     
     // MARK: - UITableViewDataSource
@@ -101,9 +255,6 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
             self.present(detailsVC, animated: true)
         }
     }
-    
-    // MARK: - Actions
-    
-    
-    
 }
+
+

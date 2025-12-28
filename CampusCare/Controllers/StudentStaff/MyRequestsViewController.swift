@@ -64,7 +64,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
 //        let headerHeight: CGFloat = 80
 //        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: headerHeight)
 //        view.addSubview(headerView)
-//        
+//
 //        // Set page title
 //        headerView.setTitle("My Requests")
         
@@ -344,7 +344,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         let selectedRequest = requests[indexPath.row]
-        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "RequestDetailsStudStaff") as? ExpandedTicketDetailsViewController {
+        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "StudStaffExpandedTicketDetails") as? ExpandedTicketDetailsViewController {
             detailsVC.requestData = selectedRequest
             detailsVC.modalPresentationStyle = .pageSheet
             self.present(detailsVC, animated: true)
