@@ -112,14 +112,14 @@
                                 <rect key="frame" x="-15" y="167" width="423" height="738"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your email address and we will send " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6TB-Az-IPI">
-                                        <rect key="frame" x="34" y="22" width="354" height="22"/>
+                                        <rect key="frame" x="34" y="28" width="354" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="a link to reset your password." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HN5-Rt-0Md">
-                                        <rect key="frame" x="98" y="52" width="233" height="21"/>
+                                        <rect key="frame" x="98" y="53" width="233" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -131,7 +131,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="email"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz4-ZB-Ns2">
-                                        <rect key="frame" x="58" y="151" width="307" height="39"/>
+                                        <rect key="frame" x="58" y="142" width="307" height="39"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Send">
                                             <color key="baseBackgroundColor" red="0.066666662690000003" green="0.1294117719" blue="0.270588249" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -140,8 +140,8 @@
                                             <action selector="forgetPasswordTapped:" destination="rc5-Aa-fU2" eventType="touchUpInside" id="QBv-NK-luw"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rC6-0P-vfc">
-                                        <rect key="frame" x="58" y="198" width="307" height="39"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rC6-0P-vfc">
+                                        <rect key="frame" x="58" y="193" width="307" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="39" id="8is-XH-Jg8"/>
                                         </constraints>

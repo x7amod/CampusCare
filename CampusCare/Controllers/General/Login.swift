@@ -97,7 +97,7 @@ class Login: UIViewController {
                     UserStore.shared.currentUserRole = role
                     UserStore.shared.currentUsername = data["Username"] as? String
                     UserStore.shared.currentTechID = uid
-            ////////
+            
             
             
             
