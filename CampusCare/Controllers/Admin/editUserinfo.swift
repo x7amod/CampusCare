@@ -2,81 +2,164 @@
 //  editUserinfo.swift
 //  CampusCare
 //
-//  Created by dar on 25/12/2025.
+//  Created by dar on 23/12/2025.
 //
+
 import UIKit
-import FirebaseAuth
 import FirebaseFirestore
 
-final class editUserInfoController: UIViewController{
-    
+final class editUserInfoController: UIViewController {
+
     var user: UserModel!
-        
+
     @IBOutlet weak var firstnametext: UITextField!
-    
-    
-    @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var lastnametext: UITextField!
-    
-    @IBOutlet weak var roleButton: UIButton!
-    @IBOutlet weak var RoleSelect: UIMenu!
-    
+    @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var Department: UITextField!
-   
-     private var selectedRole = ""
-    
+    @IBOutlet weak var roleButton: UIButton!
+
+    private let usersCollection = UsersCollection()
+    private var selectedRole: String? = nil   // ✅ starts nil (no default)
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        title="User Info"
-        setupBackButton()
+        title = "Edit User"
 
-        selectedRole = user.Role
-        setupRoleMenu()
-        // Fill UI from the selected user
+        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
+        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+        view.addSubview(headerView)
+
+        headerView.setTitle("Update User")
+
+        guard let user = user else {
+            assertionFailure("[editUserInfoController] user not set before presenting")
+            navigationController?.popViewController(animated: true)
+            return
+        }
+
         firstnametext.text = user.FirstName
         lastnametext.text = user.LastName
         userNameField.text = user.username
         Department.text = user.Department
-        
-        
-    }
-    // Back Button
-    private func setupBackButton() {
-        let backButton = UIButton(type: .system)
-        backButton.frame = CGRect(x: 16, y: 50, width: 60, height: 30)
-        backButton.setTitle("Back", for: .normal)
-        backButton.setTitleColor(.systemBackground, for: .normal)
-        backButton.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
-        view.addSubview(backButton)
+
+        // ✅ Show "Select" initially (instead of user's current role)
+        roleButton.setTitle("Select", for: .normal)
+
+        setupRoleMenu()
     }
 
-    @objc private func closeVC() {
-        if let nav = navigationController {
-            nav.popViewController(animated: true)
-        } else {
-            dismiss(animated: true)
+    private func setupRoleMenu() {
+        let roles = ["Student", "Staff", "Technician", "Manager"]
+
+        let actions = roles.map { role in
+            UIAction(title: role, state: (role == selectedRole ? .on : .off)) { [weak self] _ in
+                guard let self else { return }
+                self.selectedRole = role
+                self.roleButton.setTitle(role, for: .normal)
+                self.setupRoleMenu() // refresh checkmarks
+            }
+        }
+
+        roleButton.menu = UIMenu(title: "Select Role", children: actions)
+        roleButton.showsMenuAsPrimaryAction = true
+    }
+
+    @IBAction func saveTapped(_ sender: UIButton) {
+        let alert = UIAlertController(
+            title: "Confirm",
+            message: "Are you sure you want to save updates?",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
+            self?.performUpdate()
+        })
+
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        present(alert, animated: true)
+    }
+
+    private func performUpdate() {
+        guard let user = user else { return }
+
+        let first = (firstnametext.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let last  = (lastnametext.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let uname = (userNameField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let dept  = (Department.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+
+        // ✅ If admin did NOT pick a role, keep old role
+        let role = (selectedRole ?? user.Role).trimmingCharacters(in: .whitespacesAndNewlines)
+
+        if first.isEmpty || last.isEmpty || uname.isEmpty || dept.isEmpty || role.isEmpty {
+            let a = UIAlertController(
+                title: "Missing Info",
+                message: "Please fill all fields before saving.",
+                preferredStyle: .alert
+            )
+            a.addAction(UIAlertAction(title: "OK", style: .default))
+            present(a, animated: true)
+            return
+        }
+
+        let fields: [String: Any] = [
+            "Username": uname,
+            "Role": role,
+            "First Name": first,
+            "Last Name": last,
+            "Department": dept
+        ]
+
+        usersCollection.updateUser(uid: user.id, fields: fields) { [weak self] success in
+            guard let self else { return }
+
+            DispatchQueue.main.async {
+                if success {
+                    let updatedUser = UserModel(
+                        id: user.id,
+                        username: uname,
+                        Role: role,
+                        FirstName: first,
+                        LastName: last,
+                        Department: dept
+                    )
+
+                    let okAlert = UIAlertController(
+                        title: "Updated Successfully!",
+                        message: nil,
+                        preferredStyle: .alert
+                    )
+
+                    okAlert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                        self?.goBackToUserInfo(updatedUser: updatedUser)
+                    })
+
+                    self.present(okAlert, animated: true)
+
+                } else {
+                    print("❌ Update failed for uid:", user.id)
+                    print("Fields sent:", fields)
+
+                    let fail = UIAlertController(
+                        title: "Update Failed",
+                        message: "Please try again.",
+                        preferredStyle: .alert
+                    )
+                    fail.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(fail, animated: true)
+                }
+            }
         }
     }
 
-    
-    private func setupRoleMenu() {
-        let roles = ["Admin", "Technician Manager", "Staff", "Technician", "Student"]
+    private func goBackToUserInfo(updatedUser: UserModel) {
+        if let nav = navigationController,
+           let userInfoVC = nav.viewControllers.first(where: { $0 is UserInfoViewController }) as? UserInfoViewController {
 
-        roleButton.setTitle(selectedRole, for: .normal)
-
-        roleButton.menu = UIMenu(title: "Role", children: roles.map { role in
-            UIAction(title: role, state: role == selectedRole ? .on : .off) { [weak self] _ in
-                if role == "Technician Manager"{
-                    self?.selectedRole = "TechManager" } else {
-                        self?.selectedRole = role }
-                    self?.setupRoleMenu() //
-                }
-                
-
-        })
-
-        roleButton.showsMenuAsPrimaryAction = true
+            userInfoVC.user = updatedUser
+            nav.popToViewController(userInfoVC, animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
-    
-    
 }
