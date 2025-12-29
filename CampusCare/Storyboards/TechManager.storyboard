@@ -17,25 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-Wi-4IK">
-                                <rect key="frame" x="0.0" y="231" width="402" height="492"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="C9l-Bf-4cN">
-                                        <rect key="frame" x="0.0" y="0.0" width="402" height="492"/>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="C9l-Bf-4cN" firstAttribute="width" secondItem="Q0t-Wi-4IK" secondAttribute="width" id="FSu-gS-H52"/>
-                                    <constraint firstItem="C9l-Bf-4cN" firstAttribute="leading" secondItem="Q0t-Wi-4IK" secondAttribute="leading" id="GHZ-IH-azp"/>
-                                    <constraint firstAttribute="trailing" secondItem="C9l-Bf-4cN" secondAttribute="trailing" id="GzW-x1-6Ml"/>
-                                    <constraint firstItem="C9l-Bf-4cN" firstAttribute="top" secondItem="Q0t-Wi-4IK" secondAttribute="top" id="jOZ-T4-fcd"/>
-                                    <constraint firstAttribute="bottom" secondItem="C9l-Bf-4cN" secondAttribute="bottom" id="v2f-ox-ZBA"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="LHA-Sv-oI0"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="eg3-xs-IGS"/>
-                            </scrollView>
                             <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Xfn-xy-PhQ">
-                                <rect key="frame" x="16" y="161" width="236" height="56"/>
+                                <rect key="frame" x="12" y="111" width="236" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.89803922179999995" green="0.89803922179999995" blue="0.91372549530000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -44,7 +27,7 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xix-XF-baM">
-                                <rect key="frame" x="261" y="169" width="125" height="40"/>
+                                <rect key="frame" x="257" y="119" width="125" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="Filter"/>
@@ -55,14 +38,31 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-Wi-4IK">
+                                <rect key="frame" x="0.0" y="229" width="402" height="528"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="C9l-Bf-4cN">
+                                        <rect key="frame" x="0.0" y="0.0" width="402" height="492"/>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="C9l-Bf-4cN" secondAttribute="bottom" id="Kfv-P6-Rth"/>
+                                    <constraint firstAttribute="trailing" secondItem="C9l-Bf-4cN" secondAttribute="trailing" id="MW9-W9-aRQ"/>
+                                    <constraint firstItem="C9l-Bf-4cN" firstAttribute="top" secondItem="Q0t-Wi-4IK" secondAttribute="top" id="jP7-qw-JkR"/>
+                                    <constraint firstItem="C9l-Bf-4cN" firstAttribute="leading" secondItem="Q0t-Wi-4IK" secondAttribute="leading" id="m1M-7r-5C1"/>
+                                    <constraint firstItem="C9l-Bf-4cN" firstAttribute="width" secondItem="Q0t-Wi-4IK" secondAttribute="width" id="u89-bA-5SN"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="LHA-Sv-oI0"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="eg3-xs-IGS"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
-                            <constraint firstItem="Q0t-Wi-4IK" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="8O7-9x-C0d"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Q0t-Wi-4IK" secondAttribute="bottom" constant="36" id="ZGq-xx-wUo"/>
-                            <constraint firstItem="Q0t-Wi-4IK" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="agV-IZ-01B"/>
-                            <constraint firstItem="Q0t-Wi-4IK" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="33" id="fGo-Mh-aD1"/>
+                            <constraint firstItem="Q0t-Wi-4IK" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="6AX-qg-mkJ"/>
+                            <constraint firstItem="Q0t-Wi-4IK" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="61" id="fFQ-OR-exB"/>
+                            <constraint firstItem="Q0t-Wi-4IK" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="myb-gs-8gg"/>
+                            <constraint firstItem="Q0t-Wi-4IK" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="xus-WF-a0p"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Requests" image="calendar" catalog="system" id="neG-Qb-GNq"/>
@@ -75,7 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10" y="1463"/>
+            <point key="canvasLocation" x="8.9552238805970141" y="1462.9290617848969"/>
         </scene>
         <!--Manger Details-->
         <scene sceneID="VNe-AA-h4A">
@@ -464,8 +464,8 @@
             <objects>
                 <navigationController title="Analytics" id="bzk-fU-l9L" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="TxY-3N-TlA"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="zur-zJ-34A">
-                        <rect key="frame" x="0.0" y="124" width="402" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zur-zJ-34A">
+                        <rect key="frame" x="0.0" y="124" width="402" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
