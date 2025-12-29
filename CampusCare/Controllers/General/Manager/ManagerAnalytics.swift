@@ -284,7 +284,30 @@ class ManagerAnalytics: UIViewController {
 
         showChart(index: chartTypeSegmentedControl.selectedSegmentIndex)
     }
+    
+    
+    @IBAction func genreateReport(_ sender: Any) {
 
+        AnalyticsPDFGenerator.generateReport(
+            title: "Manager Analytics Report",
+            total: allRequests.count,
+            pending: Int(pendingNum.text ?? "0"),
+            completed: Int(completedNum.text ?? "0"),
+            charts: [
+                ("Tasks per Technician", pieChartView),
+                ("Avg Resolution Time", barChartView),
+                ("Weekly Trend", lineChartView)
+            ]
+        ) { data in
+            AnalyticsPDFGenerator.uploadSaveAndShare(
+                from: self,
+                data: data,
+                filePrefix: "ManagerAnalytics"
+            )
+        }
+    }
+
+    
 
 }
 

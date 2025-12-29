@@ -287,7 +287,7 @@ final class RequestCollection {
                 if let error = error {
                     completion(.failure(error))
                 } else {
-                    print("✅ Request successfully assigned.")
+                    print(" Request successfully assigned.")
                     
                     // Fetch request details to send notifications
                     requestDocRef.getDocument { snapshot, error in

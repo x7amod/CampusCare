@@ -269,136 +269,24 @@ class AdminAnalytics: UIViewController {
     
     @IBAction func genReport(_ sender: Any) {
 
-        let pdfMetaData = [
-            kCGPDFContextCreator: "CampusCare",
-            kCGPDFContextAuthor: "Admin",
-            kCGPDFContextTitle: "Analytics Report"
-        ]
+//        barChartView.isHidden = false
+//            lineChartView.isHidden = false
 
-        let format = UIGraphicsPDFRendererFormat()
-        format.documentInfo = pdfMetaData as [String: Any]
-
-        let pageWidth: CGFloat = 595.2
-        let pageHeight: CGFloat = 841.8
-        let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
-
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
-
-        // make charts visible before rendering
-        barChartView.isHidden = false
-        lineChartView.isHidden = false
-
-        //create pdf
-        let data = renderer.pdfData { context in
-
-            func drawHeader(yPosition: CGFloat) -> CGFloat {
-                var y = yPosition
-
-                let title = "CampusCare Analytics Report"
-                let titleAttributes: [NSAttributedString.Key: Any] = [
-                    .font: UIFont.boldSystemFont(ofSize: 20)
+            AnalyticsPDFGenerator.generateReport(
+                title: "Admin Analytics Report",
+                total: numRequest,
+                open: openRequest,
+                charts: [
+                    ("Requests by Priority", barChartView),
+                    ("Requests Over Time", lineChartView)
                 ]
-                let titleSize = title.size(withAttributes: titleAttributes)
-
-                title.draw(
-                    at: CGPoint(x: (pageWidth - titleSize.width) / 2, y: y),
-                    withAttributes: titleAttributes
-                )
-
-                y += titleSize.height + 20
-
-                let infoText = """
-                Total Requests: \(numRequest)
-                Open Requests: \(openRequest)
-                """
-                let infoAttributes: [NSAttributedString.Key: Any] = [
-                    .font: UIFont.systemFont(ofSize: 16)
-                ]
-
-                infoText.draw(
-                    at: CGPoint(x: 40, y: y),
-                    withAttributes: infoAttributes
-                )
-
-                y += 50
-                return y
-            }
-
-            // Bar Chart Page
-            context.beginPage()
-            var yPos: CGFloat = 20
-            yPos = drawHeader(yPosition: yPos)
-
-            if let barImage = barChartView.getChartImage(transparent: false) {
-                let aspectRatio = barImage.size.width / barImage.size.height
-                let chartWidth = pageWidth - 80
-                let chartHeight = chartWidth / aspectRatio
-
-                barImage.draw(
-                    in: CGRect(x: 40, y: yPos, width: chartWidth, height: chartHeight)
+            ) { data in
+                AnalyticsPDFGenerator.uploadSaveAndShare(
+                    from: self,
+                    data: data,
+                    filePrefix: "AdminAnalytics"
                 )
             }
-
-            //Line Chart Page
-            context.beginPage()
-            yPos = 20
-            yPos = drawHeader(yPosition: yPos)
-
-            if let lineImage = lineChartView.getChartImage(transparent: false) {
-                let aspectRatio = lineImage.size.width / lineImage.size.height
-                let chartWidth = pageWidth - 80
-                let chartHeight = chartWidth / aspectRatio
-
-                lineImage.draw(
-                    in: CGRect(x: 40, y: yPos, width: chartWidth, height: chartHeight)
-                )
-            }
-        }
-
-        // restore chart visibility
-        lineChartView.isHidden = true
-
-//upload to cloundry
-        let fileName = "AnalyticsReport_\(Int(Date().timeIntervalSince1970))"
-
-        CloudinaryManager.shared.uploadPDF(data, fileName: fileName) { pdfURL in
-            DispatchQueue.main.async {
-
-                guard let pdfURL = pdfURL else {
-                    print(" Failed to upload PDF to Cloudinary")
-                    return
-                }
-
-//                print("PDF uploaded:", pdfURL.absoluteString)
-
-                // Save URL to Firestore
-                let reportCollection = ReportCollection()
-                reportCollection.createReport(url: pdfURL.absoluteString) { error in
-                    if let error = error {
-                        print(" Firestore save error:", error.localizedDescription)
-                    } else {
-                        print(" PDF URL saved to Firestore")
-                    }
-                }
-
-              
-                // Share PDF
-           
-                let tempURL = FileManager.default.temporaryDirectory
-                    .appendingPathComponent("\(fileName).pdf")
-
-                do {
-                    try data.write(to: tempURL)
-                    let activityVC = UIActivityViewController(
-                        activityItems: [tempURL],
-                        applicationActivities: nil
-                    )
-                    self.present(activityVC, animated: true)
-                } catch {
-                    print(" Could not save PDF locally:", error.localizedDescription)
-                }
-            }
-        }
     }
 
 
