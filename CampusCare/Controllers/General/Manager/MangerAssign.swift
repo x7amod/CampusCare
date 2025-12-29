@@ -138,7 +138,6 @@ class MangerAssign: UIViewController {
             UIAction(title: "Select Technician", attributes: [.disabled]) { _ in }
         ]
 
-        // Map available technicians to UIActions
         let techActions = availableTechnicians.map { tech in
             UIAction(title: tech.FirstName) { [weak self] _ in
                 self?.selectedTechnician = tech
