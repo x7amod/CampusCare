@@ -268,78 +268,27 @@ class AdminAnalytics: UIViewController {
     }
     
     @IBAction func genReport(_ sender: Any) {
-        let pdfMetaData = [
-            kCGPDFContextCreator: "CampusCare",
-            kCGPDFContextAuthor: "Admin",
-            kCGPDFContextTitle: "Analytics Report"
-        ]
-        let format = UIGraphicsPDFRendererFormat()
-        format.documentInfo = pdfMetaData as [String: Any]
-        
-        let pageWidth: CGFloat = 595.2
-        let pageHeight: CGFloat = 841.8
-        let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight)
-        
-        let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
-        
-        barChartView.isHidden = false
-        lineChartView.isHidden = false
-        
-        let data = renderer.pdfData { context in
-            
-            func drawHeader(yPosition: CGFloat) -> CGFloat {
-                var y = yPosition
-                let title = "CampusCare Analytics Report"
-                let titleAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.boldSystemFont(ofSize: 20)]
-                let titleSize = title.size(withAttributes: titleAttributes)
-                title.draw(at: CGPoint(x: (pageWidth - titleSize.width)/2, y: y), withAttributes: titleAttributes)
-                y += titleSize.height + 20
-                
-                let infoText = "Total Requests: \(numRequest)\nOpen Requests: \(openRequest)"
-                let infoAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 16)]
-                infoText.draw(at: CGPoint(x: 40, y: y), withAttributes: infoAttributes)
-                y += 50
-                return y
+
+//        barChartView.isHidden = false
+//            lineChartView.isHidden = false
+
+            AnalyticsPDFGenerator.generateReport(
+                title: "Admin Analytics Report",
+                total: numRequest,
+                open: openRequest,
+                charts: [
+                    ("Requests by Priority", barChartView),
+                    ("Requests Over Time", lineChartView)
+                ]
+            ) { data in
+                AnalyticsPDFGenerator.uploadSaveAndShare(
+                    from: self,
+                    data: data,
+                    filePrefix: "AdminAnalytics"
+                )
             }
-            
-            // Bar Chart
-            context.beginPage()
-            var yPos: CGFloat = 20
-            yPos = drawHeader(yPosition: yPos)
-            
-            if let barImage = barChartView.getChartImage(transparent: false) {
-                let aspectRatio = barImage.size.width / barImage.size.height
-                let chartWidth = pageWidth - 80
-                let chartHeight = chartWidth / aspectRatio
-                barImage.draw(in: CGRect(x: 40, y: yPos, width: chartWidth, height: chartHeight))
-            }
-            
-            //  Line Chart
-            context.beginPage()
-            yPos = 20
-            yPos = drawHeader(yPosition: yPos)
-            
-            if let lineImage = lineChartView.getChartImage(transparent: false) {
-                let aspectRatio = lineImage.size.width / lineImage.size.height
-                let chartWidth = pageWidth - 80
-                let chartHeight = chartWidth / aspectRatio
-                lineImage.draw(in: CGRect(x: 40, y: yPos, width: chartWidth, height: chartHeight))
-            }
-        }
-        
-        // restore previous chart visibility
-        lineChartView.isHidden = true
-        
-        // Save / share PDF
-        let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("AnalyticsReport.pdf")
-        do {
-            try data.write(to: tempURL)
-            let activityVC = UIActivityViewController(activityItems: [tempURL], applicationActivities: nil)
-            present(activityVC, animated: true)
-        } catch {
-            print("Could not save PDF: \(error.localizedDescription)")
-        }
     }
+
 
 
     

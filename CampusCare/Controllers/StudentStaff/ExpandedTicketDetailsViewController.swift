@@ -36,10 +36,8 @@ class ExpandedTicketDetailsViewController: UIViewController {
     @IBOutlet weak var requestInProgressView: UIStackView!
     @IBOutlet weak var requestCompleteView: UIStackView!
     @IBOutlet weak var technicianDetailsView: UIStackView!
-    @IBOutlet weak var feedbackBtnView: UIView!
+    @IBOutlet weak var feedbackBtnView: UIStackView!
     @IBOutlet weak var modifyCancelBtnsView: UIStackView!
-    
-    @IBOutlet weak var backButton: UIButton!
     // receive data from the previous screen
     var requestData: RequestModel?
     let bulletPoint = "\u{2022} " // Unicode for bullet point

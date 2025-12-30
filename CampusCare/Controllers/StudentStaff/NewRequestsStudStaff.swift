@@ -13,19 +13,9 @@ class NewRequestsStudStaff: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        // Do any additional setup after loading the view.
-//        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-//        view.addSubview(headerView)
-//        
-//        // Set page-specific title
-//           headerView.setTitle("New Requests")  // Change this for each screen
-        
         
         setupDropdownButton(categoryButton)
-          setupDropdownButton(priorityButton)
-        
+        setupDropdownButton(priorityButton)
         
         func setupDropdownButton(_ button: UIButton) {
             var config = UIButton.Configuration.plain()
@@ -40,13 +30,23 @@ class NewRequestsStudStaff: UIViewController {
             button.layer.cornerRadius = 8
             button.backgroundColor = UIColor.systemGray6
         }
-    
 
     }
+    override func viewDidLayoutSubviews() {
+           super.viewDidLayoutSubviews()
+           addDashedBorder()
+       }
+    
+    
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var categoryButton: UIButton!
+    
+    var selectedCategory: String?
+    var selectedPriority: String?
+    let db = Firestore.firestore()
+    
     @IBAction func categoryTapped(_ sender: UIButton) {
         let alert = UIAlertController(
                 title: "Select Category",
@@ -141,63 +141,72 @@ class NewRequestsStudStaff: UIViewController {
     
     
     @IBAction func submitButtonTapped(_ sender: Any) {
-        guard let title = titleTextField.text, !title.isEmpty,
-              let location = locationTextField.text, !location.isEmpty,
-              let category = selectedCategory,
-              let priority = selectedPriority else {
+        let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+               let location = locationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+               let description = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
 
-            showSimpleAlert(
-                title: "Error",
-                message: "Please fill all fields"
-            )
-            return
-        }
+               guard
+                   !title.isEmpty,
+                   !location.isEmpty,
+                   let category = selectedCategory,
+                   let priority = selectedPriority,
+                   !description.isEmpty,
+                   let uid = Auth.auth().currentUser?.uid
+               else {
+                   showSimpleAlert(title: "Error", message: "Please fill all fields")
+                   return
+               }
 
+               let ticketId = "REQ-\(Int.random(in: 1000...9999))"
 
-            guard let uid = Auth.auth().currentUser?.uid else { return }
+               let data: [String: Any] = [
+                   "ticketId": ticketId,
+                   "title": title,
+                   "location": location,
+                   "category": category,
+                   "priority": priority,
+                   "description": description,
+                   "status": "pending",
+                   "createdBy": uid,
+                   "createdAt": Timestamp(),
+                   "imageURL": "",
+                   "assignedDate": NSNull(),
+                   "completedDate": NSNull()
+               ]
 
-            let data: [String: Any] = [
-                "title": title,
-                "location": location,
-                "category": category,
-                "priority": priority,
-                "description": descriptionTextView.text ?? "",
-                "status": "pending",
-                "createdBy": uid,
-                "createdAt": Timestamp(date: Date())
-            ]
+               db.collection("Requests").addDocument(data: data) { error in
+                   if let error = error {
+                       self.showSimpleAlert(title: "Error", message: error.localizedDescription)
+                       return
+                   }
 
-            db.collection("repairRequests").addDocument(data: data) { _ in
-                self.navigationController?.popViewController(animated: true)
-            }
-        
-    }
-    
-    var selectedCategory: String?
-    var selectedPriority: String?
-    
-    let db = Firestore.firestore()
-    
-   
-    
-    
-    override func viewDidLayoutSubviews() {
-           super.viewDidLayoutSubviews()
-           addDashedBorder()
+                   self.showSuccessAlertAndGoHome(ticketId: ticketId)
+               }
+           }
+
+           // MARK: - Success Alert
+           func showSuccessAlertAndGoHome(ticketId: String) {
+               let alert = UIAlertController(
+                   title: "Success",
+                   message: "Request submitted successfully.\nTicket ID: \(ticketId)",
+                   preferredStyle: .alert
+               )
+
+               alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                   self.tabBarController?.selectedIndex = 0
+                   if let nav = self.tabBarController?.viewControllers?.first as? UINavigationController {
+                       nav.popToRootViewController(animated: true)
+                   }
+               })
+
+               present(alert, animated: true)
+           }
        }
-    
-    
-    
-    
-    
    
     
     
     
-    
-
-    
-   }
+   
     
 extension NewRequestsStudStaff: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -220,26 +229,26 @@ extension NewRequestsStudStaff: UIImagePickerControllerDelegate, UINavigationCon
 }
 
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+         // MARK: - Navigation
+         
+         // In a storyboard-based application, you will often want to do a little preparation before navigation
+         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         // Get the new view controller using segue.destination.
+         // Pass the selected object to the new view controller.
+         }
+         */
+        
+        
+    

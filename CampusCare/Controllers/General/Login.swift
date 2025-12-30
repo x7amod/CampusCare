@@ -63,7 +63,7 @@ class Login: UIViewController {
     }
     
     
-        // Firebase Authentication
+        // Firebase Authentication 
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
             if let error = error {
                 self?.showAlert(title: "Login Failed", message: error.localizedDescription)
@@ -97,7 +97,7 @@ class Login: UIViewController {
                     UserStore.shared.currentUserRole = role
                     UserStore.shared.currentUsername = data["Username"] as? String
                     UserStore.shared.currentTechID = uid
-            ////////
+            
             
             
             

@@ -2,61 +2,73 @@
 //  UserItemView.swift
 //  CampusCare
 //
-//  Created by dar on 26/12/2025.
+//  Created by dar on 23/12/2025.
 //
 
 import UIKit
 
+final class UserItemView: UITableViewCell {
 
-class UserItemView: UIView {
-    
-    
+    @IBOutlet weak var cardContainerView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var roleLabel: UILabel!
-    
+
     var onTap: (() -> Void)?
 
-        static func instantiate() -> UserItemView {
-            let nib = UINib(nibName: "UserItemView", bundle: nil)
-            return nib.instantiate(withOwner: nil, options: nil).first as! UserItemView
-        }
-
-        func configure(with user: UserModel) {
-            nameLabel.text = "\(user.FirstName) \(user.LastName)".trimmingCharacters(in: .whitespaces)
-            usernameLabel.text = user.username
-            roleLabel.text = user.Role
-        }
-
-        override func awakeFromNib() {
-            super.awakeFromNib()
-            let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
-            addGestureRecognizer(tap)
-            isUserInteractionEnabled = true
-        }
-
-        @objc private func didTap() {
-            onTap?()
-        }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupDesign()
+        setupTapOnce()
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        nameLabel.text = nil
+        usernameLabel.text = nil
+        roleLabel.text = nil
+        onTap = nil
+    }
+
+    func configure(with user: UserModel) {
+        nameLabel.text = "\(user.FirstName) \(user.LastName)".trimmingCharacters(in: .whitespaces)
+        usernameLabel.text = user.username
+        roleLabel.text = user.Role
+    }
+
+    private func setupDesign() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        selectionStyle = .none
+
+        cardContainerView.backgroundColor = .white
+        cardContainerView.layer.cornerRadius = 18
+        cardContainerView.layer.masksToBounds = false
+
+        cardContainerView.layer.shadowColor = UIColor.black.cgColor
+        cardContainerView.layer.shadowOpacity = 0.08
+        cardContainerView.layer.shadowOffset = CGSize(width: 0, height: 4)
+        cardContainerView.layer.shadowRadius = 8
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        cardContainerView.layer.shadowPath = UIBezierPath(
+            roundedRect: cardContainerView.bounds,
+            cornerRadius: cardContainerView.layer.cornerRadius
+        ).cgPath
+    }
+
+  
+    private func setupTapOnce() {
+        
+        cardContainerView.isUserInteractionEnabled = true
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        cardContainerView.addGestureRecognizer(tap)
+    }
+
+    @objc private func handleTap() {
+        onTap?()
+    }
+}

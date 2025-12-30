@@ -156,12 +156,10 @@ final class     UsersCollection{
             }
         }
     
-    // MARK: - Notification Helper Methods
     
-    /// Fetch user's full name (FirstName + LastName)
-    /// - Parameters:
-    ///   - userID: The ID of the user
-    ///   - completion: Returns full name or nil if not found
+    
+    //Fetch user's name (FirstName + LastName)
+   
     func fetchUserFullName(userID: String, completion: @escaping (String?) -> Void) {
         usersCollectionRef.document(userID).getDocument { snapshot, error in
             if let error = error {
@@ -183,8 +181,8 @@ final class     UsersCollection{
         }
     }
     
-    /// Fetch the first Manager user's ID
-    /// - Parameter completion: Returns manager user ID or nil if not found
+    // Fetch the first Manager user's ID
+    
     func fetchManagerUserID(completion: @escaping (String?) -> Void) {
         usersCollectionRef
             .whereField("Role", isEqualTo: "Manager")
