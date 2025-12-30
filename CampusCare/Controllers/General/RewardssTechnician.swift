@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 final class RewardssTechnician: UIViewController {
 
@@ -17,48 +19,61 @@ final class RewardssTechnician: UIViewController {
     @IBOutlet weak var golddLabel: UIImageView!
     @IBOutlet weak var motivationnLabel: UILabel!
     
+    private let db = Firestore.firestore()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "Rewards"
-               updateUI()
+           super.viewDidLoad()
+           title = "Rewards"
+           fetchRewards()
+       }
+    // MARK: - Fetch from Firebase
+    private func fetchRewards() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        db.collection("rewards").document(uid).getDocument { snapshot, error in
+            guard
+                let data = snapshot?.data(),
+                let name = data["name"] as? String,
+                let completedTasks = data["completedTasks"] as? Int
+            else { return }
+
+            let state = RewardsState(
+                name: name,
+                completedTasks: completedTasks
+            )
+
+            self.updateUI(state: state)
+        }
     }
-    
-    // MARK: - Update Screen
-    private func updateUI() {
+
+    // MARK: - Update UI
+    private func updateUI(state: RewardsState) {
 
         let rewards = Rewards.shared
-        let state = rewards.state
         let points = state.points
+        let badge = rewards.currentBadge(points: points)
 
-        // User info
-        nameLabell.text = state.technicianName
+        nameLabell.text = state.name
         pointsLabell.text = "Total Points: \(points)"
 
-        // Progress bar (POINT BASED)
-        let target = rewards.nextBadgeTarget()
+        let target = rewards.nextBadgeTarget(points: points)
         let previous: Int
 
-        switch rewards.currentBadge() {
-        case .none:
-            previous = 0
-        case .bronze:
-            previous = rewards.bronzePoints
-        case .silver:
-            previous = rewards.silverPoints
-        case .gold:
-            previous = rewards.goldPoints
+        switch badge {
+        case .none: previous = 0
+        case .bronze: previous = rewards.bronzePoints
+        case .silver: previous = rewards.silverPoints
+        case .gold: previous = rewards.goldPoints
         }
 
         let progress = Float(points - previous) / Float(target - previous)
         progressVieww.progress = max(0, min(progress, 1))
 
-        // Badges
         setBadge(bronzeeLabel, unlocked: points >= rewards.bronzePoints, color: .systemOrange)
         setBadge(silverrLabel, unlocked: points >= rewards.silverPoints, color: .systemGray)
-        setBadge(golddLabel, unlocked: points >= rewards.goldPoints, color: .systemGreen)
-        // Motivation
-        motivationnLabel.text = rewards.motivationText()
+        setBadge(golddLabel, unlocked: points >= rewards.goldPoints, color: .systemYellow)
+
+        motivationnLabel.text = rewards.motivationText(badge: badge)
     }
 
     private func setBadge(_ icon: UIImageView, unlocked: Bool, color: UIColor) {
@@ -67,30 +82,44 @@ final class RewardssTechnician: UIViewController {
         icon.alpha = unlocked ? 1.0 : 0.35
     }
 
-    // MARK: - Demo Button (testing only)
-    @IBAction func addTaskForTesting(_ sender: Any) {
+    // MARK: - Call when task completed
+    func taskCompleted() {
 
-        let rewards = Rewards.shared
-        var state = rewards.state
+        guard let uid = Auth.auth().currentUser?.uid else { return }
 
-        let oldBadge = rewards.currentBadge()
+        let docRef = db.collection("rewards").document(uid)
 
-        // Simulate task completion
-        state.completedTasks += 1
-        rewards.state = state
+        docRef.getDocument { snapshot, _ in
+            guard let data = snapshot?.data(),
+                  let completed = data["completedTasks"] as? Int,
+                  let name = data["name"] as? String
+            else { return }
 
-        let newBadge = rewards.currentBadge()
+            let oldPoints = completed * 10
+            let oldBadge = Rewards.shared.currentBadge(points: oldPoints)
 
-        // Show popup only if badge changed
-        if newBadge != oldBadge && newBadge != .none {
-            showBadgeUnlockedAlert(badge: newBadge)
+            let newCompleted = completed + 1
+            let newPoints = newCompleted * 10
+            let newBadge = Rewards.shared.currentBadge(points: newPoints)
+
+            docRef.updateData([
+                "completedTasks": newCompleted
+            ])
+
+            if newBadge != oldBadge && newBadge != .none {
+                self.showBadgePopup(badge: newBadge)
+            }
+
+            let state = RewardsState(
+                name: name,
+                completedTasks: newCompleted
+            )
+            self.updateUI(state: state)
         }
-
-        updateUI()
     }
 
-    // MARK: - Popup using shared alert
-    private func showBadgeUnlockedAlert(badge: Badge) {
+    // MARK: - Popup
+    private func showBadgePopup(badge: Badge) {
 
         let title = "Congratulations!"
         let message: String
@@ -108,47 +137,4 @@ final class RewardssTechnician: UIViewController {
 
         showSimpleAlert(title: title, message: message)
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

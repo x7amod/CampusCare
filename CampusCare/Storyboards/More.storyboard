@@ -11,7 +11,7 @@
         <!--Settings-->
         <scene sceneID="0GI-Qa-sWU">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="bnz-Ci-6bO" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="bnz-Ci-6bO" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KZo-4c-rxd">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -292,13 +292,13 @@
             </objects>
             <point key="canvasLocation" x="-379" y="1506"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--App Navigation Controller-->
         <scene sceneID="S2C-TY-che">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gjK-Qb-ffE" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gjK-Qb-ffE" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="SAh-Pi-cKo">
-                        <rect key="frame" x="0.0" y="124" width="402" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SAh-Pi-cKo">
+                        <rect key="frame" x="0.0" y="124" width="402" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -306,7 +306,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="bnz-Ci-6bO" kind="relationship" relationship="rootViewController" id="Yv0-4f-Jv1"/>
+                        <segue destination="bnz-Ci-6bO" kind="relationship" relationship="rootViewController" id="8dk-RP-jzg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OQw-1Q-LgR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
