@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseCore
 
 final class AddUserViewController: UIViewController {
 
@@ -18,41 +19,50 @@ final class AddUserViewController: UIViewController {
     @IBOutlet weak var departmentTextField: UITextField!
     @IBOutlet weak var roleBtn: UIButton!
 
-    private let db = FirestoreManager.shared.db
+    @IBOutlet weak var confirmPassword: UITextField!
+
+    // Label under confirm password
+    @IBOutlet weak var confirmPasswordErrorLabel: UILabel!
+
+    private let db = Firestore.firestore()
     private var selectedRole: String? = nil
+
+    private lazy var secondaryAuth: Auth = {
+        return SecondaryFirebase.auth
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = "Add User"
 
-        
-        let headerView = Bundle.main
-            .loadNibNamed("CampusCareHeader", owner: nil, options: nil)?
-            .first as! CampusCareHeader
-
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        view.addSubview(headerView)
-        headerView.setTitle("Add User")
-
-        
         roleBtn.setTitle("Select", for: .normal)
         setupRoleMenu()
+
+       
+       
+        userPasswordTextField.isSecureTextEntry = false
+        confirmPassword.isSecureTextEntry = false
+
+        
+        confirmPasswordErrorLabel.text = ""
+        confirmPasswordErrorLabel.textColor = .systemRed
+        confirmPasswordErrorLabel.isHidden = true
+
+        
+        userPasswordTextField.addTarget(self, action: #selector(passwordFieldsChanged), for: .editingChanged)
+        confirmPassword.addTarget(self, action: #selector(passwordFieldsChanged), for: .editingChanged)
     }
 
-    
     private func setupRoleMenu() {
         let roles = ["Student", "Staff", "Technician", "Manager"]
 
         let actions = roles.map { role in
-            UIAction(
-                title: role,
-                state: (role == selectedRole ? .on : .off)
-            ) { [weak self] _ in
+            UIAction(title: role, state: (role == selectedRole ? .on : .off)) { [weak self] _ in
                 guard let self else { return }
                 self.selectedRole = role
                 self.roleBtn.setTitle(role, for: .normal)
-                self.setupRoleMenu()   // refresh checkmarks
+                self.setupRoleMenu()
             }
         }
 
@@ -61,34 +71,72 @@ final class AddUserViewController: UIViewController {
     }
 
     
+    @objc private func passwordFieldsChanged() {
+        let password = (userPasswordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let confirm  = (confirmPassword.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+
+     
+        if confirm.isEmpty {
+            confirmPasswordErrorLabel.text = ""
+            confirmPasswordErrorLabel.isHidden = true
+            return
+        }
+
+        
+        if password != confirm {
+            confirmPasswordErrorLabel.text = "Password is different from User Password"
+            confirmPasswordErrorLabel.isHidden = false
+        } else {
+            confirmPasswordErrorLabel.text = ""
+            confirmPasswordErrorLabel.isHidden = true
+        }
+    }
 
     @IBAction func AddUserButton(_ sender: UIButton) {
 
         let firstName = (firstNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let lastName  = (lastNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-        let username  = (userNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let email     = (userNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         let password  = (userPasswordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+        let confirmPw = (confirmPassword.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let department = (departmentTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
 
         guard !firstName.isEmpty,
               !lastName.isEmpty,
-              !username.isEmpty,
+              !email.isEmpty,
               !password.isEmpty,
+              !confirmPw.isEmpty,
               !department.isEmpty else {
-            showAlert("Please fill all fields")
+            showAlert(title: "Add User", message: "Please fill all fields")
+            return
+        }
+
+        guard email.contains("@"), email.contains(".") else {
+            showAlert(title: "Add User", message: "Enter a valid email in Username field")
+            return
+        }
+
+        guard password.count >= 6 else {
+            showAlert(title: "Add User", message: "Password must be at least 6 characters")
             return
         }
 
         
-        guard let role = selectedRole else {
-            showAlert("Please select a role")
+        guard password == confirmPw else {
+            confirmPasswordErrorLabel.text = "Password is different from User Password"
+            confirmPasswordErrorLabel.isHidden = false
+            confirmPassword.becomeFirstResponder()
             return
         }
 
-      
+        guard let role = selectedRole else {
+            showAlert(title: "Add User", message: "Please select a role")
+            return
+        }
+
         let confirm = UIAlertController(
             title: "Confirm",
-            message: "Are you Sure You Want to Add this User?",
+            message: "Are you sure you want to add this user?\n\nEmail: \(email)\nRole: \(role)",
             preferredStyle: .alert
         )
 
@@ -96,73 +144,70 @@ final class AddUserViewController: UIViewController {
             self?.createUser(
                 firstName: firstName,
                 lastName: lastName,
-                username: username,
+                email: email,
                 password: password,
                 department: department,
                 role: role
             )
         })
 
-        confirm.addAction(UIAlertAction(title: "No", style: .cancel))
+        confirm.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(confirm, animated: true)
     }
 
     private func createUser(firstName: String,
                             lastName: String,
-                            username: String,
+                            email: String,
                             password: String,
                             department: String,
                             role: String) {
 
-        
-        let email = username.lowercased()
-
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
+        secondaryAuth.createUser(withEmail: email, password: password) { [weak self] result, error in
             guard let self else { return }
 
             if let error = error {
-                self.showAlert(error.localizedDescription)
+                self.showAlert(title: "Add User", message: error.localizedDescription)
                 return
             }
 
             guard let uid = result?.user.uid else {
-                self.showAlert("Failed to create user")
+                self.showAlert(title: "Add User", message: "Failed to create user")
                 return
             }
 
             let data: [String: Any] = [
-                "Username": username,
+                "Username": email,
                 "Role": role,
                 "First Name": firstName,
                 "Last Name": lastName,
                 "Department": department
             ]
 
-            self.db.collection("Users").document(uid).setData(data) { error in
+            self.db.collection("Users").document(uid).setData(data) { [weak self] error in
+                guard let self else { return }
+
                 if let error = error {
-                    self.showAlert(error.localizedDescription)
+                    self.showAlert(title: "Add User", message: error.localizedDescription)
                     return
                 }
+
+                try? self.secondaryAuth.signOut()
 
                 let success = UIAlertController(
                     title: "User Successfully Added!",
                     message: nil,
                     preferredStyle: .alert
                 )
-
                 success.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
                     self?.navigationController?.popViewController(animated: true)
                 })
-
                 self.present(success, animated: true)
             }
         }
     }
 
-   
-
-    private func showAlert(_ message: String) {
-        let alert = UIAlertController(title: "Add User", message: message, preferredStyle: .alert)
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }

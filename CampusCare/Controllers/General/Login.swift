@@ -63,7 +63,7 @@ class Login: UIViewController {
     }
     
     
-        // Firebase Authentication
+        // Firebase Authentication 
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] result, error in
             if let error = error {
                 self?.showAlert(title: "Login Failed", message: error.localizedDescription)
