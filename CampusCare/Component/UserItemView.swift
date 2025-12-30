@@ -1,3 +1,10 @@
+//
+//  UserItemView.swift
+//  CampusCare
+//
+//  Created by dar on 23/12/2025.
+//
+
 import UIKit
 
 final class UserItemView: UITableViewCell {
@@ -20,7 +27,7 @@ final class UserItemView: UITableViewCell {
         nameLabel.text = nil
         usernameLabel.text = nil
         roleLabel.text = nil
-        onTap = nil // ✅ important so old closures don’t stay with reused cells
+        onTap = nil
     }
 
     func configure(with user: UserModel) {
@@ -52,9 +59,9 @@ final class UserItemView: UITableViewCell {
         ).cgPath
     }
 
-    // MARK: - Tap Handling (ONLY ONCE)
+  
     private func setupTapOnce() {
-        // Add gesture on the card container (best UX)
+        
         cardContainerView.isUserInteractionEnabled = true
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))

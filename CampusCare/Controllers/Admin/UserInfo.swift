@@ -25,15 +25,7 @@ final class UserInfoViewController: UIViewController {
         super.viewDidLoad()
         title = "User Info"
         applyUserToUI()
-        
-        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-        view.addSubview(headerView)
-        
-        // Set page-specific title
-           headerView.setTitle("User Information")  // Change this for each screen
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -53,6 +45,7 @@ final class UserInfoViewController: UIViewController {
         departmentField.text = user.Department
     }
     
+    //update button
     @IBAction func updateTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Admin", bundle: nil)
         
@@ -72,6 +65,7 @@ final class UserInfoViewController: UIViewController {
         navigationController?.pushViewController(editVC, animated: true)
     }
     
+    //delete button
     @IBAction func deleteTapped(_ sender: UIButton) {
         let confirm = UIAlertController(
             title: "Confirm",
@@ -79,11 +73,13 @@ final class UserInfoViewController: UIViewController {
             preferredStyle: .alert
         )
         
+        
         confirm.addAction(UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
             self?.performDelete()
-            
-        confirm.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         })
+        
+        
+        confirm.addAction(UIAlertAction(title: "No", style: .cancel))
         
         present(confirm, animated: true)
     }
@@ -96,28 +92,29 @@ final class UserInfoViewController: UIViewController {
 
         usersCollection.deleteUserDocument(uid: user.id) { [weak self] success in
             guard let self else { return }
+            
             DispatchQueue.main.async {
                 if success {
-                    let done = UIAlertController(
-                        title: "The User Was Successfully Deleted!",
+                    let successAlert = UIAlertController(
+                        title: "This User Was Successfully Deleted!",
                         message: nil,
                         preferredStyle: .alert
                     )
 
-                    done.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-                        // Go back to the users list page
+                    successAlert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+                       
                         self?.navigationController?.popViewController(animated: true)
                     })
 
-                    self.present(done, animated: true)
+                    self.present(successAlert, animated: true)
                 } else {
-                    let fail = UIAlertController(
+                    let failAlert = UIAlertController(
                         title: "Delete Failed",
                         message: "Please try again",
                         preferredStyle: .alert
                     )
-                    fail.addAction(UIAlertAction(title: "OK", style: .default))
-                    self.present(fail, animated: true)
+                    failAlert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(failAlert, animated: true)
                 }
             }
         }

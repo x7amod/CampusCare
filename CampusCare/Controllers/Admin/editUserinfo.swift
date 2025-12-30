@@ -5,6 +5,7 @@
 //  Created by dar on 23/12/2025.
 //
 
+
 import UIKit
 import FirebaseFirestore
 
@@ -19,7 +20,9 @@ final class editUserInfoController: UIViewController {
     @IBOutlet weak var roleButton: UIButton!
 
     private let usersCollection = UsersCollection()
-    private var selectedRole: String? = nil   // ✅ starts nil (no default)
+    private var selectedRole: String? = nil
+
+    private let roles = ["Student", "Staff", "Technician", "Manager"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +31,6 @@ final class editUserInfoController: UIViewController {
         let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
         view.addSubview(headerView)
-
         headerView.setTitle("Update User")
 
         guard let user = user else {
@@ -42,21 +44,40 @@ final class editUserInfoController: UIViewController {
         userNameField.text = user.username
         Department.text = user.Department
 
-        // ✅ Show "Select" initially (instead of user's current role)
-        roleButton.setTitle("Select", for: .normal)
+        
+        let normalizedRole = normalizeRole(user.Role)
+        selectedRole = normalizedRole
+
+     
+        if let normalizedRole, roles.contains(normalizedRole) {
+            roleButton.setTitle(normalizedRole, for: .normal)
+        } else {
+            roleButton.setTitle("Select", for: .normal)
+        }
 
         setupRoleMenu()
     }
 
-    private func setupRoleMenu() {
-        let roles = ["Student", "Staff", "Technician", "Manager"]
+    
+    private func normalizeRole(_ role: String) -> String? {
+        let trimmed = role.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty { return nil }
 
+        
+        if let match = roles.first(where: { $0.lowercased() == trimmed.lowercased() }) {
+            return match
+        }
+
+        return trimmed
+    }
+
+    private func setupRoleMenu() {
         let actions = roles.map { role in
             UIAction(title: role, state: (role == selectedRole ? .on : .off)) { [weak self] _ in
                 guard let self else { return }
                 self.selectedRole = role
                 self.roleButton.setTitle(role, for: .normal)
-                self.setupRoleMenu() // refresh checkmarks
+                self.setupRoleMenu() 
             }
         }
 
@@ -75,8 +96,7 @@ final class editUserInfoController: UIViewController {
             self?.performUpdate()
         })
 
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-
+        alert.addAction(UIAlertAction(title: "No", style: .cancel))
         present(alert, animated: true)
     }
 
@@ -88,8 +108,7 @@ final class editUserInfoController: UIViewController {
         let uname = (userNameField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let dept  = (Department.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
 
-        // ✅ If admin did NOT pick a role, keep old role
-        let role = (selectedRole ?? user.Role).trimmingCharacters(in: .whitespacesAndNewlines)
+        let role = (selectedRole ?? normalizeRole(user.Role) ?? user.Role).trimmingCharacters(in: .whitespacesAndNewlines)
 
         if first.isEmpty || last.isEmpty || uname.isEmpty || dept.isEmpty || role.isEmpty {
             let a = UIAlertController(
@@ -135,11 +154,7 @@ final class editUserInfoController: UIViewController {
                     })
 
                     self.present(okAlert, animated: true)
-
                 } else {
-                    print("❌ Update failed for uid:", user.id)
-                    print("Fields sent:", fields)
-
                     let fail = UIAlertController(
                         title: "Update Failed",
                         message: "Please try again.",
