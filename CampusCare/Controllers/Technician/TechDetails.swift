@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 
@@ -247,6 +248,20 @@ class TechDetails: UIViewController {
                            // Success - update local request
                            self?.request?.status = updateData["status"] as? String ?? ""
                            
+                           // 1️⃣ For REWARDS to store the old status then after update it will be stored to calculate tech completed tasks for rewards
+                           let oldStatus = self?.request?.status.lowercased()
+
+                           // 2️⃣
+                           self?.request?.status = updateData["status"] as? String ?? ""
+
+                           // 3️⃣
+                           if updateData["status"] as? String == "Complete",
+                              oldStatus != "complete" {
+
+                               self?.increaseCompletedTasksForTechnician()
+                           }
+                           
+                           
                            // Disable save button again
                            self?.saveBtn.isEnabled = false
                            self?.saveBtn.backgroundColor = .systemGray
@@ -270,10 +285,26 @@ class TechDetails: UIViewController {
                }
            }
        }
-    
-    
-    
-    
+    //updating completed tasks(REWARDS)
+    private func increaseCompletedTasksForTechnician() {
+
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        let rewardsRef = Firestore.firestore()
+            .collection("rewards")
+            .document(uid)
+
+        rewardsRef.updateData([
+            "completedTasks": FieldValue.increment(Int64(1))
+        ]) { error in
+            if let error = error {
+                print("Failed to update completedTasks:", error.localizedDescription)
+            } else {
+                print("completedTasks incremented successfully")
+            }
+        }
+    }
+
     
     
     
