@@ -520,7 +520,7 @@
         <!--More-->
         <scene sceneID="cr1-G7-e3z">
             <objects>
-                <navigationController title="More" id="DJ5-y0-JHh" sceneMemberID="viewController">
+                <navigationController title="More" id="DJ5-y0-JHh" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="e7g-Nb-f78"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Aq8-py-sVl">
                         <rect key="frame" x="0.0" y="124" width="402" height="96"/>
@@ -553,7 +553,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -243,8 +243,8 @@
             <objects>
                 <navigationController id="z7s-8W-X3r" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="To-Do List" image="calendar.badge.checkmark.rtl" catalog="system" id="rS0-wM-cJI"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="7Id-HC-e4c">
-                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Id-HC-e4c">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -388,7 +388,7 @@
         <!--Schedule-->
         <scene sceneID="EWS-De-6e7">
             <objects>
-                <navigationController id="abV-0x-NY4" sceneMemberID="viewController">
+                <navigationController id="abV-0x-NY4" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="2hq-t7-RtM"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HZc-r6-4WL">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -405,10 +405,10 @@
         <!--More-->
         <scene sceneID="MXV-od-FlX">
             <objects>
-                <navigationController id="K43-nA-NUY" sceneMemberID="viewController">
+                <navigationController id="K43-nA-NUY" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="sa6-Xh-YoH"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="emi-tk-aHk">
-                        <rect key="frame" x="0.0" y="118" width="393" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="emi-tk-aHk">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -494,7 +494,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tableCellPlainBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
