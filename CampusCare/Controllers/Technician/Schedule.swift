@@ -56,6 +56,7 @@ class Schedule: UIViewController,
         
         // Create the date picker
         let picker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 250))
+        picker.date = calendar.currentPage 
         picker.datePickerMode = .date
         picker.preferredDatePickerStyle = .wheels
         picker.locale = Locale(identifier: "en_US")
@@ -68,13 +69,21 @@ class Schedule: UIViewController,
         
         // Done action
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: { _ in
+            
             let selectedDate = picker.date
             
-            // Scroll FSCalendar to the selected month
+            // Move calendar to selected MONTH
             self.calendar.setCurrentPage(selectedDate, animated: true)
-            self.calendar.select(selectedDate)
+
+            // Select first day of that month
+            let firstDayOfMonth = Calendar.current.date(
+                from: Calendar.current.dateComponents([.year, .month], from: selectedDate)
+            )!
+
+            self.calendar.select(firstDayOfMonth)
             self.updateMonthLabel(for: selectedDate)
-            self.fetchTasks(for: selectedDate)
+            self.fetchTasks(for: firstDayOfMonth)
+
         }))
         
         // Cancel action
@@ -185,7 +194,7 @@ class Schedule: UIViewController,
         calendar.scrollEnabled = true
         calendar.scrollDirection = .horizontal
 
-        calendar.headerHeight = 50
+        calendar.headerHeight = 0 //here
         calendar.appearance.headerDateFormat = "MMMM yyyy"
         calendar.appearance.headerTitleFont = UIFont.boldSystemFont(ofSize: 18)
         calendar.appearance.headerTitleColor = .label
@@ -224,11 +233,20 @@ class Schedule: UIViewController,
         debugFirestoreData()
         
         // Select today by default
-        DispatchQueue.main.async {
+        /*DispatchQueue.main.async {
             let today = Date()
             self.calendar.select(today)
             self.fetchTasks(for: today)
-        }
+            
+        }*/
+        let today = Date()
+
+        calendar.setCurrentPage(today, animated: false)
+        calendar.select(today)
+        updateMonthLabel(for: today)
+
+        fetchTasks(for: today)
+
     }
     
     // Debug Functions
