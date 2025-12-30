@@ -11,7 +11,7 @@ import UIKit
 
 class CloudinaryManager {
 
-    static let shared = CloudinaryManager() // Singleton instance
+    static let shared = CloudinaryManager()
 
     private let cloudName = "ducxhdkkd"
     private let uploadPreset = "student_upload_preset"
@@ -23,19 +23,31 @@ class CloudinaryManager {
         cloudinary = CLDCloudinary(configuration: config)
     }
 
+    func uploadPDF(
+        _ pdfData: Data,
+        fileName: String,
+        completion: @escaping (URL?) -> Void
+    ) {
+        let params = CLDUploadRequestParams()
+        params.setResourceType(.raw)
+        params.setPublicId(fileName)
+        params.setFolder("reports")    
 
-    func uploadPDF(_ pdfData: Data, fileName: String, completion: @escaping (URL?) -> Void) {
-           let params = CLDUploadRequestParams()
-           params.setResourceType(.raw)
-           params.setPublicId(fileName)
+        cloudinary.createUploader().upload(
+            data: pdfData,
+            uploadPreset: uploadPreset,
+            params: params
+        ) { response, error in
 
-           cloudinary.createUploader().upload(data: pdfData, uploadPreset: uploadPreset, params: params) { response, error in
-               if let urlString = response?.secureUrl, let url = URL(string: urlString) {
-                   completion(url)
-               } else {
-                   print("Cloudinary PDF upload error: \(error?.localizedDescription ?? "Unknown error")")
-                   completion(nil)
-               }
-           }
-       }
+            if let urlString = response?.secureUrl,
+               let url = URL(string: urlString) {
+                completion(url)
+            } else {
+                print("Cloudinary PDF upload error:",
+                      error?.localizedDescription ?? "Unknown error")
+                completion(nil)
+            }
+        }
+    }
 }
+

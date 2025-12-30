@@ -5,9 +5,7 @@
 //  Created by rentamac on 12/27/25.
 //
 
-import UIKit
 import Foundation
-
 
 enum Badge {
     case none
@@ -16,72 +14,43 @@ enum Badge {
     case gold
 }
 
-// MARK: - Stored State
-struct RewardsState: Codable {
-    var technicianName: String = "Adam Ahmed"
-    var completedTasks: Int = 0
+struct RewardsState {
+    let name: String
+    let completedTasks: Int
 
-    // Points derived from tasks
     var points: Int {
         completedTasks * 10
     }
 }
-
-
-
-
 
 final class Rewards {
 
     static let shared = Rewards()
     private init() {}
 
-    private let storageKey = "rewards_state"
-
-    // Badge thresholds (POINTS)
+    // Badge thresholds (POINT BASED)
     let bronzePoints = 50
     let silverPoints = 300
     let goldPoints   = 600
 
-    // Load / Save
-    var state: RewardsState {
-        get {
-            if let data = UserDefaults.standard.data(forKey: storageKey),
-               let decoded = try? JSONDecoder().decode(RewardsState.self, from: data) {
-                return decoded
-            }
-            return RewardsState()
-        }
-        set {
-            if let encoded = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(encoded, forKey: storageKey)
-            }
-        }
-    }
-
-    // Current badge based on POINTS
-    func currentBadge() -> Badge {
-        let p = state.points
-        if p >= goldPoints { return .gold }
-        if p >= silverPoints { return .silver }
-        if p >= bronzePoints { return .bronze }
+    func currentBadge(points: Int) -> Badge {
+        if points >= goldPoints { return .gold }
+        if points >= silverPoints { return .silver }
+        if points >= bronzePoints { return .bronze }
         return .none
     }
 
-    // Next badge target (POINTS)
-    func nextBadgeTarget() -> Int {
-        let p = state.points
-        if p < bronzePoints { return bronzePoints }
-        if p < silverPoints { return silverPoints }
-        if p < goldPoints   { return goldPoints }
+    func nextBadgeTarget(points: Int) -> Int {
+        if points < bronzePoints { return bronzePoints }
+        if points < silverPoints { return silverPoints }
+        if points < goldPoints   { return goldPoints }
         return goldPoints
     }
 
-    // Motivation text
-    func motivationText() -> String {
-        switch currentBadge() {
+    func motivationText(badge: Badge) -> String {
+        switch badge {
         case .none:
-            return "Complete 5 tasks to earn your Bronze badge 🥉"
+            return "Complete tasks to earn your Bronze badge 🥉"
         case .bronze:
             return "Great job! Keep going to reach Silver 🥈"
         case .silver:
@@ -91,56 +60,3 @@ final class Rewards {
         }
     }
 }
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-

@@ -26,7 +26,8 @@ class MangerDetails: UIViewController {
     @IBOutlet weak var priorityLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var img: UIImageView!
-
+    @IBOutlet weak var statusLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Request Details"
@@ -59,6 +60,7 @@ class MangerDetails: UIViewController {
 
         titleLabel?.text = r.title
         idLabel?.text = r.id
+        statusLabel?.text = r.status
         categoryLabel?.text = r.category
         roleLabel?.text = r.location
         timeLabel?.text = DateFormatter.localizedString(from: r.releaseDate.dateValue(), dateStyle: .medium, timeStyle: .none)

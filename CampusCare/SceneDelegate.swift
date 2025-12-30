@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Load the specific storyboard as the initial UI when the app launches
         
-        let storyboardName = "More" // Change this to the desired storyboard name
+        let storyboardName = "StudStaff" // Change this to the desired storyboard name
         
         let StoryboardToLaunch = UIStoryboard(name: storyboardName, bundle: nil)
         if let InitStoryboard = StoryboardToLaunch.instantiateInitialViewController() {
@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             window?.rootViewController = mainStoryboard.instantiateInitialViewController()
         }
-        window?.makeKeyAndVisible()
+       window?.makeKeyAndVisible()
         
         
         //
