@@ -309,6 +309,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="hourglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bZ2-gB-Uv6">
+                                        <rect key="frame" x="0.0" y="2.6666666666666665" width="110" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" name="size_red"/>
                             </view>
@@ -330,6 +335,11 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="checklist.checked" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AHH-wO-EKn">
+                                        <rect key="frame" x="0.0" y="2.6666666666666665" width="110" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" name="size_red"/>
                             </view>
@@ -372,7 +382,9 @@
                                 <color key="backgroundColor" name="size_red"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hrY-L1-dTZ">
-                                <rect key="frame" x="0.0" y="411" width="402" height="346"/>
+
+                                <rect key="frame" x="0.0" y="337" width="402" height="358"/>
+
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -388,7 +400,9 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="a6Z-H8-BEP"/>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Analytics" id="Iyz-0o-M7b"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="chartContainerView" destination="hrY-L1-dTZ" id="ZF2-zg-Keb"/>
                         <outlet property="chartTitle" destination="ajk-oE-NAA" id="eWB-gz-k3x"/>
@@ -497,7 +511,9 @@
     <resources>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="chart.bar.xaxis" catalog="system" width="128" height="97"/>
+        <image name="checklist.checked" catalog="system" width="128" height="107"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="hourglass" catalog="system" width="103" height="128"/>
         <image name="list.clipboard" catalog="system" width="98" height="128"/>
         <namedColor name="ButtonsColor">
             <color red="0.058823529411764705" green="0.16862745098039217" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
