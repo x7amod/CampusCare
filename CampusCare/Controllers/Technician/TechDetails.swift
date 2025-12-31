@@ -86,7 +86,7 @@ class TechDetails: UIViewController {
     
     private func setupStatusButton() {
            // Configure the dropdown menu
-           let statuses = ["Assigned", "In Progress", "Complete", "Escalated"]
+           let statuses = ["In Progress", "Complete", "Escalated"]//fry
            
            var menuChildren: [UIMenuElement] = []
            
@@ -201,6 +201,21 @@ class TechDetails: UIViewController {
                     present(alert, animated: true)
                     return
                 }
+        //fry - prevent status from going back to assign 
+        if newStatus == "Assigned" {
+               let alert = UIAlertController(
+                   title: "Invalid Status",
+                   message: "Cannot set status back to 'Assigned'.",
+                   preferredStyle: .alert
+               )
+               alert.addAction(UIAlertAction(title: "OK", style: .default))
+               present(alert, animated: true)
+               return
+           }
+        
+        
+        
+        
                 
                 // Show loading indicator
                 let loadingAlert = UIAlertController(
