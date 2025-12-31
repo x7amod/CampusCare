@@ -106,7 +106,7 @@ class TechDetails: UIViewController {
        }
     private func statusSelected(_ status: String) {
            selectedStatus = status
-           taskStatus.setTitle("Status: \(status)", for: .normal)
+           taskStatus.setTitle("\(status)", for: .normal)
            updateStatusButtonAppearance()
            
            // Enable save button since a change was made
@@ -167,7 +167,7 @@ class TechDetails: UIViewController {
             
                 //selectedStatus = request.status //chocomint
             // Set status button initial state
-                    taskStatus.setTitle("Status: \(request.status)", for: .normal)
+                    taskStatus.setTitle("\(request.status)", for: .normal)
                     selectedStatus = request.status
                     updateStatusButtonAppearance()
             
