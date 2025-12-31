@@ -106,12 +106,12 @@ class TechDetails: UIViewController {
        }
     private func statusSelected(_ status: String) {
            selectedStatus = status
-           taskStatus.setTitle("Status: \(status)", for: .normal)
+           taskStatus.setTitle("\(status)", for: .normal)
            updateStatusButtonAppearance()
            
            // Enable save button since a change was made
            saveBtn.isEnabled = true
-           saveBtn.backgroundColor = .systemBlue
+           saveBtn.backgroundColor = .buttons
        }
        
        private func updateStatusButtonAppearance() {
@@ -120,11 +120,11 @@ class TechDetails: UIViewController {
            // Set color based on status
            switch status.lowercased() {
            case "new", "assigned":
-               taskStatus.backgroundColor = .systemOrange
+               taskStatus.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75) //light gray
            case "in progress":
-               taskStatus.backgroundColor = .systemYellow
+               taskStatus.backgroundColor = UIColor(red: 14/255 , green:0.0, blue:(201/255), alpha: 1.0) //deep blue
            case "complete", "completed":
-               taskStatus.backgroundColor = .systemGreen
+               taskStatus.backgroundColor = UIColor(red: 52/255 , green:(199/255), blue:(89/255), alpha: 1.0) //green
            case "escalated":
                taskStatus.backgroundColor = .systemRed
            default:
@@ -167,7 +167,7 @@ class TechDetails: UIViewController {
             
                 //selectedStatus = request.status //chocomint
             // Set status button initial state
-                    taskStatus.setTitle("Status: \(request.status)", for: .normal)
+                    taskStatus.setTitle("\(request.status)", for: .normal)
                     selectedStatus = request.status
                     updateStatusButtonAppearance()
             
@@ -177,8 +177,8 @@ class TechDetails: UIViewController {
             
             //initailly disable save - chocomint
             saveBtn.isEnabled = false
-                    saveBtn.backgroundColor = .systemGray
-            
+                    saveBtn.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75)
+           //
             
             
             }
@@ -229,6 +229,7 @@ class TechDetails: UIViewController {
         
     }
     
+    //rewards function by fatima
     private func updateRequestInFirebase(requestID: String, updateData: [String: Any], loadingAlert: UIAlertController) {
            let db = Firestore.firestore()
            
