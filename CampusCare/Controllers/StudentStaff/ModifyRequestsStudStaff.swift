@@ -8,15 +8,23 @@
 import UIKit
 
 class ModifyRequestsStudStaff: UIViewController {
+    
+    // MARK: - Properties
+    var requestData: RequestModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let data = requestData {
+            // Use the passed request data here
+            print("Received request data: \(data.title)")
+        }
+        
 //        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
 //        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
 //        view.addSubview(headerView)
-//        
+//
 //        // Set page-specific title
 //           headerView.setTitle("Modify Requests")  // Change this for each screen
         

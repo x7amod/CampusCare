@@ -333,7 +333,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         return 135
     }
     
-    // Navigation Logic (Opens the details page with correct storyboard identifier)
+    // Navigation Logic (Opens the details page with correct storyboard identifier based on status)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -344,10 +344,31 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         }
         
         let selectedRequest = requests[indexPath.row]
-        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "StudStaffExpandedTicketDetails") as? ExpandedTicketDetailsViewController {
-            detailsVC.requestData = selectedRequest
-            detailsVC.modalPresentationStyle = .pageSheet
-            self.present(detailsVC, animated: true)
+        
+        // Determine which storyboard identifier to use based on status
+        let storyboardIdentifier: String
+        switch selectedRequest.status {
+        case "Pending", "New":
+            storyboardIdentifier = "PendingRequestPage"
+        case "Assigned":
+            storyboardIdentifier = "AssignedRequestPage"
+        case "In-Progress":
+            storyboardIdentifier = "InProgressRequestPage"
+        case "Complete":
+            storyboardIdentifier = "CompleteRequestPage"
+        default:
+            // Fallback to pending for unknown statuses
+            storyboardIdentifier = "PendingRequestPage"
+        }
+        
+        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: storyboardIdentifier) {
+            // Cast to RequestDetailsBaseViewController and set the request data
+            if let baseVC = detailsVC as? RequestDetailsBaseViewController {
+                baseVC.requestData = selectedRequest
+            }
+            
+            // Navigate normally using navigation controller instead of modal presentation
+            self.navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
 }
