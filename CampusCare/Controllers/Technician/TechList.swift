@@ -91,7 +91,7 @@ class TechList: UIViewController {
     func fetchTechTasks() {
         guard let techID = currentTechID else {
             print("Error: No technician ID found")
-            showEmptyState()
+           // showEmptyState() potato
             return
         }
         
