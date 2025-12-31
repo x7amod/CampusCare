@@ -194,21 +194,21 @@ class NewRequestsStudStaff: UIViewController {
         
         func saveRequest(imageURL: String) {
             let data: [String: Any] = [
-                "ticketId": ticketId,
+                
                 "title": title,
                 "location": location,
                 "category": category,
                 "priority": priority,
                 "description": description,
                 "status": "Pending",
-                "createdBy": uid,
+                "creatorID": uid,
                 "creatorRole": "",
                 "imageURL": imageURL,
                 "releaseDate": Timestamp(),
                 "completedDate": NSNull(),
                 "deadline": NSNull(),
                 "assignedDate": NSNull(),
-                "assignedTechID": "",
+                "assignTechID": "",
                 "inProgressDate": NSNull(),
                 "lastUpdateDate": NSNull()
             ]
@@ -225,6 +225,24 @@ class NewRequestsStudStaff: UIViewController {
                     }
                     self.showSuccessAlertAndGoHome(ticketId: ticketId)
                 }
+            
+            Firestore.firestore()
+              .collection("Users")
+              .document(uid)
+              .getDocument { snapshot, _ in
+
+                  let role = snapshot?.data()?["role"] as? String ?? "student"
+
+                  saveRequest(creatorRole: role)
+            }
+            func saveRequest(creatorRole: String) {
+                let data: [String: Any] = [
+                    "creatorID": uid,
+                    "creatorRole": creatorRole,
+                ]
+            }
+
+
         }
         // Upload image if exists
            if let image = selectedImage {
