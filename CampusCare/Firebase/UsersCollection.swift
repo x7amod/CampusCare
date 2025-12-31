@@ -204,10 +204,7 @@ final class     UsersCollection{
             }
     }
     
-    /// Fetch user's first name only (for greeting)
-    /// - Parameters:
-    ///   - userID: The ID of the user
-    ///   - completion: Returns first name or nil if not found
+  
     func fetchUserFirstName(userID: String, completion: @escaping (String?) -> Void) {
         usersCollectionRef.document(userID).getDocument { snapshot, error in
             if let error = error {
@@ -226,4 +223,20 @@ final class     UsersCollection{
             completion(firstName)
         }
     }
-}
+ 
+
+        func updatePasswordLastChanged(uid: String, completion: @escaping (Bool) -> Void) {
+            usersCollectionRef.document(uid).updateData([
+                "PasswordLastChangedAt": FieldValue.serverTimestamp()
+            ]) { error in
+                if let error = error {
+                    print("Error updating PasswordLastChangedAt: \(error)")
+                    completion(false)
+                    return
+                }
+                completion(true)
+            }
+        }
+    }
+
+

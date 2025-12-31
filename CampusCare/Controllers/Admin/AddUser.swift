@@ -18,10 +18,7 @@ final class AddUserViewController: UIViewController {
     @IBOutlet weak var userPasswordTextField: UITextField!
     @IBOutlet weak var departmentTextField: UITextField!
     @IBOutlet weak var roleBtn: UIButton!
-
     @IBOutlet weak var confirmPassword: UITextField!
-
-    // Label under confirm password
     @IBOutlet weak var confirmPasswordErrorLabel: UILabel!
 
     private let db = Firestore.firestore()
@@ -34,25 +31,73 @@ final class AddUserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "Add User"
+        title = "Add New User"
 
-        roleBtn.setTitle("Select", for: .normal)
-        setupRoleMenu()
+        // Password secure
+        userPasswordTextField.isSecureTextEntry = true
+        confirmPassword.isSecureTextEntry = true
 
-       
-       
-        userPasswordTextField.isSecureTextEntry = false
-        confirmPassword.isSecureTextEntry = false
-
-        
         confirmPasswordErrorLabel.text = ""
         confirmPasswordErrorLabel.textColor = .systemRed
         confirmPasswordErrorLabel.isHidden = true
 
-        
         userPasswordTextField.addTarget(self, action: #selector(passwordFieldsChanged), for: .editingChanged)
         confirmPassword.addTarget(self, action: #selector(passwordFieldsChanged), for: .editingChanged)
+
+        
+        applyRoleButtonStyle(title: "Select")
+        setupRoleMenu()
     }
+
+    
+   
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        
+        let current = selectedRole ?? "Select"
+        applyRoleButtonStyle(title: current)
+    }
+
+   
+    private func applyRoleButtonStyle(title: String) {
+
+        var config = UIButton.Configuration.plain()
+
+        
+        config.title = title
+        config.baseForegroundColor = .label
+        config.titleAlignment = .leading
+
+        
+        config.image = UIImage(systemName: "chevron.down")
+        config.imagePlacement = .trailing
+        config.imagePadding = 8
+
+        
+        config.contentInsets = NSDirectionalEdgeInsets(
+            top: 12,
+            leading: 12,
+            bottom: 12,
+            trailing: 12
+        )
+
+        roleBtn.configuration = config
+
+       
+        roleBtn.backgroundColor = .systemBackground
+        roleBtn.layer.cornerRadius = 10
+        roleBtn.clipsToBounds = true
+
+        
+        roleBtn.layer.borderWidth = 1
+        roleBtn.layer.borderColor = UIColor.separator.withAlphaComponent(0.3).cgColor
+
+       
+        roleBtn.contentHorizontalAlignment = .fill
+    }
+
+
 
     private func setupRoleMenu() {
         let roles = ["Student", "Staff", "Technician", "Manager"]
@@ -61,12 +106,12 @@ final class AddUserViewController: UIViewController {
             UIAction(title: role, state: (role == selectedRole ? .on : .off)) { [weak self] _ in
                 guard let self else { return }
                 self.selectedRole = role
-                self.roleBtn.setTitle(role, for: .normal)
-                self.setupRoleMenu()
+                self.applyRoleButtonStyle(title: role)
+                self.setupRoleMenu() // refresh checkmarks
             }
         }
 
-        roleBtn.menu = UIMenu(title: "Select Role", children: actions)
+        roleBtn.menu = UIMenu(title: "Select Role", options: .singleSelection, children: actions)
         roleBtn.showsMenuAsPrimaryAction = true
     }
 
@@ -75,14 +120,12 @@ final class AddUserViewController: UIViewController {
         let password = (userPasswordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let confirm  = (confirmPassword.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
 
-     
         if confirm.isEmpty {
             confirmPasswordErrorLabel.text = ""
             confirmPasswordErrorLabel.isHidden = true
             return
         }
 
-        
         if password != confirm {
             confirmPasswordErrorLabel.text = "Password is different from User Password"
             confirmPasswordErrorLabel.isHidden = false
@@ -92,6 +135,7 @@ final class AddUserViewController: UIViewController {
         }
     }
 
+  
     @IBAction func AddUserButton(_ sender: UIButton) {
 
         let firstName = (firstNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
@@ -121,7 +165,6 @@ final class AddUserViewController: UIViewController {
             return
         }
 
-        
         guard password == confirmPw else {
             confirmPasswordErrorLabel.text = "Password is different from User Password"
             confirmPasswordErrorLabel.isHidden = false

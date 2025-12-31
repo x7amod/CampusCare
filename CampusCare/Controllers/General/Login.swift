@@ -40,7 +40,7 @@ class Login: UIViewController {
         let imageName = passwordTextField.isSecureTextEntry ? "eye.slash" : "eye"
         sender.setImage(UIImage(systemName: imageName), for: .normal)
 
-        // Fix cursor jump issue
+        
         if let text = passwordTextField.text {
             passwordTextField.text = ""
             passwordTextField.text = text
