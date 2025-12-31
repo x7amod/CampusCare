@@ -43,9 +43,13 @@ class TechList: UIViewController {
 //        // Set page-specific title
 //        headerView.setTitle("My Tasks")  // Change this for each screen
         
-        techStack.layoutMargins = UIEdgeInsets(top: 130, left: 16, bottom: 20, right: 16)
-        techStack.isLayoutMarginsRelativeArrangement = true
+        //techStack.layoutMargins = UIEdgeInsets(top: 130, left: 16, bottom: 20, right: 16)
+        //techStack.isLayoutMarginsRelativeArrangement = true
         techStack.spacing = 15 // Adds space between cards
+        techStack.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
+        techStack.isLayoutMarginsRelativeArrangement = true
+        
+        
         
         //search bar custom
         
@@ -186,7 +190,7 @@ class TechList: UIViewController {
             item.translatesAutoresizingMaskIntoConstraints = false
             item.heightAnchor.constraint(equalToConstant: 140).isActive = true
             techStack.addArrangedSubview(item)
-            techSearch.searchBarStyle = .minimal
+           // techSearch.searchBarStyle = .minimal
         }
     }
    

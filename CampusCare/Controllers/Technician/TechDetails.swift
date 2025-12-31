@@ -183,7 +183,7 @@ class TechDetails: UIViewController {
             
             //initailly disable save - chocomint
             saveBtn.isEnabled = false
-                   // saveBtn.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75)
+                   saveBtn.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75)
            //
             
             
