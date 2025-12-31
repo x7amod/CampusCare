@@ -26,7 +26,7 @@ final class editUserInfoController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Edit User"
+        title = "Update User Info"
 
         let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
@@ -44,26 +44,48 @@ final class editUserInfoController: UIViewController {
         userNameField.text = user.username
         Department.text = user.Department
 
-        
         let normalizedRole = normalizeRole(user.Role)
         selectedRole = normalizedRole
 
-     
+        
         if let normalizedRole, roles.contains(normalizedRole) {
-            roleButton.setTitle(normalizedRole, for: .normal)
+            applyRoleButtonStyle(title: normalizedRole)
         } else {
-            roleButton.setTitle("Select", for: .normal)
+            applyRoleButtonStyle(title: "Select")
         }
 
         setupRoleMenu()
     }
 
     
+    private func applyRoleButtonStyle(title: String) {
+        var config = UIButton.Configuration.plain()
+
+        config.title = title
+        config.baseForegroundColor = .label
+        config.titleAlignment = .leading
+
+        config.image = UIImage(systemName: "chevron.down")
+        config.imagePlacement = .trailing
+        config.imagePadding = 8
+
+        config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
+
+        roleButton.configuration = config
+
+        roleButton.backgroundColor = .systemBackground
+        roleButton.layer.cornerRadius = 10
+        roleButton.clipsToBounds = true
+        roleButton.layer.borderWidth = 1
+        roleButton.layer.borderColor = UIColor.separator.withAlphaComponent(0.3).cgColor
+
+        roleButton.contentHorizontalAlignment = .fill
+    }
+
     private func normalizeRole(_ role: String) -> String? {
         let trimmed = role.trimmingCharacters(in: .whitespacesAndNewlines)
         if trimmed.isEmpty { return nil }
 
-        
         if let match = roles.first(where: { $0.lowercased() == trimmed.lowercased() }) {
             return match
         }
@@ -76,8 +98,11 @@ final class editUserInfoController: UIViewController {
             UIAction(title: role, state: (role == selectedRole ? .on : .off)) { [weak self] _ in
                 guard let self else { return }
                 self.selectedRole = role
-                self.roleButton.setTitle(role, for: .normal)
-                self.setupRoleMenu() 
+
+                
+                self.applyRoleButtonStyle(title: role)
+
+                self.setupRoleMenu()
             }
         }
 
