@@ -136,10 +136,6 @@ class ExpandedTicketDetailsViewController: UIViewController {
         requestCompleteView.isHidden = status != "Complete"
     }
     
-    // back button functionality
-    @IBAction func backButtonTapped(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
     
     private func applyStatusStyling(status: String) {
         statusView.layer.cornerRadius = 16
