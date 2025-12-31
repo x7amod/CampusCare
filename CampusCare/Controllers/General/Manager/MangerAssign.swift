@@ -76,9 +76,8 @@ class MangerAssign: UIViewController {
             case .success():
                 print(" Request assigned successfully")
                 DispatchQueue.main.async {
-                    if let managerRequestVC = self.storyboard?.instantiateViewController(withIdentifier: "MangerRequest") {
-                        managerRequestVC.modalPresentationStyle = .fullScreen
-                        self.present(managerRequestVC, animated: true)
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
                 // clearing the request from the store
