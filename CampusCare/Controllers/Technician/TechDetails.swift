@@ -171,13 +171,19 @@ class TechDetails: UIViewController {
                     selectedStatus = request.status
                     updateStatusButtonAppearance()
             
+            
+            
+            
+            
+            
+            
             if !request.imageURL.isEmpty {
                         loadImage(from: request.imageURL)
                     }
             
             //initailly disable save - chocomint
             saveBtn.isEnabled = false
-                    saveBtn.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75)
+                   // saveBtn.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75)
            //
             
             
@@ -202,16 +208,16 @@ class TechDetails: UIViewController {
                     return
                 }
         //fry - prevent status from going back to assign 
-        if newStatus == "Assigned" {
-               let alert = UIAlertController(
-                   title: "Invalid Status",
-                   message: "Cannot set status back to 'Assigned'.",
-                   preferredStyle: .alert
-               )
-               alert.addAction(UIAlertAction(title: "OK", style: .default))
-               present(alert, animated: true)
-               return
-           }
+       // if newStatus == "Assigned" {
+         //      let alert = UIAlertController(
+           //        title: "Invalid Status",
+             //      message: "Cannot set status back to 'Assigned'.",
+               //    preferredStyle: .alert
+               //)
+               //alert.addAction(UIAlertAction(title: "OK", style: .default))
+               //present(alert, animated: true)
+               //return
+           //}
         
         
         
