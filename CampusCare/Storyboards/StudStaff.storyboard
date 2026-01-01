@@ -35,10 +35,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPu-iP-xQi">
-                                <rect key="frame" x="0.0" y="162" width="395" height="690"/>
+                                <rect key="frame" x="0.0" y="162" width="393" height="690"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MjF-LI-pNd">
-                                        <rect key="frame" x="14" y="2" width="367" height="56"/>
+                                        <rect key="frame" x="14" y="2" width="365" height="56"/>
                                         <subviews>
                                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search..." id="0Vb-kK-RUg">
                                                 <rect key="frame" x="0.0" y="0.0" width="308" height="56"/>
@@ -50,7 +50,7 @@
                                                 </connections>
                                             </searchBar>
                                             <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQ3-bg-TpY">
-                                                <rect key="frame" x="316" y="6" width="51" height="44"/>
+                                                <rect key="frame" x="316" y="6" width="49" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="peh-jJ-4xd"/>
                                                     <constraint firstAttribute="height" constant="44" id="uMl-jH-G6X"/>
@@ -67,7 +67,7 @@
                                         </constraints>
                                     </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nrV-n8-W0f">
-                                        <rect key="frame" x="0.0" y="66" width="395" height="624"/>
+                                        <rect key="frame" x="0.0" y="66" width="393" height="624"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -501,14 +501,21 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="34" weight="regular"/>
                                             <color key="baseBackgroundColor" systemColor="systemGray6Color"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="uploadPhotoTapped:" destination="wYT-lR-xnR" eventType="touchUpInside" id="Myi-x4-wW3"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9W-hc-GZF">
-                                        <rect key="frame" x="24" y="619" width="346" height="35"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiJ-1N-REl">
+                                        <rect key="frame" x="24" y="620" width="346" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Update">
                                             <color key="baseBackgroundColor" name="ButtonsColor"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="submitButtonTapped:" destination="aLg-3g-zoz" eventType="touchUpInside" id="IBm-pJ-xlm"/>
+                                            <action selector="updateButtonTapped:" destination="wYT-lR-xnR" eventType="touchUpInside" id="9as-Ab-RzE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <viewLayoutGuide key="safeArea" id="M4e-0h-9HN"/>
@@ -526,7 +533,7 @@
                         <outlet property="locationTextField" destination="aZW-47-khZ" id="a2Q-Np-8Fu"/>
                         <outlet property="priorityButton" destination="r0h-YB-ruU" id="Pky-lm-03j"/>
                         <outlet property="titleTextField" destination="zPr-xM-9lE" id="04r-2p-Rkn"/>
-                        <outlet property="updateButton" destination="J9W-hc-GZF" id="T46-l3-f3X"/>
+                        <outlet property="updateButton" destination="yiJ-1N-REl" id="wUY-H1-spj"/>
                         <outlet property="uploadingPhotoButton" destination="XDj-ho-MEk" id="fol-Tc-R09"/>
                     </connections>
                 </viewController>
@@ -708,8 +715,16 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="modifyRequestButtonTapped:" destination="1ON-zN-a4t" eventType="touchUpInside" id="f9a-l8-88P"/>
-                                    <segue destination="wYT-lR-xnR" kind="show" id="j1i-OW-6lH"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kLg-bZ-UDJ">
+                                <rect key="frame" x="23" y="436" width="346" height="193"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="camera" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="34" weight="regular"/>
+                                    <color key="baseBackgroundColor" systemColor="systemGray6Color"/>
+                                </buttonConfiguration>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LEB-2h-sOA"/>
@@ -748,6 +763,7 @@
                         <outlet property="locationLabel" destination="WrU-0q-2W5" id="0ZF-bx-Ecs"/>
                         <outlet property="modifyRequestButton" destination="1CU-ET-Sfs" id="Djo-E8-sts"/>
                         <outlet property="requestCreatedDateLabel" destination="KZs-la-pku" id="YOL-gl-MGX"/>
+                        <outlet property="requestImageButton" destination="kLg-bZ-UDJ" id="BbF-VG-MU4"/>
                         <outlet property="statusText" destination="gu5-2z-QWD" id="qu0-U8-4Aa"/>
                         <outlet property="statusView" destination="cHw-FA-zPm" id="vwJ-Fe-igV"/>
                         <outlet property="titleLabel" destination="qGk-Wo-A12" id="NLs-bU-PHT"/>
@@ -755,7 +771,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bso-x3-dP8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3104.5801526717555" y="565.49295774647885"/>
+            <point key="canvasLocation" x="3104.5801526717555" y="564.78873239436621"/>
         </scene>
         <!--Ticket Details-->
         <scene sceneID="arP-Ph-TDp">
@@ -1352,10 +1368,10 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

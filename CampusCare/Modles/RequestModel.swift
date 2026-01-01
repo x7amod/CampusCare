@@ -5,7 +5,7 @@ struct RequestModel {
     let id: String
     let category: String
     let description: String
-    let imageURL: String
+    var imageURL: String
     let location: String
     let priority: String
     let title: String

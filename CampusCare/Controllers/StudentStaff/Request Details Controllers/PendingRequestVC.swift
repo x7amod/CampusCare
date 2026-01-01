@@ -21,6 +21,7 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     @IBOutlet weak var cancelRequestButton: UIButton!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var requestCreatedDateLabel: UILabel!
+    @IBOutlet weak var requestImageButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,31 @@ class PendingRequestVC: RequestDetailsBaseViewController {
         // Date formatting using shared function
         let dateFormatter = createDateFormatter()
         requestCreatedDateLabel.text = dateFormatter.string(from: request.releaseDate.dateValue())
+        
+        loadImageOnButton(from: request.imageURL)
     }
+    
+    
+    private func loadImageOnButton(from urlString: String?) {
+        guard
+            let urlString = urlString,
+            !urlString.isEmpty,
+            let url = URL(string: urlString)
+        else { return }
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data, let image = UIImage(data: data) else { return }
+
+            DispatchQueue.main.async {
+                self.requestImageButton.setImage(image, for: .normal)
+                self.requestImageButton.setTitle("", for: .normal)
+                self.requestImageButton.imageView?.contentMode = .scaleAspectFill
+                self.requestImageButton.clipsToBounds = true
+            }
+        }.resume()
+    }
+
+    
     
     // MARK: - IBActions
     @IBAction func modifyRequestButtonTapped(_ sender: UIButton) {
@@ -62,9 +87,9 @@ class PendingRequestVC: RequestDetailsBaseViewController {
         let modifyRequestVC = storyboard.instantiateViewController(withIdentifier: "ModifyRequestsStudStaff")
         
         // Pass the request data to the modify controller
-//        if let modifyVC = modifyRequestVC as? ModifyRequestsStudStaff {
-//            modifyVC.requestData = self.requestData
-//        }
+       if let modifyVC = modifyRequestVC as? ModifyRequestsStudStaff {
+           modifyVC.requestData = self.requestData
+        }
         
         // Present the modify request page
         self.navigationController?.pushViewController(modifyRequestVC, animated: true)
@@ -73,55 +98,56 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     @IBAction func cancelRequestButtonTapped(_ sender: UIButton) {
         
         let alert = UIAlertController(
-                title: "Cancel Request",
-                message: "Are you sure you want to cancel this request?",
-                preferredStyle: .alert
-            )
-
-            alert.addAction(UIAlertAction(title: "No", style: .cancel))
-            alert.addAction(UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
-                self?.cancelRequestInFirebase()
-            })
-
-            present(alert, animated: true)
+            title: "Cancel Request",
+            message: "Are you sure you want to cancel this request?",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "No", style: .cancel))
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive) { _ in
+            self.deleteRequestFromFirebase()
+        })
+        
+        present(alert, animated: true)
     }
     
     
-    private func cancelRequestInFirebase() {
-        guard let requestId = requestData?.id else { return }
+    
+    private func deleteRequestFromFirebase() {
+        guard let request = requestData else { return }
 
-        let db = Firestore.firestore()
-
-        db.collection("requests")
-            .document(requestId)
-            .updateData([
-                "status": "Cancelled",
-                "updatedAt": Timestamp()
-            ]) { [weak self] error in
+        Firestore.firestore()
+            .collection("Requests")
+            .document(request.id)
+            .delete { error in
 
                 if let error = error {
-                    print("Error cancelling request:", error)
+                    print("❌ Failed to delete request:", error.localizedDescription)
                     return
                 }
 
-                self?.showCancelSuccessPopup()
+                self.showDeletedPopup()
             }
     }
+
     
     
-    private func showCancelSuccessPopup() {
+    private func showDeletedPopup() {
         let alert = UIAlertController(
-            title: "Cancelled",
+            title: "Request Cancelled",
             message: "Your request has been cancelled successfully.",
             preferredStyle: .alert
         )
 
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            // Go back to previous screen (e.g. My Requests)
+            self.navigationController?.popViewController(animated: true)
         })
 
         present(alert, animated: true)
     }
+
 
 
 }
