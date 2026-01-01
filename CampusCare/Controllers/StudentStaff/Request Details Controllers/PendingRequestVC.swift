@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+
 
 class PendingRequestVC: RequestDetailsBaseViewController {
     
@@ -60,9 +62,9 @@ class PendingRequestVC: RequestDetailsBaseViewController {
         let modifyRequestVC = storyboard.instantiateViewController(withIdentifier: "ModifyRequestsStudStaff")
         
         // Pass the request data to the modify controller
-        if let modifyVC = modifyRequestVC as? ModifyRequestsStudStaff {
-            modifyVC.requestData = self.requestData
-        }
+//        if let modifyVC = modifyRequestVC as? ModifyRequestsStudStaff {
+//            modifyVC.requestData = self.requestData
+//        }
         
         // Present the modify request page
         self.navigationController?.pushViewController(modifyRequestVC, animated: true)
@@ -70,5 +72,56 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     
     @IBAction func cancelRequestButtonTapped(_ sender: UIButton) {
         // TODO: Implement cancel request
+        let alert = UIAlertController(
+                title: "Cancel Request",
+                message: "Are you sure you want to cancel this request?",
+                preferredStyle: .alert
+            )
+
+            alert.addAction(UIAlertAction(title: "No", style: .cancel))
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
+                self?.cancelRequestInFirebase()
+            })
+
+            present(alert, animated: true)
     }
+    
+    
+    private func cancelRequestInFirebase() {
+        guard let requestId = requestData?.id else { return }
+
+        let db = Firestore.firestore()
+
+        db.collection("requests")
+            .document(requestId)
+            .updateData([
+                "status": "Cancelled",
+                "updatedAt": Timestamp()
+            ]) { [weak self] error in
+
+                if let error = error {
+                    print("Error cancelling request:", error)
+                    return
+                }
+
+                self?.showCancelSuccessPopup()
+            }
+    }
+    
+    
+    private func showCancelSuccessPopup() {
+        let alert = UIAlertController(
+            title: "Cancelled",
+            message: "Your request has been cancelled successfully.",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        })
+
+        present(alert, animated: true)
+    }
+
+
 }
