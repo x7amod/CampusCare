@@ -62,9 +62,9 @@ class PendingRequestVC: RequestDetailsBaseViewController {
         let modifyRequestVC = storyboard.instantiateViewController(withIdentifier: "ModifyRequestsStudStaff")
         
         // Pass the request data to the modify controller
-        if let modifyVC = modifyRequestVC as? ModifyRequestsStudStaff {
-            modifyVC.requestData = self.requestData
-        }
+//        if let modifyVC = modifyRequestVC as? ModifyRequestsStudStaff {
+//            modifyVC.requestData = self.requestData
+//        }
         
         // Present the modify request page
         self.navigationController?.pushViewController(modifyRequestVC, animated: true)
