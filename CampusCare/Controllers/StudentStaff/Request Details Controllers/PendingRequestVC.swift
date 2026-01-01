@@ -71,7 +71,7 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     }
     
     @IBAction func cancelRequestButtonTapped(_ sender: UIButton) {
-        // TODO: Implement cancel request
+        
         let alert = UIAlertController(
                 title: "Cancel Request",
                 message: "Are you sure you want to cancel this request?",

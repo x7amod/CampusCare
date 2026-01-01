@@ -1,4 +1,4 @@
-//
+// OUT OF SERVICE FILE || UNUSED <<--------------------------------------------------------
 //  ExpandedTicketDetailsViewController.swift
 //  CampusCare
 //
@@ -96,10 +96,9 @@ class ExpandedTicketDetailsViewController: UIViewController {
             assignedDateLabel.text = "Not assigned yet"
         }
         
-        // In-progress date - TODO: Add inProgressDate field to RequestModel/Firestore if needed
-        inProgressDateLabel.text = "N/A"
+        // In-progress date - TODO: Add inProgressDate field to RequestModel/Firestore         inProgressDateLabel.text = "N/A"
         
-        // Complete date - TODO: Add completedDate field to RequestModel/Firestore if needed
+        // Complete date - TODO: Add completedDate field to RequestModel/Firestore
         requestCompleteDateLabel.text = "N/A"
         
         // Technician info - fetch from UsersCollection using assignTechID

@@ -7,13 +7,15 @@
 
 import Foundation
 import FirebaseFirestore
+import UserNotifications
+import UIKit
 
 final class NotificationsCollection {
     private let notificationsCollectionRef = FirestoreManager.shared.db.collection("Notification")
     
     // MARK: - Fetch Notifications
     
-    /// Fetch all notifications for the logged-in user
+    /// Fetch all notifications for the logged-in user and trigger system notifications for new ones
     /// - Parameters:
     ///   - userID: The ID of the logged-in user
     ///   - completion: Result with array of NotificationModel or Error
@@ -21,7 +23,7 @@ final class NotificationsCollection {
         notificationsCollectionRef
             .whereField("userID", isEqualTo: userID)
             .order(by: "createdAt", descending: true)
-            .getDocuments { snapshot, error in
+            .getDocuments { [weak self] snapshot, error in
                 if let error = error {
                     completion(.failure(error))
                     return
@@ -33,6 +35,13 @@ final class NotificationsCollection {
                 }
                 
                 let notifications = documents.compactMap { NotificationModel(from: $0) }
+                
+                // Trigger system notifications for new ones
+                self?.triggerSystemNotificationsForNew(notifications)
+                
+                // Update badge count
+                self?.updateBadgeCount(for: userID)
+                
                 completion(.success(notifications))
             }
     }
@@ -196,6 +205,87 @@ final class NotificationsCollection {
                 print("[NotificationsCollection] ✅ Notification created successfully")
                 completion(.success(()))
             }
+        }
+    }
+    
+    // MARK: - System Notification Helpers
+    
+    /// Trigger system notifications for notifications that haven't been shown before
+    /// - Parameter notifications: Array of notifications fetched from Firestore
+    private func triggerSystemNotificationsForNew(_ notifications: [NotificationModel]) {
+        // Check if notifications are enabled
+        guard UserStore.shared.notificationsEnabled else {
+            print("[NotificationsCollection] System notifications disabled by user")
+            return
+        }
+        
+        // Get current notification IDs for cleanup
+        let currentIDs = Set(notifications.map { $0.id })
+        
+        // Clean up old IDs that are no longer in Firestore
+        UserStore.shared.clearOldNotificationIDs(keeping: currentIDs)
+        
+        // Find new notifications that haven't been shown
+        for notification in notifications {
+            if !UserStore.shared.hasReceivedNotification(id: notification.id) {
+                // This is a new notification, trigger system notification
+                triggerLocalNotification(for: notification)
+                
+                // Mark as received
+                UserStore.shared.markNotificationAsReceived(id: notification.id)
+            }
+        }
+    }
+    
+    /// Trigger a local system notification
+    /// - Parameter notification: The notification model to display
+    private func triggerLocalNotification(for notification: NotificationModel) {
+        let content = UNMutableNotificationContent()
+        content.title = notification.title
+        content.body = notification.body
+        content.sound = .default
+        content.userInfo = [
+            "notificationID": notification.id,
+            "requestID": notification.requestID,
+            "type": notification.type
+        ]
+        
+        // Create request with unique identifier
+        let request = UNNotificationRequest(
+            identifier: notification.id,
+            content: content,
+            trigger: nil // Deliver immediately
+        )
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("[NotificationsCollection] Failed to trigger system notification: \(error.localizedDescription)")
+            } else {
+                print("[NotificationsCollection] ✅ System notification triggered for: \(notification.title)")
+            }
+        }
+    }
+    
+    /// Update the app badge count with unread notifications count
+    /// - Parameter userID: The ID of the logged-in user
+    func updateBadgeCount(for userID: String) {
+        fetchUnreadCount(for: userID) { result in
+            switch result {
+            case .success(let count):
+                DispatchQueue.main.async {
+                    UNUserNotificationCenter.current().setBadgeCount(count, withCompletionHandler: nil)
+                    print("[NotificationsCollection] Badge count updated to: \(count)")
+                }
+            case .failure(let error):
+                print("[NotificationsCollection] Failed to update badge count: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    /// Clear the app badge count (call when user views all notifications)
+    func clearBadgeCount() {
+        DispatchQueue.main.async {
+            UNUserNotificationCenter.current().setBadgeCount(0, withCompletionHandler: nil)
         }
     }
 }

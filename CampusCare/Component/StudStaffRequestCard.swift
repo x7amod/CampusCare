@@ -66,6 +66,10 @@ class StudStaffRequestCard: UITableViewCell {
         case "Assigned":
             statusContainerView.backgroundColor = UIColor(red: 230/255, green: 237/255, blue: 244/255, alpha: 1.0) // Light Gray
             statusLabel.textColor = .black // Black text for light background
+        
+        case "Escalated":
+            statusContainerView.backgroundColor = .systemRed
+            statusLabel.textColor = .white
                 
         default:
             // Fallback for unknown status
