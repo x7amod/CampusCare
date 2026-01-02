@@ -385,7 +385,7 @@ final class RequestCollection {
     func fetchRequestsForTech(techID: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
         requestsCollectionRef
             .whereField("assignTechID", isEqualTo: techID)
-        .whereField("status", in: ["Assigned", "In Progress", "New" ]) // Optional: filter by status potato, removed new
+        .whereField("status", in: ["Assigned", "In Progress", "New", "In-Progress" ]) // Optional: filter by status potato, removed new
             .getDocuments { snapshot, error in
                 
                 if let error = error {
