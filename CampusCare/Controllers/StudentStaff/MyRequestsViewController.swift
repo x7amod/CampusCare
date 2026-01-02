@@ -104,11 +104,30 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         let sortByMenu = createSortByMenu()
         let sortOrderMenu = createSortOrderMenu()
         
-        filterButton.menu = UIMenu(title: "", children: [statusMenu, categoryMenu, sortByMenu, sortOrderMenu])
+        // Create Clear All Filters action
+        let clearAllAction = UIAction(
+            title: "Reset Filters",
+            image: UIImage(systemName: "xmark.circle"),
+            attributes: isFilterActive() ? [] : .disabled
+        ) { [weak self] _ in
+            self?.clearAllFilters()
+        }
+        
+        filterButton.menu = UIMenu(title: "", children: [statusMenu, categoryMenu, sortByMenu, sortOrderMenu, clearAllAction])
         filterButton.showsMenuAsPrimaryAction = true
         
         // Update button color based on filter state
         updateFilterButtonColor()
+    }
+    
+    // Clear all filters and reset to defaults
+    private func clearAllFilters() {
+        selectedStatus = nil
+        selectedCategory = nil
+        sortBy = .timeSubmitted
+        sortOrder = .descending
+        setupFilterMenu()
+        applyFiltersAndSort()
     }
     
     // Check if any filters or non-default sorts are applied
@@ -374,7 +393,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         return 135
     }
     
-    // Navigation Logic (Opens the details page with correct storyboard identifier based on status)
+    // Navigation Logic
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         

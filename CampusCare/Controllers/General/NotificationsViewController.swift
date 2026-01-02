@@ -137,18 +137,34 @@ class NotificationsViewController: UIViewController {
     private func deleteNotification(at indexPath: IndexPath) {
         let notification = notifications[indexPath.section]
         
-        notificationsCollection.deleteNotification(notificationID: notification.id) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
-                    print("[NotificationsVC] Notification deleted successfully")
-                    // Listener will automatically update the UI
-                case .failure(let error):
-                    print("[NotificationsVC] Error deleting notification: \(error.localizedDescription)")
-                    self?.showErrorAlert(message: "Failed to delete notification")
+        // Show confirmation alert
+        let alert = UIAlertController(
+            title: "Delete Notification",
+            message: "Are you sure you want to delete this notification?",
+            preferredStyle: .alert
+        )
+        
+        // Cancel action
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        // Delete action
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            // Proceed with deletion
+            self?.notificationsCollection.deleteNotification(notificationID: notification.id) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success:
+                        print("[NotificationsVC] Notification deleted successfully")
+                        // Listener will automatically update the UI
+                    case .failure(let error):
+                        print("[NotificationsVC] Error deleting notification: \(error.localizedDescription)")
+                        self?.showErrorAlert(message: "Failed to delete notification")
+                    }
                 }
             }
-        }
+        })
+        
+        present(alert, animated: true)
     }
     
     private func markNotificationAsRead(_ notification: NotificationModel) {
