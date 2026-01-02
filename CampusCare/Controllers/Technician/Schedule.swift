@@ -86,7 +86,6 @@ class Schedule: UIViewController,
 
         }))
         
-        // Cancel action
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alert, animated: true)
@@ -160,7 +159,7 @@ class Schedule: UIViewController,
         print("UTC representation: \(formatter.string(from: startOfDayLocal))")
     }
     
-    // View Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         testTimezoneConversion()
@@ -170,9 +169,7 @@ class Schedule: UIViewController,
           // Create test document
          // createTestDocument()
         
-        
-        // Fix NaN errors in FSCalendar
-        calendar.placeholderType = .none  // Hide dates from other months
+        calendar.placeholderType = .none
         calendar.appearance.eventDefaultColor = .systemBlue
         calendar.appearance.eventSelectionColor = .systemBlue
       
@@ -185,7 +182,7 @@ class Schedule: UIViewController,
         assignTechID = techID
         print("Current Tech ID: \(assignTechID)")
 
-        // Calendar setup
+       
         // Calendar setup
         calendar.delegate = self
         calendar.dataSource = self
@@ -206,7 +203,7 @@ class Schedule: UIViewController,
         
         monthPicker.datePickerMode = .date
         monthPicker.preferredDatePickerStyle = .wheels
-        monthPicker.locale = Locale(identifier: "en_US") // shows month first
+        monthPicker.locale = Locale(identifier: "en_US")
         monthPicker.isHidden = true // start hidden
 
 
@@ -475,7 +472,7 @@ class Schedule: UIViewController,
                 }
             }
             
-            print("=== END DEBUG ===")
+            print("END DEBUG")
             
             // Now check specifically for our technician
             self.checkTechnicianTasks()
@@ -513,7 +510,7 @@ class Schedule: UIViewController,
             }
     }
     
-    // MARK:- Update Calendar Dots
+    
     func updateCalendarDots() {
         print("\n Updating calendar dots...")
         print("   Total tasks: \(tasksForSelectedDate.count)")
@@ -572,7 +569,7 @@ class Schedule: UIViewController,
         return count > 0 ? 1 : 0
     }
     
-    // MARK: - TableView DataSource
+   
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         let count = tasksForSelectedDate.isEmpty ? 1 : tasksForSelectedDate.count

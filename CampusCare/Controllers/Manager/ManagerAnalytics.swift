@@ -2,8 +2,7 @@
 //  ManagerAnalytics.swift
 //  CampusCare
 //
-//  Created by BP-36-201-14 on 29/11/2025.
-//Malak
+//  Created by Malak on 29/11/2025.
 //
 //
 

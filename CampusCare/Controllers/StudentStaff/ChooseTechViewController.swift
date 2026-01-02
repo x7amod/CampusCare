@@ -12,7 +12,7 @@ class ChooseTechViewController: UIViewController,
                                UITableViewDelegate,
                                UITableViewDataSource {
 
-    // MARK: - Outlets
+    
     @IBOutlet weak var tableView: UITableView!
 
     // MARK: - Properties
@@ -20,18 +20,18 @@ class ChooseTechViewController: UIViewController,
     var technicians: [UserModel] = []
     var currentUserId: String!
 
-    // MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 🔥 THIS LINE FIXES THE CRASH
+       
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TechCell")
 
         // Get current logged-in user ID
         currentUserId = Auth.auth().currentUser?.uid
 
         if currentUserId == nil {
-            print("❌ No logged-in user")
+            print("No logged-in user")
             return
         }
 
@@ -41,29 +41,29 @@ class ChooseTechViewController: UIViewController,
         loadTechnicians()
     }
 
-    // MARK: - Firestore
+    
     func loadTechnicians() {
         db.collection("Users")
                 .whereField("Role", isEqualTo: "Technician")
                 .getDocuments { snapshot, error in
 
                     if let error = error {
-                        print("❌ Error loading technicians:", error.localizedDescription)
+                        print("Error loading technicians:", error.localizedDescription)
                         return
                     }
 
                     guard let documents = snapshot?.documents else {
-                        print("❌ No documents")
+                        print("No documents")
                         return
                     }
 
-                    print("✅ Technicians count:", documents.count)
+                    print("Technicians count:", documents.count)
 
                     self.technicians = documents.compactMap {
                         UserModel(from: $0)
                     }
 
-                    print("✅ Parsed technicians:", self.technicians.count)
+                    print("Parsed technicians:", self.technicians.count)
 
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -72,7 +72,7 @@ class ChooseTechViewController: UIViewController,
           
     }
 
-    // MARK: - TableView Data Source
+    
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         return technicians.count
@@ -92,7 +92,7 @@ class ChooseTechViewController: UIViewController,
         return cell
     }
 
-    // MARK: - TableView Delegate
+
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
 
@@ -100,11 +100,11 @@ class ChooseTechViewController: UIViewController,
         openChat(with: technician)
     }
 
-    // MARK: - Navigation
+    
     func openChat(with technician: UserModel) {
 
         guard let currentUserId = currentUserId else {
-            print("❌ Current user ID missing")
+            print("Current user ID missing")
             return
         }
 

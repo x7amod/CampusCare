@@ -10,6 +10,10 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+// Malak
+    
+    
     @IBAction func chatButtonTapped(_ sender: UIButton) {
           
           let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
@@ -17,6 +21,21 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
                   withIdentifier: "ChooseTechViewController"
               )
 
+            navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func chatBotTapped(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
+            if let vc = storyboard.instantiateViewController(withIdentifier: "ChatBotViewController") as? ChatBotViewController {
+                navigationController?.pushViewController(vc, animated: true)
+            }
+    }
+    
+    
+    
+    //end of malak work
+    
               navigationController?.pushViewController(vc, animated: true)
       }
     
