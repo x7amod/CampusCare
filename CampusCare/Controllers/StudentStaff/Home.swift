@@ -10,7 +10,16 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    @IBAction func chatButtonTapped(_ sender: UIButton) {
+          
+          let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
+              let vc = storyboard.instantiateViewController(
+                  withIdentifier: "ChooseTechViewController"
+              )
 
+              navigationController?.pushViewController(vc, animated: true)
+      }
+    
     @IBOutlet weak var recentRequestTableView: UITableView!
     @IBOutlet weak var announcementImage: UIImageView!
     @IBOutlet weak var greetingLabel: UILabel!
