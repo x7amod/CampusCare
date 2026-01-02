@@ -100,7 +100,7 @@ class TechList: UIViewController {
     func fetchTechTasks() {
         guard let techID = currentTechID else {
             print("Error: No technician ID found")
-           showEmptyState() //pasta
+          // showEmptyState() //pasta
             return
         }
         
@@ -118,10 +118,10 @@ class TechList: UIViewController {
                     }
                 case .failure(let error):
                     print("Error fetching tech tasks: \(error.localizedDescription)")
-                    //self?.showEmptyState() //pasta
-                    self?.requests = []
-                    self?.allRequests = []
-                    self?.reloadStackView()
+                    self?.showEmptyState() //pasta
+                  //  self?.requests = []
+                  //  self?.allRequests = []
+                  //  self?.reloadStackView()
                 }
             }
         }
@@ -314,7 +314,7 @@ class TechList: UIViewController {
             
             
                 showEmptyState()
-                return
+               return
             }
         //test pasta
         //techStack.isHidden = false

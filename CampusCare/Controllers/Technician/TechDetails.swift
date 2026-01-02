@@ -121,7 +121,7 @@ class TechDetails: UIViewController {
            switch status.lowercased() {
            case "new", "assigned":
                taskStatus.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75) //light gray
-           case "in progress":
+           case "in progress", "in-progress":
                taskStatus.backgroundColor = UIColor(red: 14/255 , green:0.0, blue:(201/255), alpha: 1.0) //deep blue
            case "complete", "completed":
                taskStatus.backgroundColor = UIColor(red: 52/255 , green:(199/255), blue:(89/255), alpha: 1.0) //green
@@ -163,7 +163,7 @@ class TechDetails: UIViewController {
             subDate.text = "Released: \(dateFormatter.string(from: request.releaseDate.dateValue()))"
             
             // Set status button
-            //taskStatus.setTitle("Status: \(request.status)", for: .normal)
+            taskStatus.setTitle("Status: \(request.status)", for: .normal) //cheesecake
             
                 //selectedStatus = request.status //chocomint
             // Set status button initial state
@@ -238,95 +238,18 @@ class TechDetails: UIViewController {
                 ]
                 
                 // Add specific date fields based on status
-                if newStatus == "In Progress" {
+                if newStatus == "In Progress" || newStatus == "In-Progress" {
                     updateData["inProgressDate"] = Timestamp(date: Date())
                 } else if newStatus == "Complete" {
                     updateData["completedDate"] = Timestamp(date: Date())
                 }
                 
-                // Update in Firebase
-                updateRequestInFirebase(requestID: request.id, updateData: updateData, loadingAlert: loadingAlert)
+               
         
         
     }
     
-    //rewards function by fatima
-    private func updateRequestInFirebase(requestID: String, updateData: [String: Any], loadingAlert: UIAlertController) {
-           let db = Firestore.firestore()
-           
-           db.collection("Requests").document(requestID).updateData(updateData) { [weak self] error in
-               DispatchQueue.main.async {
-                   loadingAlert.dismiss(animated: true) {
-                       if let error = error {
-                           // Show error
-                           let errorAlert = UIAlertController(
-                               title: "Update Failed",
-                               message: error.localizedDescription,
-                               preferredStyle: .alert
-                           )
-                           errorAlert.addAction(UIAlertAction(title: "OK", style: .default))
-                           self?.present(errorAlert, animated: true)
-                       } else {
-                           // Success - update local request
-                           self?.request?.status = updateData["status"] as? String ?? ""
-                           
-                           // 1️⃣ For REWARDS to store the old status then after update it will be stored to calculate tech completed tasks for rewards
-                           let oldStatus = self?.request?.status.lowercased()
-
-                           // 2️⃣
-                           self?.request?.status = updateData["status"] as? String ?? ""
-
-                           // 3️⃣
-                           if updateData["status"] as? String == "Complete",
-                              oldStatus != "complete" {
-
-                               self?.increaseCompletedTasksForTechnician()
-                           }
-                           
-                           
-                           // Disable save button again
-                           self?.saveBtn.isEnabled = false
-                           self?.saveBtn.backgroundColor = .systemGray
-                           
-                           // Show success message
-                           let successAlert = UIAlertController(
-                               title: "Success!",
-                               message: "Status updated to \(updateData["status"] as? String ?? "")",
-                               preferredStyle: .alert
-                           )
-                           successAlert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                               // Optionally go back to list
-                               // self?.navigationController?.popViewController(animated: true)
-                           })
-                           self?.present(successAlert, animated: true)
-                           
-                           // Update button appearance
-                           self?.updateStatusButtonAppearance()
-                       }
-                   }
-               }
-           }
-       }
-    //updating completed tasks(REWARDS)
-    private func increaseCompletedTasksForTechnician() {
-
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-
-        let rewardsRef = Firestore.firestore()
-            .collection("rewards")
-            .document(uid)
-
-        rewardsRef.updateData([
-            "completedTasks": FieldValue.increment(Int64(1))
-        ]) { error in
-            if let error = error {
-                print("Failed to update completedTasks:", error.localizedDescription)
-            } else {
-                print("completedTasks incremented successfully")
-            }
-        }
-    }
-
+   
     
     
     
