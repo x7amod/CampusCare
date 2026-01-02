@@ -11,17 +11,7 @@ import FirebaseAuth
 
 class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-//    @IBAction func openChatButtonTapped(_ sender: UIButton) {
-//        // 1️⃣ Instantiate ChatViewController
-//        let chatVC = storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-//
-//        // 2️⃣ Set the other user's UID
-//        // For testing, you can hardcode another user's UID
-//        chatVC.otherUserId = "OTHER_USER_UID" // <-- replace with a real UID
-//
-//        // 3️⃣ Push ChatViewController
-//        navigationController?.pushViewController(chatVC, animated: true)
-//    }
+// Malak
     
     
     @IBAction func chatButtonTapped(_ sender: UIButton) {
@@ -33,6 +23,18 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
             navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func chatBotTapped(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
+            if let vc = storyboard.instantiateViewController(withIdentifier: "ChatBotViewController") as? ChatBotViewController {
+                navigationController?.pushViewController(vc, animated: true)
+            }
+    }
+    
+    
+    
+    //end of malak work
     
     
     @IBOutlet weak var recentRequestTableView: UITableView!
