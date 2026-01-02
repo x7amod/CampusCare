@@ -36,8 +36,7 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //end of malak work
     
-              navigationController?.pushViewController(vc, animated: true)
-      }
+              
     
     @IBOutlet weak var recentRequestTableView: UITableView!
     @IBOutlet weak var announcementImage: UIImageView!
