@@ -52,17 +52,16 @@ private func requestNotificationPermissions() {
 func userNotificationCenter(_ center: UNUserNotificationCenter,
                             willPresent notification: UNNotification,
                             withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-    // Show banner, play sound, and update badge even when app is in foreground
+    // Show banner play sound and update badge even when app is in foreground
     completionHandler([.banner, .sound, .badge])
 }
 
-// Handle notification tap
+// Handle notification tap by simply opening the app
 func userNotificationCenter(_ center: UNUserNotificationCenter,
                             didReceive response: UNNotificationResponse,
                             withCompletionHandler completionHandler: @escaping () -> Void) {
-    let userInfo = response.notification.request.content.userInfo
-    print("[AppDelegate] Notification tapped with userInfo: \(userInfo)")
-    // TODO: Navigate to specific screen based on notification type/requestID if needed
+    print("[AppDelegate] Notification tapped - opening app")
+    // App will open to its current state
     completionHandler()
 }
 

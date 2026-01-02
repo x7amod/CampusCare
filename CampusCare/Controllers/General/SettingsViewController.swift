@@ -80,18 +80,26 @@ class SettingsViewController: UIViewController {
     
     private func loadUserData() {
         // Load data if available, otherwise leave labels as default from storyboard
-        // for testing purposes
         
         // Load username from UserStore (if available)
-        if let userName = UserStore.shared.currentUsername, !userName.isEmpty {
-            userNameLabel.text = userName
+        if let userID = UserStore.shared.currentUserID {
+            UsersCollection.shared.fetchUserFullName(userID: userID) { [weak self] fullName in
+                DispatchQueue.main.async {
+                    if let fullName = fullName, !fullName.isEmpty {
+                        self?.userNameLabel.text = fullName
+                    }
+                    // Otherwise, keep the default label from storyboard
+                }
+            }
         }
         
+        // Load email from Firebase Auth
         if let currentUser = Auth.auth().currentUser,
            let email = currentUser.email, !email.isEmpty {
             userEmailLabel.text = email
         }
         
+        // Load role from UserStore
         if let userRole = UserStore.shared.currentUserRole, !userRole.isEmpty {
             userRoleLabel.text = userRole.capitalized
         }

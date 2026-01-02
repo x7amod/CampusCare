@@ -15,11 +15,11 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     @IBAction func chatButtonTapped(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
-            let vc = storyboard.instantiateViewController(
-                withIdentifier: "ChooseTechViewController"
-            )
+          
+          let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
+              let vc = storyboard.instantiateViewController(
+                  withIdentifier: "ChooseTechViewController"
+              )
 
             navigationController?.pushViewController(vc, animated: true)
     }
@@ -36,6 +36,8 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //end of malak work
     
+              navigationController?.pushViewController(vc, animated: true)
+      }
     
     @IBOutlet weak var recentRequestTableView: UITableView!
     @IBOutlet weak var announcementImage: UIImageView!
@@ -269,12 +271,27 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedRequest = recentRequests[indexPath.row]
-        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "StudStaffExpandedTicketDetails") as? ExpandedTicketDetailsViewController {
+        
+        // Determine which storyboard ID to use based on status
+        let storyboardIdentifier: String
+        switch selectedRequest.status {
+        case "Pending", "New":
+            storyboardIdentifier = "PendingRequestPage"
+        case "Assigned", "Escalated":
+            storyboardIdentifier = "AssignedRequestPage"
+        case "In-Progress":
+            storyboardIdentifier = "InProgressRequestPage"
+        case "Complete":
+            storyboardIdentifier = "CompleteRequestPage"
+        default:
+            // Fallback to pending for unknown statuses
+            storyboardIdentifier = "PendingRequestPage"
+        }
+        
+        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: storyboardIdentifier) as? RequestDetailsBaseViewController {
             detailsVC.requestData = selectedRequest
-            detailsVC.modalPresentationStyle = .pageSheet
-            self.present(detailsVC, animated: true)
+            self.navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
 }
-
 

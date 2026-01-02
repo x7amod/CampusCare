@@ -34,7 +34,7 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     }
     
     private func setupUI() {
-        // Apply styling to buttons using shared function
+        // Apply styling to buttons
         styleButton(modifyRequestButton)
         styleButton(cancelRequestButton)
     }
@@ -43,40 +43,23 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     private func populateRequestDetails(_ request: RequestModel) {
         // Basic info
         titleLabel.text = request.title
-        locationLabel.text = bulletPoint + request.location
+        locationLabel.text = request.location
         categoryLabel.text = request.category
         statusText.text = request.status
         descriptionLabel.text = request.description
         
-        // Apply status styling using shared function
+        // Apply status styling
         applyStatusStyling(to: statusView, statusLabel: statusText, status: request.status)
         
-        // Date formatting using shared function
+        // Date formatting 
         let dateFormatter = createDateFormatter()
         requestCreatedDateLabel.text = dateFormatter.string(from: request.releaseDate.dateValue())
         
-        loadImageOnButton(from: request.imageURL)
+        loadImageOnButton(from: request.imageURL, button: requestImageButton)
     }
     
     
-    private func loadImageOnButton(from urlString: String?) {
-        guard
-            let urlString = urlString,
-            !urlString.isEmpty,
-            let url = URL(string: urlString)
-        else { return }
 
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data, let image = UIImage(data: data) else { return }
-
-            DispatchQueue.main.async {
-                self.requestImageButton.setImage(image, for: .normal)
-                self.requestImageButton.setTitle("", for: .normal)
-                self.requestImageButton.imageView?.contentMode = .scaleAspectFill
-                self.requestImageButton.clipsToBounds = true
-            }
-        }.resume()
-    }
 
     
     
@@ -123,7 +106,7 @@ class PendingRequestVC: RequestDetailsBaseViewController {
             .delete { error in
 
                 if let error = error {
-                    print("❌ Failed to delete request:", error.localizedDescription)
+                    print("Failed to delete request:", error.localizedDescription)
                     return
                 }
 

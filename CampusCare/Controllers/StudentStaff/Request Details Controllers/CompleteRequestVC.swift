@@ -26,6 +26,7 @@ class CompleteRequestVC: RequestDetailsBaseViewController {
     @IBOutlet weak var technicianNameLabel: UILabel!
     @IBOutlet weak var technicianPhoneNoLabel: UILabel!
     @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var requestImageButton: UIButton!
     //@IBOutlet weak var feedbackButton: UIButton!
     
     override func viewDidLoad() {
@@ -39,7 +40,7 @@ class CompleteRequestVC: RequestDetailsBaseViewController {
     }
     
     private func setupUI() {
-        // Apply styling to buttons using shared function
+        // Apply styling to buttons
         styleButton(callButton)
         //styleButton(feedbackButton)
     }
@@ -52,10 +53,10 @@ class CompleteRequestVC: RequestDetailsBaseViewController {
         statusText.text = request.status
         descriptionLabel.text = request.description
         
-        // Apply status styling using shared function
+        // Apply status styling
         applyStatusStyling(to: statusView, statusLabel: statusText, status: request.status)
         
-        // Date formatting using shared function
+        // Date formatting
         let dateFormatter = createDateFormatter()
         requestCreatedDateLabel.text = dateFormatter.string(from: request.releaseDate.dateValue())
         
@@ -80,7 +81,7 @@ class CompleteRequestVC: RequestDetailsBaseViewController {
             requestCompleteDateLabel.text = "N/A"
         }
         
-        // Technician info using shared function
+        // Technician info
         if !request.assignTechID.isEmpty {
             technicianNameLabel.text = "Loading..."
             technicianPhoneNoLabel.text = "Loading..."
@@ -89,6 +90,7 @@ class CompleteRequestVC: RequestDetailsBaseViewController {
             technicianNameLabel.text = "Not assigned"
             technicianPhoneNoLabel.text = "N/A"
         }
+        loadImageOnButton(from: request.imageURL, button: requestImageButton)
     }
     
     @IBAction func callButtonTapped(_ sender: UIButton) {

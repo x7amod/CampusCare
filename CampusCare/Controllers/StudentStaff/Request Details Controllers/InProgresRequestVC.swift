@@ -24,6 +24,7 @@ class InProgressRequestVC: RequestDetailsBaseViewController {
     @IBOutlet weak var technicianNameLabel: UILabel!
     @IBOutlet weak var technicianPhoneNoLabel: UILabel!
     @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var requestImageButton: UIButton!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -38,7 +39,7 @@ class InProgressRequestVC: RequestDetailsBaseViewController {
     
     // MARK: - Setup Methods
     private func setupUI() {
-        // Apply styling to buttons using shared function
+        // Apply styling to buttons
         styleButton(callButton)
     }
     
@@ -51,10 +52,10 @@ class InProgressRequestVC: RequestDetailsBaseViewController {
         statusText.text = request.status
         descriptionLabel.text = request.description
         
-        // Apply status styling using shared function
+        // Apply status styling
         applyStatusStyling(to: statusView, statusLabel: statusText, status: request.status)
         
-        // Date formatting using shared function
+        // Date formatting
         let dateFormatter = createDateFormatter()
         requestCreatedDateLabel.text = dateFormatter.string(from: request.releaseDate.dateValue())
         
@@ -72,7 +73,7 @@ class InProgressRequestVC: RequestDetailsBaseViewController {
             inProgressDateLabel.text = "N/A"
         }
         
-        // Technician info using shared function
+        // Technician info 
         if !request.assignTechID.isEmpty {
             technicianNameLabel.text = "Loading..."
             technicianPhoneNoLabel.text = "Loading..."
@@ -81,6 +82,7 @@ class InProgressRequestVC: RequestDetailsBaseViewController {
             technicianNameLabel.text = "Not assigned"
             technicianPhoneNoLabel.text = "N/A"
         }
+        loadImageOnButton(from: request.imageURL, button: requestImageButton)
     }
     
     // MARK: - IBActions

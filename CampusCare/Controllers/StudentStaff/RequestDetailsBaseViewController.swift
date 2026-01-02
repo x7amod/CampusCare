@@ -65,7 +65,40 @@ class RequestDetailsBaseViewController: UIViewController {
         }
     }
     
+    func loadImageOnButton(from urlString: String?, button: UIButton) {
+        guard
+            let urlString = urlString,
+            !urlString.isEmpty,
+            let url = URL(string: urlString)
+        else { return }
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data, let image = UIImage(data: data) else { return }
+
+            DispatchQueue.main.async {
+                button.setImage(image, for: .normal)
+                button.setTitle("", for: .normal)
+                button.imageView?.contentMode = .scaleAspectFill
+                button.clipsToBounds = true
+                button.layer.cornerRadius = 20
+            }
+        }.resume()
+    }
+    
     func fetchTechnicianDetails(techID: String, nameLabel: UILabel, phoneLabel: UILabel) {
+        UsersCollection.shared.fetchUserFullName(userID: techID) { fullName in
+            DispatchQueue.main.async {
+                if let fullName = fullName, !fullName.isEmpty {
+                    nameLabel.text = fullName
+                } else {
+                    nameLabel.text = "Unknown"
+                    print("[RequestDetailsVC] Error:Failed to fetch Tech Full Name! (Either Empty or Failed)")
+                }
+            }
+        }
+        
+        // no phone number in db so disabled :)
+        /*
         UsersCollection.shared.getUserInfo(uid: techID) { data in
             DispatchQueue.main.async {
                 if let data = data {
@@ -82,8 +115,9 @@ class RequestDetailsBaseViewController: UIViewController {
                 }
             }
         }
+        */
     }
-    
+    // no user phone number so all these are useless -_-
     func makePhoneCall(phoneLabel: UILabel) {
         guard let phoneNumber = phoneLabel.text,
               phoneNumber != "N/A",
@@ -98,22 +132,6 @@ class RequestDetailsBaseViewController: UIViewController {
             UIApplication.shared.open(url)
         }
     }
+        
     
-    func showFeedbackAlert() {
-        let alert = UIAlertController(title: "Feedback", message: "Feedback feature coming soon!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-    
-    func showModifyRequestAlert() {
-        let alert = UIAlertController(title: "Modify Request", message: "Modify request feature coming soon!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-    
-    func showCancelRequestAlert() {
-        let alert = UIAlertController(title: "Cancel Request", message: "Cancel request feature coming soon!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
 }

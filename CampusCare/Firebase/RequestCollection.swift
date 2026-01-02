@@ -265,7 +265,7 @@ final class RequestCollection {
             .getDocuments { snapshot, error in
 
                 if let error = error {
-                    print("❌ Firestore error:", error.localizedDescription)
+                    print("Firestore error:", error.localizedDescription)
                     completion([])
                     return
                 }
@@ -274,7 +274,7 @@ final class RequestCollection {
                     RequestModel(from: $0)
                 } ?? []
 
-                print("✅ Found \(requests.count) tasks")
+                print("Found \(requests.count) tasks")
                 completion(requests)
             }
     }
@@ -282,21 +282,31 @@ final class RequestCollection {
 
         
         
-        func createNewRequest(data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+    func createNewRequest(data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        var docRef: DocumentReference? = nil
+        docRef = requestsCollectionRef.addDocument(data: data) { [weak self] error in
             
-            requestsCollectionRef.addDocument(data: data) { error in
+            if let error = error {
                 
-                if let error = error {
+                print("Error creating new request document: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                
+                print(" New request document successfully created.")
+                
+                // Get the new request ID and title
+                if let requestID = docRef?.documentID,
+                   let requestTitle = data["title"] as? String {
                     
-                    print("Error creating new request document: \(error.localizedDescription)")
-                    completion(.failure(error))
-                } else {
-                    
-                    print(" New request document successfully created.")
-                    completion(.success(()))
+                    // Notify manager of new request
+                    self?.notifyManagerOfNewRequest(requestID: requestID, requestTitle: requestTitle)
                 }
+                
+                completion(.success(()))
             }
         }
+    }
         
         
         //prefix search
@@ -375,7 +385,7 @@ final class RequestCollection {
     func fetchRequestsForTech(techID: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
         requestsCollectionRef
             .whereField("assignTechID", isEqualTo: techID)
-        .whereField("status", in: ["Assigned", "In Progress", "New" ]) // Optional: filter by status potato, removed new
+        .whereField("status", in: ["Assigned", "In Progress", "New", "In-Progress" ]) // Optional: filter by status potato, removed new
             .getDocuments { snapshot, error in
                 
                 if let error = error {
@@ -423,7 +433,7 @@ final class RequestCollection {
                 print("[RequestCollection] Failed to update request status: \(error.localizedDescription)")
                 completion(.failure(error))
             } else {
-                print("[RequestCollection] ✅ Request status updated to \(newStatus)")
+                print("[RequestCollection]  Request status updated to \(newStatus)")
                 
                 // Fetch request details to send notification to creator
                 requestDocRef.getDocument { snapshot, error in
@@ -454,7 +464,7 @@ final class RequestCollection {
     // MARK: - Notification Helper Methods
     
     /// Notify manager when a new request is created
-    private func notifyManagerOfNewRequest(requestTitle: String) {
+    private func notifyManagerOfNewRequest(requestID: String, requestTitle: String) {
         let usersCollection = UsersCollection.shared
         let notificationsCollection = NotificationsCollection()
         
@@ -469,7 +479,7 @@ final class RequestCollection {
                 title: "New Request Awaits Assignment",
                 body: "\(requestTitle) has been submitted and needs a technician.",
                 type: "New",
-                requestID: "" // Request ID not available here since addDocument hasn't returned yet
+                requestID: requestID
             ) { result in
                 if case .failure(let error) = result {
                     print("[RequestCollection] Failed to notify manager: \(error.localizedDescription)")

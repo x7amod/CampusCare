@@ -48,24 +48,24 @@ final class ImageCacheManager {
     func downloadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
         // Check cache first
         if let cachedImage = image(forKey: urlString) {
-            print("[ImageCache] ✅ Cache hit for: \(urlString)")
+            print("[ImageCache] Cache hit for: \(urlString)")
             completion(cachedImage)
             return
         }
         
         // Validate URL
         guard let url = URL(string: urlString) else {
-            print("[ImageCache] ❌ Invalid URL: \(urlString)")
+            print("[ImageCache] Invalid URL: \(urlString)")
             completion(nil)
             return
         }
         
-        print("[ImageCache] 📡 Downloading image from: \(urlString)")
+        print("[ImageCache] Downloading image from: \(urlString)")
         
         // Download image
         let task = session.dataTask(with: url) { [weak self] data, response, error in
             if let error = error {
-                print("[ImageCache] ❌ Download error: \(error.localizedDescription)")
+                print("[ImageCache] Download error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     completion(nil)
                 }
@@ -73,7 +73,7 @@ final class ImageCacheManager {
             }
             
             guard let data = data, let image = UIImage(data: data) else {
-                print("[ImageCache] ❌ Failed to create image from data")
+                print("[ImageCache] Failed to create image from data")
                 DispatchQueue.main.async {
                     completion(nil)
                 }
@@ -82,7 +82,7 @@ final class ImageCacheManager {
             
             // Cache the downloaded image
             self?.setImage(image, forKey: urlString)
-            print("[ImageCache] ✅ Downloaded and cached image")
+            print("[ImageCache] Downloaded and cached image")
             
             DispatchQueue.main.async {
                 completion(image)
@@ -95,6 +95,6 @@ final class ImageCacheManager {
     /// Clear all cached images
     func clearCache() {
         cache.removeAllObjects()
-        print("[ImageCache] 🗑️ Cache cleared")
+        print("[ImageCache] Cache cleared")
     }
 }

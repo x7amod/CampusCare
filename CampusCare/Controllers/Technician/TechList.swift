@@ -16,7 +16,7 @@ class TechList: UIViewController {
     var requests: [RequestModel] = []
     var allRequests: [RequestModel] = [] //store unfiltered , brownie
     
-    
+    //tech chat button by malak
     @IBAction func chatButtonTapped(_ sender: UIButton) {
         print("🔥 Tech Chat button tapped")
         
@@ -63,16 +63,7 @@ class TechList: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-//        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-//        view.addSubview(headerView)
-//        
-//        // Set page-specific title
-//        headerView.setTitle("My Tasks")  // Change this for each screen
         
-        //techStack.layoutMargins = UIEdgeInsets(top: 130, left: 16, bottom: 20, right: 16)
-        //techStack.isLayoutMarginsRelativeArrangement = true
         techStack.spacing = 15 // Adds space between cards
         techStack.layoutMargins = UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
         techStack.isLayoutMarginsRelativeArrangement = true
@@ -105,26 +96,11 @@ class TechList: UIViewController {
         }
     }
     
-    // 5. Fetch Logic
-    //func fetchTechTasks() {
-         //Currently fetching all to test, later you can filter by Tech ID
-      //  requestCollection.fetchAllRequests { [weak self] result in
-        //    DispatchQueue.main.async {
-          //      switch result {
-            //    case .success(let list):
-              //      self?.requests = list
-                //    self?.reloadStackView()
-               // case .failure(let error):
-                 //   print("Error: \(error.localizedDescription)")
-                //}
-            //}
-        //}
-    //}
- 
+
     func fetchTechTasks() {
         guard let techID = currentTechID else {
             print("Error: No technician ID found")
-           // showEmptyState() potato
+          // showEmptyState() //pasta
             return
         }
         
@@ -142,7 +118,10 @@ class TechList: UIViewController {
                     }
                 case .failure(let error):
                     print("Error fetching tech tasks: \(error.localizedDescription)")
-                    self?.showEmptyState()
+                    self?.showEmptyState() //pasta
+                  //  self?.requests = []
+                  //  self?.allRequests = []
+                  //  self?.reloadStackView()
                 }
             }
         }
@@ -152,12 +131,23 @@ class TechList: UIViewController {
     
     
     private func showEmptyState() {
+        //clear eexisting labels
+        techStack.arrangedSubviews.forEach { $0.removeFromSuperview() }//pasta
+        
+        
         let label = UILabel()
         label.text = "No tasks assigned yet"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
         label.textColor = .systemGray
+        label.tag = 999//pasta
         techStack.addArrangedSubview(label)
+        //constraint to center //pasta
+      
+       
+        
+        
+        
     }
 
     private func setupFilterMenu() { //filter, brownie
@@ -174,7 +164,7 @@ class TechList: UIViewController {
         }
         
         // Status filter options (only statuses tech can have)
-        let statusActions = ["Assigned", "In Progress"].map { status in
+        let statusActions = ["Assigned", "In-Progress"].map { status in
             UIAction(title: status) { [weak self] _ in
                 if status == "All" {
                     self?.selectedStatus = nil
@@ -185,7 +175,7 @@ class TechList: UIViewController {
             }
         }
         
-        // Sort options (simplified)
+        // Sort options
         let sortActions = ["Priority", "Due Date", "Recently Added", "Title"].map { sortOption in
             UIAction(title: sortOption) { [weak self] _ in
                 self?.selectedSortOption = sortOption
@@ -311,25 +301,34 @@ class TechList: UIViewController {
     
     
     
-    // 6. UI Rendering Logic
+    //UI Rendering Logic
     func reloadStackView() {
         // Clear previous items
         techStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        
+        //check for any requests //pasta
+        if requests.isEmpty {
+            
+            
+            
+            
+            
+                showEmptyState()
+               return
+            }
+        //test pasta
+        //techStack.isHidden = false
+        
+        
+        
         
         for r in requests {
             // Instantiate the dummy card view
             let item = RequestItemView.instantiate()
             item.configure(with: r)
             
-            // Handle Taps (Navigation to details)
-           // item.onTap = { [weak self] in
-               // guard let self = self else { return }
-                
-               // print("Tech clicked on task: \(r.id ?? "Unknown ID")")
-                
-              //  RequestStore.shared.currentRequest = r
-                  //  print("Stored request: \(r.title)")
-                //pepsi
+        
+           
             item.onTap = { [weak self] in
                 guard let self = self else { return }
                 
@@ -365,7 +364,7 @@ class TechList: UIViewController {
         }
     }
     
-    //pepsi important - error click on task 
+    
     
     
     
@@ -411,13 +410,7 @@ class TechList: UIViewController {
             
             
             
-           // requestCollection.searchRequests(prefix: searchText) { [weak self] result in
-               // DispatchQueue.main.async {
-                //    if case .success(let list) = result {
-                     //   self?.requests = list
-                    //    self?.reloadStackView()
-                  //  }
-               // }
+          
            }//comment this is rollback
         }
     }

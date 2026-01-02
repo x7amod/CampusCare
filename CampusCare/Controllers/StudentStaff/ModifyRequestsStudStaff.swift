@@ -32,6 +32,8 @@ class ModifyRequestsStudStaff: UIViewController {
 
         setupDropdownButton(categoryButton)
         setupDropdownButton(priorityButton)
+        setupCategoryMenu()
+        setupPriorityMenu()
 
         setupUI()
         populateFields()
@@ -97,6 +99,62 @@ class ModifyRequestsStudStaff: UIViewController {
         button.configuration?.title = title
         button.configuration?.baseForegroundColor = .label
     }
+    
+    
+    private func setupCategoryMenu() {
+
+        let categories = [
+            "Electrical",
+            "AC",
+            "Plumbing",
+            "Network / Wifi",
+            "IT Equipment",
+            "Safety & Equipment",
+            "Building / Structural",
+            "Other"
+        ]
+
+        let actions = categories.map { category in
+            UIAction(title: category) { _ in
+                self.updateDropdownTitle(self.categoryButton, title: category)
+                self.hasChanges = true
+            }
+        }
+
+        categoryButton.menu = UIMenu(
+            title: "",
+            options: .displayInline,
+            children: actions
+        )
+
+        categoryButton.showsMenuAsPrimaryAction = true
+    }
+
+    
+    private func setupPriorityMenu() {
+
+        let priorities = [
+            "Low",
+            "Medium",
+            "High"
+        ]
+
+        let actions = priorities.map { priority in
+            UIAction(title: priority) { _ in
+                self.updateDropdownTitle(self.priorityButton, title: priority)
+                self.hasChanges = true
+            }
+        }
+
+        priorityButton.menu = UIMenu(
+            title: "",
+            options: .displayInline,
+            children: actions
+        )
+
+        priorityButton.showsMenuAsPrimaryAction = true
+    }
+
 
     // MARK: - Populate Data
     private func populateFields() {

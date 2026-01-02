@@ -202,7 +202,7 @@ final class NotificationsCollection {
                 print("[NotificationsCollection] Error creating notification: \(error.localizedDescription)")
                 completion(.failure(error))
             } else {
-                print("[NotificationsCollection] ✅ Notification created successfully")
+                print("[NotificationsCollection]  Notification created successfully")
                 completion(.success(()))
             }
         }
@@ -261,7 +261,7 @@ final class NotificationsCollection {
             if let error = error {
                 print("[NotificationsCollection] Failed to trigger system notification: \(error.localizedDescription)")
             } else {
-                print("[NotificationsCollection] ✅ System notification triggered for: \(notification.title)")
+                print("[NotificationsCollection] System notification triggered for: \(notification.title)")
             }
         }
     }
