@@ -243,90 +243,10 @@ class TechDetails: UIViewController {
                 } else if newStatus == "Complete" {
                     updateData["completedDate"] = Timestamp(date: Date())
                 }
-                
-                // Update in Firebase
-                updateRequestInFirebase(requestID: request.id, updateData: updateData, loadingAlert: loadingAlert)
         
         
     }
     
-    //rewards function by fatima
-    private func updateRequestInFirebase(requestID: String, updateData: [String: Any], loadingAlert: UIAlertController) {
-           let db = Firestore.firestore()
-           
-           db.collection("Requests").document(requestID).updateData(updateData) { [weak self] error in
-               DispatchQueue.main.async {
-                   loadingAlert.dismiss(animated: true) {
-                       if let error = error {
-                           // Show error
-                           let errorAlert = UIAlertController(
-                               title: "Update Failed",
-                               message: error.localizedDescription,
-                               preferredStyle: .alert
-                           )
-                           errorAlert.addAction(UIAlertAction(title: "OK", style: .default))
-                           self?.present(errorAlert, animated: true)
-                       } else {
-                           // Success - update local request
-                           self?.request?.status = updateData["status"] as? String ?? ""
-                           
-                           // 1️⃣ For REWARDS to store the old status then after update it will be stored to calculate tech completed tasks for rewards
-                           let oldStatus = self?.request?.status.lowercased()
-
-                           // 2️⃣
-                           self?.request?.status = updateData["status"] as? String ?? ""
-
-                           // 3️⃣
-                           if updateData["status"] as? String == "Complete",
-                              oldStatus != "complete" {
-
-                               self?.increaseCompletedTasksForTechnician()
-                           }
-                           
-                           
-                           // Disable save button again
-                           self?.saveBtn.isEnabled = false
-                           self?.saveBtn.backgroundColor = .systemGray
-                           
-                           // Show success message
-                           let successAlert = UIAlertController(
-                               title: "Success!",
-                               message: "Status updated to \(updateData["status"] as? String ?? "")",
-                               preferredStyle: .alert
-                           )
-                           successAlert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                               // Optionally go back to list
-                               // self?.navigationController?.popViewController(animated: true)
-                           })
-                           self?.present(successAlert, animated: true)
-                           
-                           // Update button appearance
-                           self?.updateStatusButtonAppearance()
-                       }
-                   }
-               }
-           }
-       }
-    //updating completed tasks(REWARDS)
-    private func increaseCompletedTasksForTechnician() {
-
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-
-        let rewardsRef = Firestore.firestore()
-            .collection("rewards")
-            .document(uid)
-
-        rewardsRef.updateData([
-            "completedTasks": FieldValue.increment(Int64(1))
-        ]) { error in
-            if let error = error {
-                print("Failed to update completedTasks:", error.localizedDescription)
-            } else {
-                print("completedTasks incremented successfully")
-            }
-        }
-    }
-
     
     
     

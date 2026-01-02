@@ -11,130 +11,73 @@ import FirebaseFirestore
 
 final class RewardssTechnician: UIViewController {
 
-    @IBOutlet weak var nameLabell: UILabel!
-    @IBOutlet weak var pointsLabell: UILabel!
-    @IBOutlet weak var progressVieww:UIProgressView!
-    @IBOutlet weak var bronzeeLabel: UIImageView!
-    @IBOutlet weak var silverrLabel: UIImageView!
-    @IBOutlet weak var golddLabel: UIImageView!
-    @IBOutlet weak var motivationnLabel: UILabel!
-    
-    private let db = Firestore.firestore()
-    
-    override func viewDidLoad() {
-           super.viewDidLoad()
-           title = "Rewards"
-           fetchRewards()
-       }
-    // MARK: - Fetch from Firebase
-    private func fetchRewards() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+   
+    @IBOutlet weak var techNameLabel: UILabel!
+    @IBOutlet weak var tasksLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+  
+        private let service = FirestoreService()
 
-        db.collection("rewards").document(uid).getDocument { snapshot, error in
-            guard
-                let data = snapshot?.data(),
-                let name = data["name"] as? String,
-                let completedTasks = data["completedTasks"] as? Int
-            else { return }
-
-            let state = RewardsState(
-                name: name,
-                completedTasks: completedTasks
-            )
-
-            self.updateUI(state: state)
-        }
-    }
-
-    // MARK: - Update UI
-    private func updateUI(state: RewardsState) {
-
-        let rewards = Rewards.shared
-        let points = state.points
-        let badge = rewards.currentBadge(points: points)
-
-        nameLabell.text = state.name
-        pointsLabell.text = "Total Points: \(points)"
-
-        let target = rewards.nextBadgeTarget(points: points)
-        let previous: Int
-
-        switch badge {
-        case .none: previous = 0
-        case .bronze: previous = rewards.bronzePoints
-        case .silver: previous = rewards.silverPoints
-        case .gold: previous = rewards.goldPoints
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            progressView.progress = 0
+          
+            loadTechnicianOfWeek()
         }
 
-        let progress = Float(points - previous) / Float(target - previous)
-        progressVieww.progress = max(0, min(progress, 1))
+        private func loadTechnicianOfWeek() {
 
-        setBadge(bronzeeLabel, unlocked: points >= rewards.bronzePoints, color: .systemOrange)
-        setBadge(silverrLabel, unlocked: points >= rewards.silverPoints, color: .systemGray)
-        setBadge(golddLabel, unlocked: points >= rewards.goldPoints, color: .systemYellow)
+            let now = Date()
+            let weekStart = Calendar.current.dateInterval(of: .weekOfYear, for: now)!.start
+            let weekEnd = Calendar.current.date(byAdding: .day, value: 7, to: weekStart)!
 
-        motivationnLabel.text = rewards.motivationText(badge: badge)
-    }
+            service.fetchMinCompletedTasks { minTasks in
+                self.service.fetchTechnicians { technicians in
 
-    private func setBadge(_ icon: UIImageView, unlocked: Bool, color: UIColor) {
-        icon.image = UIImage(systemName: "medal.fill")
-        icon.tintColor = unlocked ? color : .systemGray3
-        icon.alpha = unlocked ? 1.0 : 0.35
-    }
+                    let group = DispatchGroup()
+                    var allStats: [TechStats] = []
 
-    // MARK: - Call when task completed
-    func taskCompleted() {
+                    for tech in technicians {
+                        group.enter()
+                        self.service.fetchStats(
+                            for: tech,
+                            weekStart: weekStart,
+                            weekEnd: weekEnd
+                        ) { stats in
+                            allStats.append(stats)
+                            group.leave()
+                        }
+                    }
 
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+                    group.notify(queue: .main) {
+                        let qualified = allStats.filter {
+                            $0.completedThisWeek >= minTasks
+                        }
 
-        let docRef = db.collection("rewards").document(uid)
+                        guard let winner = qualified.max(by: {
+                            $0.completedThisWeek < $1.completedThisWeek
+                        }) else {
+                            self.showNoWinner()
+                            return
+                        }
 
-        docRef.getDocument { snapshot, _ in
-            guard let data = snapshot?.data(),
-                  let completed = data["completedTasks"] as? Int,
-                  let name = data["name"] as? String
-            else { return }
-
-            let oldPoints = completed * 10
-            let oldBadge = Rewards.shared.currentBadge(points: oldPoints)
-
-            let newCompleted = completed + 1
-            let newPoints = newCompleted * 10
-            let newBadge = Rewards.shared.currentBadge(points: newPoints)
-
-            docRef.updateData([
-                "completedTasks": newCompleted
-            ])
-
-            if newBadge != oldBadge && newBadge != .none {
-                self.showBadgePopup(badge: newBadge)
+                        self.updateUI(with: winner)
+                    }
+                }
             }
-
-            let state = RewardsState(
-                name: name,
-                completedTasks: newCompleted
-            )
-            self.updateUI(state: state)
-        }
-    }
-
-    // MARK: - Popup
-    private func showBadgePopup(badge: Badge) {
-
-        let title = "Congratulations!"
-        let message: String
-
-        switch badge {
-        case .bronze:
-            message = "You earned the BRONZE TECHNICIAN badge!\n\n5 tasks completed successfully."
-        case .silver:
-            message = "You earned the SILVER TECHNICIAN badge!\n\n30 tasks completed successfully."
-        case .gold:
-            message = "You earned the GOLD TECHNICIAN badge!\n\n60 tasks completed successfully."
-        default:
-            return
         }
 
-        showSimpleAlert(title: title, message: message)
+        private func updateUI(with stats: TechStats) {
+            
+            techNameLabel.text = stats.techName
+            tasksLabel.text = "\(stats.completedThisWeek) / \(stats.totalAssigned) Completed Tasks"
+            progressView.setProgress(stats.progress, animated: true)
+        }
+
+        private func showNoWinner() {
+            techNameLabel.text = "-"
+            tasksLabel.text = "No technician qualified this week"
+            progressView.setProgress(0, animated: true)
+            
+        }
     }
-}
