@@ -177,40 +177,35 @@ class NotificationsViewController: UIViewController {
         // Determine which storyboard to use based on user role
         guard let role = UserStore.shared.currentUserRole else { return }
         
-        let storyboardName: String
-        let detailsVCIdentifier: String
-        
-        switch role {
-        case "Student", "Staff":
-            storyboardName = "StudStaff"
-            detailsVCIdentifier = "StudStaffExpandedTicketDetails"
-        case "Technician":
-            storyboardName = "Technician"
-            detailsVCIdentifier = "TechnicianRequestDetails"
-        case "Manager":
-            storyboardName = "TechManager"
-            detailsVCIdentifier = "ManagerRequestDetails"
-        case "Admin":
-            storyboardName = "Admin"
-            detailsVCIdentifier = "AdminRequestDetails"
-        default:
-            print("[NotificationsVC] [ERROR] Unknown role: \(role)")
+        // For Student/Staff, fetch request first to determine which status-based page to show
+        if role == "Student" || role == "Staff" {
+            fetchAndShowRequestForStudentStaff(requestID: requestID)
             return
         }
         
-        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        guard let detailsVC = storyboard.instantiateViewController(withIdentifier: detailsVCIdentifier) as? ExpandedTicketDetailsViewController else {
-            print("[NotificationsVC] Failed to instantiate details VC")
+        // For Manager role
+        if role == "Manager" {
+            let storyboard = UIStoryboard(name: "TechManager", bundle: nil)
+            let detailsVC = storyboard.instantiateViewController(withIdentifier: "MangerRequest")
+            navigationController?.pushViewController(detailsVC, animated: true)
             return
         }
         
-        // Fetch the request and pass it to the details VC
-        fetchAndShowRequest(requestID: requestID, detailsVC: detailsVC)
+        // For Technician role
+        if role == "Technician" {
+            let storyboard = UIStoryboard(name: "Technician", bundle: nil)
+            let detailsVC = storyboard.instantiateViewController(withIdentifier: "Schedule")
+            navigationController?.pushViewController(detailsVC, animated: true)
+            return
+        }
+        
+        // For Admin role no navigation as there is no notifications for admin
+        if role == "Admin" {
+            return
+        }
     }
     
-    private func fetchAndShowRequest(requestID: String, detailsVC: ExpandedTicketDetailsViewController) {
-        let requestCollection = RequestCollection()
-        
+    private func fetchAndShowRequestForStudentStaff(requestID: String) {
         // Fetch the specific request by ID
         Firestore.firestore().collection("Requests").document(requestID).getDocument { [weak self] snapshot, error in
             DispatchQueue.main.async {
@@ -227,12 +222,34 @@ class NotificationsViewController: UIViewController {
                     return
                 }
                 
+                // Determine which storyboard ID to use based on status
+                let storyboardIdentifier: String
+                switch request.status {
+                case "Pending", "New":
+                    storyboardIdentifier = "PendingRequestPage"
+                case "Assigned", "Escalated":
+                    storyboardIdentifier = "AssignedRequestPage"
+                case "In-Progress":
+                    storyboardIdentifier = "InProgressRequestPage"
+                case "Complete":
+                    storyboardIdentifier = "CompleteRequestPage"
+                default:
+                    // Fallback to pending for unknown statuses
+                    storyboardIdentifier = "PendingRequestPage"
+                }
+                
+                let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
+                guard let detailsVC = storyboard.instantiateViewController(withIdentifier: storyboardIdentifier) as? RequestDetailsBaseViewController else {
+                    print("[NotificationsVC] Failed to instantiate details VC with identifier: \(storyboardIdentifier)")
+                    self?.showErrorAlert(message: "Failed to load request details page")
+                    return
+                }
+                
                 // Pass request data to details VC
                 detailsVC.requestData = request
                 
-                // Present as page sheet
-                detailsVC.modalPresentationStyle = .pageSheet
-                self?.present(detailsVC, animated: true)
+                // Use push navigation instead of modal
+                self?.navigationController?.pushViewController(detailsVC, animated: true)
             }
         }
     }

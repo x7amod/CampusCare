@@ -8,6 +8,11 @@ import UIKit
 extension UIViewController {
     
     func addNotificationBell() {
+        // Don't show notification bell for Admin users
+        if UserStore.shared.currentUserRole == "Admin" {
+            return
+        }
+        
         let bellButton = UIButton(type: .system)
 
         let normalImage = UIImage(systemName: "bell.fill")?

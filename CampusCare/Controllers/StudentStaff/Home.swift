@@ -10,31 +10,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-//    @IBAction func openChatButtonTapped(_ sender: UIButton) {
-//        // 1️⃣ Instantiate ChatViewController
-//        let chatVC = storyboard?.instantiateViewController(withIdentifier: "ChatViewController") as! ChatViewController
-//
-//        // 2️⃣ Set the other user's UID
-//        // For testing, you can hardcode another user's UID
-//        chatVC.otherUserId = "OTHER_USER_UID" // <-- replace with a real UID
-//
-//        // 3️⃣ Push ChatViewController
-//        navigationController?.pushViewController(chatVC, animated: true)
-//    }
-    
-    
-    @IBAction func chatButtonTapped(_ sender: UIButton) {
-        
-        let storyboard = UIStoryboard(name: "StudStaff", bundle: nil)
-            let vc = storyboard.instantiateViewController(
-                withIdentifier: "ChooseTechViewController"
-            )
 
-            navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    
     @IBOutlet weak var recentRequestTableView: UITableView!
     @IBOutlet weak var announcementImage: UIImageView!
     @IBOutlet weak var greetingLabel: UILabel!
@@ -267,12 +243,27 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedRequest = recentRequests[indexPath.row]
-        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: "StudStaffExpandedTicketDetails") as? ExpandedTicketDetailsViewController {
+        
+        // Determine which storyboard ID to use based on status
+        let storyboardIdentifier: String
+        switch selectedRequest.status {
+        case "Pending", "New":
+            storyboardIdentifier = "PendingRequestPage"
+        case "Assigned", "Escalated":
+            storyboardIdentifier = "AssignedRequestPage"
+        case "In-Progress":
+            storyboardIdentifier = "InProgressRequestPage"
+        case "Complete":
+            storyboardIdentifier = "CompleteRequestPage"
+        default:
+            // Fallback to pending for unknown statuses
+            storyboardIdentifier = "PendingRequestPage"
+        }
+        
+        if let detailsVC = self.storyboard?.instantiateViewController(withIdentifier: storyboardIdentifier) as? RequestDetailsBaseViewController {
             detailsVC.requestData = selectedRequest
-            detailsVC.modalPresentationStyle = .pageSheet
-            self.present(detailsVC, animated: true)
+            self.navigationController?.pushViewController(detailsVC, animated: true)
         }
     }
 }
-
 

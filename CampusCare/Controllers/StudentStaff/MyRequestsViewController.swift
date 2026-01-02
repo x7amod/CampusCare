@@ -391,9 +391,9 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         switch selectedRequest.status {
         case "Pending", "New":
             storyboardIdentifier = "PendingRequestPage"
-        case "Assigned":
+        case "Assigned", "Escalated":
             storyboardIdentifier = "AssignedRequestPage"
-        case "In-Progress", "Escalated":
+        case "In-Progress":
             storyboardIdentifier = "InProgressRequestPage"
         case "Complete":
             storyboardIdentifier = "CompleteRequestPage"
