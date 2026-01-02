@@ -10,7 +10,7 @@
         <!--Login-->
         <scene sceneID="Q5p-cV-KZk">
             <objects>
-                <viewController id="ToF-ub-TDA" customClass="Login" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" id="ToF-ub-TDA" customClass="Login" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gm7-W1-NRn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,7 +42,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" textContentType="email"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z0n-Oi-bUM">
-                                        <rect key="frame" x="212" y="262" width="160" height="39"/>
+                                        <rect key="frame" x="220" y="251" width="160" height="39"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Forgot Password?"/>
@@ -56,7 +56,7 @@
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veV-Ne-xpC">
-                                        <rect key="frame" x="58" y="356" width="307" height="50"/>
+                                        <rect key="frame" x="58" y="314" width="307" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="mZ6-PQ-L7K"/>
                                         </constraints>
@@ -75,22 +75,22 @@
                                     <constraint firstItem="7Xo-io-1ui" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="veV-Ne-xpC" secondAttribute="leading" id="80c-k4-Jow"/>
                                     <constraint firstItem="rIe-Lm-ToX" firstAttribute="top" secondItem="7Xo-io-1ui" secondAttribute="bottom" constant="28" id="D4R-Py-1t0"/>
                                     <constraint firstItem="7Xo-io-1ui" firstAttribute="leading" secondItem="rIe-Lm-ToX" secondAttribute="leading" id="Iw4-cu-W0f"/>
-                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="z0n-Oi-bUM" secondAttribute="trailing" symbolic="YES" id="JPM-kW-eYc"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="z0n-Oi-bUM" secondAttribute="trailing" constant="20" symbolic="YES" id="JPM-kW-eYc"/>
                                     <constraint firstItem="veV-Ne-xpC" firstAttribute="trailing" secondItem="1xN-ec-XvL" secondAttribute="trailing" id="KCY-3u-za8"/>
                                     <constraint firstItem="7Xo-io-1ui" firstAttribute="leading" secondItem="4ib-Y4-CZZ" secondAttribute="leading" id="Lwr-Ww-ZDA"/>
                                     <constraint firstItem="s4k-S3-Z5j" firstAttribute="top" secondItem="4ib-Y4-CZZ" secondAttribute="bottom" constant="4" id="S3G-bc-UNE"/>
                                     <constraint firstItem="7Xo-io-1ui" firstAttribute="top" secondItem="2Cg-eY-Fud" secondAttribute="top" constant="46" id="Sl0-ot-GYk"/>
                                     <constraint firstItem="7Xo-io-1ui" firstAttribute="leading" secondItem="1xN-ec-XvL" secondAttribute="leading" id="aDL-zw-ZPM"/>
-                                    <constraint firstItem="z0n-Oi-bUM" firstAttribute="leading" secondItem="2Cg-eY-Fud" secondAttribute="leading" constant="212" id="e0k-sT-kmk"/>
+                                    <constraint firstItem="z0n-Oi-bUM" firstAttribute="leading" secondItem="2Cg-eY-Fud" secondAttribute="leading" constant="220" id="e0k-sT-kmk"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rIe-Lm-ToX" secondAttribute="trailing" constant="20" symbolic="YES" id="eiz-2l-koX"/>
                                     <constraint firstItem="7Xo-io-1ui" firstAttribute="leading" secondItem="s4k-S3-Z5j" secondAttribute="leading" id="eru-T2-huw"/>
-                                    <constraint firstItem="veV-Ne-xpC" firstAttribute="top" secondItem="z0n-Oi-bUM" secondAttribute="bottom" constant="55" id="fYZ-Jy-It1"/>
+                                    <constraint firstItem="veV-Ne-xpC" firstAttribute="top" secondItem="z0n-Oi-bUM" secondAttribute="bottom" constant="24" id="fYZ-Jy-It1"/>
                                     <constraint firstItem="7Xo-io-1ui" firstAttribute="leading" secondItem="2Cg-eY-Fud" secondAttribute="leading" constant="58" id="isn-0e-gwO"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7Xo-io-1ui" secondAttribute="trailing" constant="20" symbolic="YES" id="kRu-2x-XDs"/>
                                     <constraint firstItem="veV-Ne-xpC" firstAttribute="trailing" secondItem="s4k-S3-Z5j" secondAttribute="trailing" id="lLo-gQ-HyY"/>
                                     <constraint firstItem="4ib-Y4-CZZ" firstAttribute="top" secondItem="2Cg-eY-Fud" secondAttribute="top" constant="192" id="qnR-ti-Qa2"/>
                                     <constraint firstItem="veV-Ne-xpC" firstAttribute="centerX" secondItem="2Cg-eY-Fud" secondAttribute="centerX" id="t8S-gJ-fvj"/>
-                                    <constraint firstAttribute="bottom" secondItem="veV-Ne-xpC" secondAttribute="bottom" constant="110" id="wQ3-O9-geH"/>
+                                    <constraint firstAttribute="bottom" secondItem="veV-Ne-xpC" secondAttribute="bottom" constant="152" id="wQ3-O9-geH"/>
                                     <constraint firstItem="4ib-Y4-CZZ" firstAttribute="top" secondItem="1xN-ec-XvL" secondAttribute="bottom" constant="16" id="z6I-YX-PgC"/>
                                 </constraints>
                             </view>
@@ -121,7 +121,7 @@
         <!--Forget Password-->
         <scene sceneID="JAd-El-IN5">
             <objects>
-                <viewController id="rc5-Aa-fU2" userLabel="Forget Password" customClass="ForgetPassword" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ForgetPassword" id="rc5-Aa-fU2" userLabel="Forget Password" customClass="ForgetPassword" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ECM-X3-Iq7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
