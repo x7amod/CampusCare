@@ -107,6 +107,37 @@
             </objects>
             <point key="canvasLocation" x="3114.9253731343283" y="-151.02974828375284"/>
         </scene>
+        <!--Choose Tech View Controller-->
+        <scene sceneID="jmd-I9-85h">
+            <objects>
+                <viewController storyboardIdentifier="ChooseTechViewController" hidesBottomBarWhenPushed="YES" id="ijp-qh-dWp" customClass="ChooseTechViewController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tNV-yO-0vf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dqG-Eh-4qJ">
+                                <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="k8K-m2-uQI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dqG-Eh-4qJ" firstAttribute="top" secondItem="k8K-m2-uQI" secondAttribute="top" id="TRC-L9-DJl"/>
+                            <constraint firstItem="dqG-Eh-4qJ" firstAttribute="top" secondItem="k8K-m2-uQI" secondAttribute="top" id="YOQ-No-bXe"/>
+                            <constraint firstItem="k8K-m2-uQI" firstAttribute="bottom" secondItem="dqG-Eh-4qJ" secondAttribute="bottom" id="Ywj-CO-ZTi"/>
+                            <constraint firstItem="k8K-m2-uQI" firstAttribute="trailing" secondItem="dqG-Eh-4qJ" secondAttribute="trailing" id="hdd-Mf-UKP"/>
+                            <constraint firstItem="dqG-Eh-4qJ" firstAttribute="leading" secondItem="k8K-m2-uQI" secondAttribute="leading" id="ttJ-gK-CcZ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="dqG-Eh-4qJ" id="wWY-4l-jKr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LKs-zg-5fU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1159.5419847328244" y="-168.3098591549296"/>
+        </scene>
         <!--Home-->
         <scene sceneID="8Zi-Cn-8dz">
             <objects>
@@ -244,7 +275,21 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="Wea-Zq-Zt1"/>
-                    <navigationItem key="navigationItem" title="Home" id="9kN-JI-Nqq"/>
+                    <navigationItem key="navigationItem" title="Home" id="9kN-JI-Nqq">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="TC5-bb-d2w">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Sxy-48-gga">
+                                <rect key="frame" x="16.000000000000004" y="5" width="52.333333333333343" height="34.333333333333336"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="message.fill" catalog="system">
+                                    <color key="baseBackgroundColor" name="ButtonsColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="chatButtonTapped:" destination="Oxg-0Q-9Sk" eventType="touchUpInside" id="hbc-Bw-bTX"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="announcementImage" destination="a42-KF-V3m" id="a7N-o9-MXP"/>
                         <outlet property="announcementStackView" destination="dZQ-BI-4z0" id="OWJ-rc-f4B"/>
@@ -1349,6 +1394,14 @@
             </objects>
             <point key="canvasLocation" x="3113.740458015267" y="2632.3943661971834"/>
         </scene>
+        <!--Storyboard Reference-->
+        <scene sceneID="zcu-DE-VdI">
+            <objects>
+                <viewControllerPlaceholder id="kc8-5a-5VU" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QXd-V0-Cpl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1196" y="-560"/>
+        </scene>
     </scenes>
     <resources>
         <image name="calendar.badge.clock" catalog="system" width="128" height="109"/>
@@ -1356,6 +1409,7 @@
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="message.fill" catalog="system" width="128" height="114"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="99"/>
         <namedColor name="ButtonsColor">

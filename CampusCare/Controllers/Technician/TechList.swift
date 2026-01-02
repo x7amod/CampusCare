@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 
 class TechList: UIViewController {
@@ -16,7 +17,20 @@ class TechList: UIViewController {
     var allRequests: [RequestModel] = [] //store unfiltered , brownie
     
     
+    @IBAction func chatButtonTapped(_ sender: UIButton) {
+        print("🔥 Tech Chat button tapped")
+        
+        let storyboard = UIStoryboard(name: "Technician", bundle: nil)
+            let vc = storyboard.instantiateViewController(
+                withIdentifier: "ChatsListViewController"
+            )
+
+            navigationController?.pushViewController(vc, animated: true)
+    }
     
+    
+//end of malak work
+
     //variables up
    private var currentTechID: String? {
            return UserStore.shared.currentUserID
