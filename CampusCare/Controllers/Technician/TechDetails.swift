@@ -243,13 +243,12 @@ class TechDetails: UIViewController {
                 } else if newStatus == "Complete" {
                     updateData["completedDate"] = Timestamp(date: Date())
                 }
-                
-               
+
         
         
     }
     
-   
+
     
     
     

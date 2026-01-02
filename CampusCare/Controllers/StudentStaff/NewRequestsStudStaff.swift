@@ -17,6 +17,8 @@ class NewRequestsStudStaff: UIViewController {
         
         setupDropdownButton(categoryButton)
         setupDropdownButton(priorityButton)
+        setupCategoryMenu()
+        setupPriorityMenu()
         
         
         descriptionTextView.layer.borderWidth = 1
@@ -63,59 +65,92 @@ class NewRequestsStudStaff: UIViewController {
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var categoryButton: UIButton!
     
-    var selectedCategory: String?
-    var selectedPriority: String?
+    @IBOutlet weak var categoryButton: UIButton!
+    private func setupCategoryMenu() {
+
+        let categories = [
+            "Electrical",
+            "Plumbing",
+            "AC",
+            "Network / Wifi",
+            "IT Equipment",
+            "Safety & Equipment",
+            "Building / Structural",
+            "Other"
+        ]
+
+        let actions = categories.map { category in
+            UIAction(title: category) { _ in
+                self.updateDropdownTitle(self.categoryButton, title: category)
+            }
+        }
+
+        categoryButton.menu = UIMenu(
+            title: "",
+            options: .displayInline,
+            children: actions
+        )
+
+        categoryButton.showsMenuAsPrimaryAction = true
+    }
+
+    
+    
     var selectedImage: UIImage?
     var uploadedImageURL: String?
     let db = Firestore.firestore()
     
     
     
-    @IBAction func categoryTapped(_ sender: UIButton) {
-        let alert = UIAlertController(
-            title: "Select Category",
-            message: nil,
-            preferredStyle: .actionSheet
+  
+    private func setupDropdownButton(_ button: UIButton) {
+        var config = UIButton.Configuration.plain()
+        config.title = "Select"
+        config.image = UIImage(systemName: "chevron.down")
+        config.imagePlacement = .trailing
+        config.imagePadding = 8
+        config.titleAlignment = .leading
+        config.baseForegroundColor = .lightGray
+
+        config.contentInsets = NSDirectionalEdgeInsets(
+            top: 12, leading: 16, bottom: 12, trailing: 16
         )
-        
-        let categories = ["Electrical", "Plumbing", "AC", "Network/WIFI" , "IT Equipment", "Safety & Equipment", "Building/Structural", "Other"]
-        
-        for category in categories {
-            alert.addAction(UIAlertAction(title: category, style: .default) { _ in
-                self.selectedCategory = category
-                sender.setTitle(category, for: .normal)
-            })
-        }
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
+
+        button.configuration = config
+        button.contentHorizontalAlignment = .fill
+        button.layer.cornerRadius = 8
+        button.backgroundColor = .systemGray6
     }
-    
+
+    private func updateDropdownTitle(_ button: UIButton, title: String) {
+        button.configuration?.title = title
+        button.configuration?.baseForegroundColor = .label
+    }
+
     
     
     @IBOutlet weak var priorityButton: UIButton!
-    
-    @IBAction func priorityTapped(_ sender: UIButton) {
-        let alert = UIAlertController(
-            title: "Select Priority",
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        
+    private func setupPriorityMenu() {
+
         let priorities = ["Low", "Medium", "High"]
-        
-        for priority in priorities {
-            alert.addAction(UIAlertAction(title: priority, style: .default) { _ in
-                self.selectedPriority = priority
-                sender.setTitle(priority, for: .normal)
-            })
+
+        let actions = priorities.map { priority in
+            UIAction(title: priority) { _ in
+                self.updateDropdownTitle(self.priorityButton, title: priority)
+            }
         }
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(alert, animated: true)
+
+        priorityButton.menu = UIMenu(
+            title: "",
+            options: .displayInline,
+            children: actions
+        )
+
+        priorityButton.showsMenuAsPrimaryAction = true
     }
+
+  
     
     
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -170,31 +205,35 @@ class NewRequestsStudStaff: UIViewController {
     
     
     @IBAction func submitButtonTapped(_ sender: Any) {
-        let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let location = locationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        let description = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
-        
+        let title = titleTextField.text?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
+        let location = locationTextField.text?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
+        let description = descriptionTextView.text
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let category = categoryButton.configuration?.title ?? ""
+        let priority = priorityButton.configuration?.title ?? ""
+
         guard
             !title.isEmpty,
             !location.isEmpty,
-            let category = selectedCategory,
-            let priority = selectedPriority,
             !description.isEmpty,
+            category != "Select",
+            priority != "Select",
             let uid = Auth.auth().currentUser?.uid
         else {
             showSimpleAlert(title: "Error", message: "Please fill all fields")
             return
         }
-        
-        
+
         // Prevent multiple taps
         (sender as? UIButton)?.isEnabled = false
-        
-        let ticketId = "REQ-\(Int.random(in: 1000...9999))"
-        
+
         func saveRequest(imageURL: String) {
             let data: [String: Any] = [
-                
                 "title": title,
                 "location": location,
                 "category": category,
@@ -202,62 +241,42 @@ class NewRequestsStudStaff: UIViewController {
                 "description": description,
                 "status": "Pending",
                 "creatorID": uid,
-                "creatorRole": "",
                 "imageURL": imageURL,
-                "releaseDate": Timestamp(),
-                "completedDate": NSNull(),
-                "deadline": NSNull(),
-                "assignedDate": NSNull(),
-                "assignTechID": "",
-                "inProgressDate": NSNull(),
-                "lastUpdateDate": NSNull()
+                "releaseDate": Timestamp()
             ]
-            
+
             Firestore.firestore()
                 .collection("Requests")
                 .addDocument(data: data) { error in
-                    
+
                     (sender as? UIButton)?.isEnabled = true
-                    
+
                     if let error = error {
-                        self.showSimpleAlert(title: "Error", message: error.localizedDescription)
+                        self.showSimpleAlert(
+                            title: "Error",
+                            message: error.localizedDescription
+                        )
                         return
                     }
-                    self.showSuccessAlertAndGoHome(ticketId: ticketId)
+
+                    self.showSuccessAlertAndGoHome()
                 }
-            
-            Firestore.firestore()
-              .collection("Users")
-              .document(uid)
-              .getDocument { snapshot, _ in
-
-                  let role = snapshot?.data()?["role"] as? String ?? "student"
-
-                  saveRequest(creatorRole: role)
-            }
-            func saveRequest(creatorRole: String) {
-                let data: [String: Any] = [
-                    "creatorID": uid,
-                    "creatorRole": creatorRole,
-                ]
-            }
-
-
         }
+
         // Upload image if exists
-           if let image = selectedImage {
-               CloudinaryManager.shared.uploadImage(image: image) { imageURL in
-                   saveRequest(imageURL: imageURL ?? "")
-               }
-           } else {
-               saveRequest(imageURL: "")
-           }
+        if let image = selectedImage {
+            CloudinaryManager.shared.uploadImage(image: image) { imageURL in
+                saveRequest(imageURL: imageURL ?? "")
+            }
+        } else {
+            saveRequest(imageURL: "")
+        }
        }
         
-    func showSuccessAlertAndGoHome(ticketId: String) {
+    func showSuccessAlertAndGoHome() {
         let alert = UIAlertController(
             title: "Success",
-            message: "Request submitted successfully.\nTicket ID: \(ticketId)",
+            message: "Request submitted successfully.",
             preferredStyle: .alert
         )
 
