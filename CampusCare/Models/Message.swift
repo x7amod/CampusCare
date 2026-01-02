@@ -10,6 +10,6 @@ struct Message {
 //  Message.swift
 //  CampusCare
 //
-//  Created by rentamac on 12/27/25.
+//  Created by Malak on 12/27/25.
 //
 
