@@ -7,6 +7,7 @@
 import UIKit
 import FirebaseCore
 import FirebaseFirestore
+import FirebaseAuth
 import Foundation
 
 class MyRequestsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
@@ -58,15 +59,6 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        // custom header
-//        let headerView = Bundle.main.loadNibNamed("CampusCareHeader", owner: nil, options: nil)?.first as! CampusCareHeader
-//        let headerHeight: CGFloat = 80
-//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: headerHeight)
-//        view.addSubview(headerView)
-//
-//        // Set page title
-//        headerView.setTitle("My Requests")
         
         searchBar.delegate = self
         searchBar.showsCancelButton = false
@@ -114,6 +106,33 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         
         filterButton.menu = UIMenu(title: "", children: [statusMenu, categoryMenu, sortByMenu, sortOrderMenu])
         filterButton.showsMenuAsPrimaryAction = true
+        
+        // Update button color based on filter state
+        updateFilterButtonColor()
+    }
+    
+    // Check if any filters or non-default sorts are applied
+    private func isFilterActive() -> Bool {
+        // Check if any filter is applied
+        if selectedStatus != nil || selectedCategory != nil {
+            return true
+        }
+        
+        // Check if sort settings are different from default (timeSubmitted + descending)
+        if sortBy != .timeSubmitted || sortOrder != .descending {
+            return true
+        }
+        
+        return false
+    }
+    
+    // Update filter button color based on active state
+    private func updateFilterButtonColor() {
+        if isFilterActive() {
+            filterButton.tintColor = .systemBlue
+        } else {
+            filterButton.tintColor = .black
+        }
     }
     
     private func createStatusMenu() -> UIMenu {
@@ -132,7 +151,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
                 self?.applyFiltersAndSort()
             }
         }
-        return UIMenu(title: "Filter by Status", options: [], children: actions)
+        return UIMenu(title: "Filter by Status", image: UIImage(systemName: "line.3.horizontal.decrease.circle"), options: [], children: actions)
     }
     
     private func createCategoryMenu() -> UIMenu {
@@ -153,7 +172,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
                 self?.applyFiltersAndSort()
             }
         }
-        return UIMenu(title: "Filter by Category", options: [], children: actions)
+        return UIMenu(title: "Filter by Category", image: UIImage(systemName: "tag"), options: [], children: actions)
     }
     
     private func createSortByMenu() -> UIMenu {
@@ -168,7 +187,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
                 self?.applyFiltersAndSort()
             }
         }
-        return UIMenu(title: "Sort By", options: [], children: actions)
+        return UIMenu(title: "Sort By", image: UIImage(systemName: "arrow.up.arrow.down"), options: [], children: actions)
     }
     
     private func createSortOrderMenu() -> UIMenu {
@@ -183,7 +202,7 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
                 self?.applyFiltersAndSort()
             }
         }
-        return UIMenu(title: "Sort Order", options: [], children: actions)
+        return UIMenu(title: "Sort Order", image: UIImage(systemName: "arrow.up.and.down"), options: [], children: actions)
     }
 
     // Pull-to-refresh handler
@@ -259,9 +278,34 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
             return
         }
         isLoading = true
-
-        db.collection(Self.collectionName).order(by: "releaseDate", descending: true).getDocuments { (querySnapshot, error) in
-            // Ensure isLoading is cleared and refresh control stopped when appropriate
+        
+        // Get current user ID from UserStore (primary) or Auth (fallback)
+        guard let userID = UserStore.shared.currentUserID ?? Auth.auth().currentUser?.uid else {
+            print("[MyRequests] Error: No user ID available. User must be logged in.")
+            isLoading = false
+            if isRefresh {
+                DispatchQueue.main.async {
+                    self.refreshControl.endRefreshing()
+                }
+            }
+            // Show alert to user
+            DispatchQueue.main.async {
+                let alert = UIAlertController(
+                    title: "Error",
+                    message: "Unable to fetch requests. Please log in again.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true)
+            }
+            return
+        }
+        
+        // Use the new RequestCollection function to fetch user-specific requests
+        RequestCollection().fetchRequestsForUser(userID: userID) { [weak self] result in
+            guard let self = self else { return }
+            
+            // Ensure isLoading is cleared and refresh control stopped
             defer {
                 self.isLoading = false
                 if isRefresh {
@@ -270,32 +314,29 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
                     }
                 }
             }
-
-            if let error = error {
-                print("[MyRequests] fetchRequestsFromFirebase error: \(error.localizedDescription)")
-                // show alert to user about failing to connect to db
-                
-                return
-            }
-
-            guard let querySnapshot = querySnapshot else {
-                return
-            }
-
-            var loaded: [RequestModel] = []
-
-            for document in querySnapshot.documents {
-                // Use the RequestModel's initializer from document
-                if let request = RequestModel(from: document) {
-                    loaded.append(request)
+            
+            switch result {
+            case .success(let loaded):
+                //print("[MyRequests] Successfully fetched \(loaded.count) requests for user")
+                // Update storage and reapply any active filter
+                self.allRequests = loaded
+                // Apply all filters and sort
+                DispatchQueue.main.async {
+                    self.applyFiltersAndSort()
                 }
-            }
-
-            // Update storage and reapply any active filter
-            self.allRequests = loaded
-            // Apply all filters and sort
-            DispatchQueue.main.async {
-                self.applyFiltersAndSort()
+                
+            case .failure(let error):
+                print("[MyRequests] fetchRequestsFromFirebase error: \(error.localizedDescription)")
+                // Show alert to user about failing to connect to db
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(
+                        title: "Error",
+                        message: "Failed to load requests. Please try again.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true)
+                }
             }
         }
     }
@@ -345,14 +386,14 @@ class MyRequestsViewController: UIViewController, UITableViewDataSource, UITable
         
         let selectedRequest = requests[indexPath.row]
         
-        // Determine which storyboard identifier to use based on status
+        // Determine which storyboard ID to use based on status
         let storyboardIdentifier: String
         switch selectedRequest.status {
         case "Pending", "New":
             storyboardIdentifier = "PendingRequestPage"
         case "Assigned":
             storyboardIdentifier = "AssignedRequestPage"
-        case "In-Progress":
+        case "In-Progress", "Escalated":
             storyboardIdentifier = "InProgressRequestPage"
         case "Complete":
             storyboardIdentifier = "CompleteRequestPage"

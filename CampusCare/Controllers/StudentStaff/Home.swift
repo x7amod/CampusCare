@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -98,32 +99,39 @@ class Home: UIViewController, UITableViewDataSource, UITableViewDelegate {
     // MARK: - Data Fetching
     
     private func fetchRecentRequests() {
-        requestCollection.fetchAllRequests { [weak self] result in
+        // Get current user ID from UserStore (primary) or Auth (fallback)
+        guard let userID = UserStore.shared.currentUserID ?? Auth.auth().currentUser?.uid else {
+            print("[Home] Error: No user ID available. User must be logged in.")
+            DispatchQueue.main.async {
+                self.showSimpleAlert(title: "Error", message: "Unable to fetch recent requests. Please log in again.")
+            }
+            return
+        }
+        
+        requestCollection.fetchRecentRequests(userID: userID, limit: 2) { [weak self] result in
             switch result {
-            case .success(let allRequests):
-                let sortedRequests = allRequests.sorted { $0.releaseDate.dateValue() > $1.releaseDate.dateValue() }
-                let recentTwo = Array(sortedRequests.prefix(2))
-                
+            case .success(let recentRequests):
                 DispatchQueue.main.async {
-                    self?.recentRequests = recentTwo
+                    self?.recentRequests = recentRequests
                     self?.recentRequestTableView.reloadData()
                 }
+                
             case .failure(let error):
+                print("[Home] Error fetching recent requests: \(error.localizedDescription)")
                 DispatchQueue.main.async {
                     self?.showSimpleAlert(title: "Error", message: "Failed to fetch recent requests.")
                 }
-                print("[Home] Error fetching recent requests: \(error.localizedDescription)")
             }
         }
     }
     
     private func fetchAnnouncements() {
-        print("[Home] Fetching announcements...")
+        //print("[Home] Fetching announcements...")
         
         announcementsCollection.fetchActiveAnnouncements { [weak self] result in
             switch result {
             case .success(let announcements):
-                print("[Home] Received \(announcements.count) active announcements")
+                //print("[Home] Received \(announcements.count) active announcements")
                 
                 guard !announcements.isEmpty else {
                     print("[Home] No active announcements to display")

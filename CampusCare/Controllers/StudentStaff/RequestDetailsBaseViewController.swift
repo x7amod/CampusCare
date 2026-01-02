@@ -54,7 +54,11 @@ class RequestDetailsBaseViewController: UIViewController {
         case "Assigned":
             statusView.backgroundColor = UIColor(red: 230/255, green: 237/255, blue: 244/255, alpha: 1.0)
             statusLabel.textColor = .black
-            
+        
+        case "Escalated":
+            statusView.backgroundColor = .systemRed
+            statusLabel.textColor = .black
+        
         default:
             statusView.backgroundColor = .lightGray
             statusLabel.textColor = .black

@@ -26,7 +26,7 @@ class NavigationBarStyleManager {
         // Title text attributes
         appearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
-            .font: UIFont.systemFont(ofSize: 17, weight: .bold)
+            .font: UIFont.systemFont(ofSize: 20, weight: .bold)
         ]
         
         // Large title text attributes

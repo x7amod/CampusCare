@@ -57,6 +57,65 @@ final class RequestCollection {
             completion(.success(requests))
         }
     }
+    
+    // Fetch requests created by a specific user, sorted by most recent first
+    func fetchRequestsForUser(userID: String, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
+        requestsCollectionRef
+            .whereField("creatorID", isEqualTo: userID)
+            .order(by: "releaseDate", descending: true)
+            .getDocuments { snapshot, error in
+                
+                if let error = error {
+                    print("[RequestCollection] fetchRequestsForUser error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                
+                let requests: [RequestModel] = documents.compactMap { doc in
+                    RequestModel(from: doc)
+                }
+                
+                print("[RequestCollection] Fetched \(requests.count) requests for user: \(userID)")
+                completion(.success(requests))
+            }
+    }
+    
+    /// Fetch the most recently updated requests for a specific user
+    /// - Parameters:
+    ///   - userID: The ID of the user whose requests to fetch
+    ///   - limit: Maximum number of requests to return (default: 2)
+    ///   - completion: Result containing array of RequestModel or Error
+    func fetchRecentRequests(userID: String, limit: Int = 2, completion: @escaping (Result<[RequestModel], Error>) -> Void) {
+        requestsCollectionRef
+            .whereField("creatorID", isEqualTo: userID)
+            .order(by: "lastUpdateDate", descending: true)
+            .limit(to: limit)
+            .getDocuments { snapshot, error in
+                
+                if let error = error {
+                    print("[RequestCollection] fetchRecentRequests error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else {
+                    completion(.success([]))
+                    return
+                }
+                
+                let requests: [RequestModel] = documents.compactMap { doc in
+                    RequestModel(from: doc)
+                }
+                
+                print("[RequestCollection] Fetched \(requests.count) recent requests for user: \(userID)")
+                completion(.success(requests))
+            }
+    }
     // RequestCollection.swift - Keep this function ONLY here
     /*func getRequestsForDate(assignTechID: String,
                             selectedDate: Date,
@@ -227,14 +286,13 @@ final class RequestCollection {
             
             requestsCollectionRef.addDocument(data: data) { error in
                 
-                // 2. Check the 'error' parameter
                 if let error = error {
                     
                     print("Error creating new request document: \(error.localizedDescription)")
                     completion(.failure(error))
                 } else {
                     
-                    print("✅ New request document successfully created.")
+                    print(" New request document successfully created.")
                     completion(.success(()))
                 }
             }
@@ -457,7 +515,7 @@ final class RequestCollection {
         }
     }
     
-    /// Notify creator when request status is updated to In-Progress or Complete
+    // Notify creator when request status is updated to In-Progress or Complete
     private func notifyOnStatusUpdate(requestID: String, requestTitle: String, creatorID: String, techID: String, newStatus: String) {
         let usersCollection = UsersCollection.shared
         let notificationsCollection = NotificationsCollection()
@@ -495,6 +553,5 @@ final class RequestCollection {
         }
     }
     
-    ////
 
 }

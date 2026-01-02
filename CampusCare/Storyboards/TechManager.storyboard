@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2le-00-gYS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2le-00-gYS">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -475,10 +475,10 @@
             </objects>
             <point key="canvasLocation" x="1597" y="1463"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Role Tab Bar Controller-->
         <scene sceneID="esq-xZ-8VY">
             <objects>
-                <tabBarController storyboardIdentifier="Manger" automaticallyAdjustsScrollViewInsets="NO" id="2le-00-gYS" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Manger" automaticallyAdjustsScrollViewInsets="NO" id="2le-00-gYS" customClass="RoleTabBarController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="emJ-Ti-5DU">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -501,7 +501,6 @@
                 <navigationController title="Requests" id="TWQ-73-Uh8" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Requests" image="calendar" catalog="system" id="5c6-KW-h1a"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4B6-oP-1Ik">
-                        <rect key="frame" x="0.0" y="124" width="402" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -518,7 +517,7 @@
                 <navigationController title="Analytics" id="bzk-fU-l9L" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="TxY-3N-TlA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zur-zJ-34A">
-                        <rect key="frame" x="0.0" y="124" width="402" height="44"/>
+                        <rect key="frame" x="0.0" y="124" width="402" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -535,7 +534,6 @@
                 <navigationController title="More" id="DJ5-y0-JHh" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="e7g-Nb-f78"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Aq8-py-sVl">
-                        <rect key="frame" x="0.0" y="124" width="402" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
