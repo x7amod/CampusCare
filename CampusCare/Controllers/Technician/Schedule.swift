@@ -447,7 +447,7 @@ class Schedule: UIViewController,
             }
             
             guard let documents = snapshot?.documents else {
-                print("📭 No documents at all in Requests collection")
+                print("No documents at all in Requests collection")
                 return
             }
             
@@ -475,7 +475,7 @@ class Schedule: UIViewController,
                 }
             }
             
-            print("🔍 === END DEBUG ===")
+            print("=== END DEBUG ===")
             
             // Now check specifically for our technician
             self.checkTechnicianTasks()

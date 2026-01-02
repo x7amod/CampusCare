@@ -74,7 +74,7 @@ struct RequestModel {
         self.lastUpdateDate = data["lastUpdateDate"] as? Timestamp
         self.deadline = data["deadline"] as? Timestamp
         
-        // Debug print - FIXED: Use .formattedString instead of .toString()
+        // Debug print
         print("Created RequestModel: \(title) for tech: \(assignTechID)")
         if let assignedDate = self.assignedDate {
             print("   Assigned Date: \(assignedDate.dateValue().formattedString)")

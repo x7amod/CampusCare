@@ -86,7 +86,7 @@ class TechDetails: UIViewController {
     
     private func setupStatusButton() {
            // Configure the dropdown menu
-           let statuses = ["In Progress", "Complete", "Escalated"]//fry
+           let statuses = ["In-Progress", "Complete", "Escalated"]//fry
            
            var menuChildren: [UIMenuElement] = []
            

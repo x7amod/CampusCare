@@ -174,7 +174,7 @@ class TechList: UIViewController {
         }
         
         // Status filter options (only statuses tech can have)
-        let statusActions = ["Assigned", "In Progress"].map { status in
+        let statusActions = ["Assigned", "In-Progress"].map { status in
             UIAction(title: status) { [weak self] _ in
                 if status == "All" {
                     self?.selectedStatus = nil
