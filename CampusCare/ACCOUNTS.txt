@@ -1,58 +1,58 @@
 Student:
-1-Email: Fatimaaqeel253@gmail.com *REAL ACCOUNT*
+1-Email: Fatimaaqeel253@gmail.com
 Password:Fatima12345.
 2-Email:zainab.jawad@gmail.com
-Password:zainab123.
+Password:Zainab123.
 3-Email:Abeer.abdulla@gmail.com
-Password:abeer@123
+Password:Abeer@123
 4-Email:Sawsan.mustafa@gmail.com
-Password:sawsan123.
+Password:Sawsan123.
 5-Email: Mustafa.Abdulla@gmail.com
-Password:mustafa@123
-6-Email:Hawra.Hussain@gmail.com
-password: hawraa123.
+Password:Mustafa@123
+6-Email:Hawraa.Hussain@gmail.com
+password:Hawraa123.
 7-Email:Haidar.ali@gmail.com
-Password: haidar123.
+Password:Haidar123.
 8-Email: Eman.Ali@gmail.com
-Password: eman@123
-9- Email: zahraa.abdulla@gmail.com
-Password: zahraa@123
+Password:Eman@123
+9- Email: zahra.abdulla@gmail.com
+Password: Zahraa@123
 10- Email: jawad.hussain@gmail.com
-Password: jawad123.
+Password: Jawad123.
+11- Email: khadijamahdi549@gmail.com *REAL ACCOUNT TO USE FOR FORGET PASSWORD PAGE*
+Password: Khadijaa123.
+(The Gmail password is the same as the password in the project firebase [Khadijaa123.])
 
 Staff:
 1- Email: kalwarqaa@gmail.com
-*REAL ACCOUNT*
 Password:Kawther12345.
 2-Email: raid.hasan@gmail.com
-Password: raid@123
+Password:Raid@123
 3-Email: reyad.khalil@gmail.com
-Password: reyad123.
+Password: Reyad123.
 4-Email: hanin.haider@gmail.com
-Password: hanin@123
+Password: Hanin@123
 5-Email: Jameel.Mohd@gmail.com
 Password: Jameel123.
 6-Email: noha.mahmoud@gmail.com
-Password: noha123.
+Password: Noha123.
 7-Email: Qassim.ali@gmail.com
-Password: qassim@123
+Password: Qassim@123
 8-Email: Jenan.hani@gmail.com
-Password: jenan@123
+Password: Jenan@123
 9- Email: lujain.nader@gmail.com
-Password:lujain@123.
+Password:Lujain@123
 10-nizar.qassim@gmail.com
-Password: nizar123.
+Password: Nizar123.
 
 
 
 Tech:
 1- Email: 7uss3inmj@gmail.com
-*REAL ACCOUNT*
 Password: Hussain12345.
 Dep:IT
-
 2- Email: malakalwazeer12@gmail.com
-Password: Malak12345. *REAL ACCOUNT*
+Password: Malak12345.
 Dep: Security 
 3-Email: ahmed.hassan@gmail.com
 Password: Ahmed@1234
@@ -85,19 +85,19 @@ Password:Zainab@1234
 3-Email: mohammed.saleh@gmail.com
 Password:Mohammed@123
 4- Email: mahmood.abdulla@gmail.com
-Password:mahmood@123
+Password:Mahmood@123
 5-Email:fatima.ali@gmail.com
-Password:fatima@123
-6-Email:Nasser.mahmoud@gmail.com
-Password:nasser@123
+Password:Fatima@123
+6-Email:nasser.mohmoud@gmail.com
+Password:Nasser@123
 7-Email: aisha.khalid@gmail.com
-Password: aisha@123
+Password: Aisha@123
 8-Email: salman.ibrahim@gmail.com
-Password: salman@123
+Password: Salman@123
 9-Email:tariq.ameen@gmail.com
-Password:tariq@123
+Password:Tariq@123
 10-ameen.ali@gmail.com
-Password:ameen@123
+Password:Ameen@123
 
 
 Admin:
