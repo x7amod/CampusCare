@@ -67,7 +67,7 @@ class NotificationsViewController: UIViewController {
         tableView.separatorStyle = .none
         tableView.rowHeight = 104
         tableView.estimatedRowHeight = 104
-        tableView.backgroundColor = .systemGroupedBackground
+        tableView.backgroundColor = .clear
         
         // Remove empty cells
         tableView.tableFooterView = UIView()

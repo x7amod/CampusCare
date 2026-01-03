@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var rewardsRow: UIView!
     @IBOutlet weak var myAccountRow: UIView!
     @IBOutlet weak var notificationSwitch: UISwitch!
+    @IBOutlet weak var notificationRow: UIView!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -102,6 +103,9 @@ class SettingsViewController: UIViewController {
         // Load role from UserStore
         if let userRole = UserStore.shared.currentUserRole, !userRole.isEmpty {
             userRoleLabel.text = userRole.capitalized
+            if (UserStore.shared.currentUserRole == "Admin"){
+                notificationRow.isHidden = true
+            }
         }
     }
     
