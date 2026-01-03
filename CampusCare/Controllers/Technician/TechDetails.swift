@@ -105,6 +105,21 @@ class TechDetails: UIViewController {
            updateStatusButtonAppearance()
        }
     private func statusSelected(_ status: String) {
+        //water
+        guard let currentStatus = request?.status else { return }
+            
+            if currentStatus == "Assigned" && status == "Complete" {
+                let alert = UIAlertController(
+                    title: "Invalid Status Change",
+                    message: "Must set to 'In-Progress' first before marking Complete.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+                return 
+            }
+        
+        
            selectedStatus = status
            taskStatus.setTitle("\(status)", for: .normal)
            updateStatusButtonAppearance()
@@ -249,7 +264,7 @@ class TechDetails: UIViewController {
     }
     
     
-    //blueberry
+    //blueberry good
     private func updateRequestInFirebase(requestID: String, updateData: [String: Any], loadingAlert: UIAlertController) {
         let db = Firestore.firestore()
         
