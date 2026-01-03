@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Xfn-xy-PhQ">
-                                <rect key="frame" x="9" y="111" width="227" height="56"/>
+                                <rect key="frame" x="9" y="111" width="276" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.89803922179999995" green="0.89803922179999995" blue="0.91372549530000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -27,10 +27,13 @@
                                 </connections>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xix-XF-baM">
-                                <rect key="frame" x="248" y="119" width="125" height="40"/>
+                                <rect key="frame" x="295" y="122" width="75" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Filter"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="slider.horizontal.3" catalog="system">
+                                    <color key="baseForegroundColor" name="ButtonsColor"/>
+                                    <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -75,7 +78,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8.9552238805970141" y="1462.9290617848969"/>
+            <point key="canvasLocation" x="8.3969465648854964" y="1462.6760563380283"/>
         </scene>
         <!--Manger Details-->
         <scene sceneID="VNe-AA-h4A">
@@ -554,6 +557,7 @@
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="hourglass" catalog="system" width="103" height="128"/>
         <image name="list.clipboard" catalog="system" width="98" height="128"/>
+        <image name="slider.horizontal.3" catalog="system" width="128" height="99"/>
         <namedColor name="ButtonsColor">
             <color red="0.058823529411764705" green="0.16862745098039217" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -567,7 +571,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

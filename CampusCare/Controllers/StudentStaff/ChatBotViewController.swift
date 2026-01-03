@@ -200,7 +200,7 @@ class ChatBotViewController: UIViewController,
         }
     }
 
-    // MARK: - Generic Questions
+    
     func handleGenericQuestion(_ text: String) -> String? {
 
         if text.contains("hi") || text.contains("hello") {
@@ -245,7 +245,7 @@ class ChatBotViewController: UIViewController,
 
     
     func fetchUserRequestCount() {
-        db.collection("requests")
+        db.collection("Requests")
             .whereField("creatorID", isEqualTo: currentUserId)
             .getDocuments { snapshot, error in
 
@@ -259,7 +259,7 @@ class ChatBotViewController: UIViewController,
     }
 
     func fetchUserRequests() {
-        db.collection("requests")
+        db.collection("Requests")
             .whereField("creatorID", isEqualTo: currentUserId)
             .getDocuments { snapshot, error in
 
@@ -282,3 +282,4 @@ class ChatBotViewController: UIViewController,
             }
     }
 }
+

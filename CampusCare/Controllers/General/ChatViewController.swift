@@ -246,7 +246,7 @@ class ChatViewController: UIViewController,
         messageTextField.text = ""
     }
 
-    // MARK: - Helpers
+   
 
     func generateChatId(user1: String, user2: String) -> String {
         return [user1, user2].sorted().joined(separator: "_")

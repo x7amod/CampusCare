@@ -7,7 +7,7 @@
 
 import Foundation
 
-// EmptyStateView.swift
+
 import UIKit
 
 class EmptyStateView: UIView {
@@ -16,7 +16,7 @@ class EmptyStateView: UIView {
     
     @IBOutlet weak var messageLabel: UILabel!
     
-    
+    //to center message if list is empty
     static func instantiate(message: String) -> EmptyStateView {
            let nib = UINib(nibName: "EmptyStateView", bundle: nil)
            let view = nib.instantiate(withOwner: nil, options: nil).first as! EmptyStateView
