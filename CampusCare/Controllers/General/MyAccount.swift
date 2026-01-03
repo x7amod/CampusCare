@@ -21,22 +21,18 @@ final class MyAccount: UIViewController {
     }
 
     private func setupCardStyles() {
-        applyCardStyle(to: MyAccountCard)
+        MyAccountCard.layer.cornerRadius = 15
+        MyAccountCard.layer.shadowColor = UIColor.black.cgColor
+        MyAccountCard.layer.shadowOpacity = 0.1
+        MyAccountCard.layer.shadowRadius = 10
+        MyAccountCard.layer.shadowOffset = CGSize(width: 0, height: 6)
+        MyAccountCard.layer.masksToBounds = false
 
         ChagePassword.layer.cornerRadius = 0
         ChagePassword.layer.masksToBounds = true
 
         Logout.layer.cornerRadius = 0
         Logout.layer.masksToBounds = true
-    }
-
-    private func applyCardStyle(to view: UIView) {
-        view.layer.cornerRadius = 15
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.1
-        view.layer.shadowRadius = 10
-        view.layer.shadowOffset = CGSize(width: 0, height: 6)
-        view.layer.masksToBounds = false
     }
 
     private func setupTapGestures() {
@@ -53,12 +49,14 @@ final class MyAccount: UIViewController {
     @objc private func changePasswordTapped() {
         let storyboard = UIStoryboard(name: "More", bundle: nil)
 
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "ResetPassword") as? ResetPassword else {
+        guard let controller = storyboard.instantiateViewController(
+            withIdentifier: "ResetPassword"
+        ) as? ResetPassword else {
             showAlert(title: "Error", message: "ResetPassword screen not found.")
             return
         }
 
-        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
 
     @objc private func logoutTapped() {
@@ -79,6 +77,17 @@ final class MyAccount: UIViewController {
     private func performLogout() {
         do {
             try Auth.auth().signOut()
+
+            UserDefaults.standard.removeObject(forKey: "isLoggedIn")
+            UserDefaults.standard.removeObject(forKey: "userID")
+            UserDefaults.standard.removeObject(forKey: "userRole")
+            UserDefaults.standard.removeObject(forKey: "username")
+
+            UserStore.shared.currentUserID = nil
+            UserStore.shared.currentUserRole = nil
+            UserStore.shared.currentUsername = nil
+            UserStore.shared.currentTechID = nil
+
             resetAppToLogin()
         } catch {
             showAlert(title: "Logout Failed", message: error.localizedDescription)
@@ -86,21 +95,23 @@ final class MyAccount: UIViewController {
     }
 
     private func resetAppToLogin() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = storyboard.instantiateViewController(withIdentifier: "login")
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let rootController = storyboard.instantiateViewController(withIdentifier: "login")
 
-        let nav = UINavigationController(rootViewController: loginVC)
-        nav.setNavigationBarHidden(true, animated: false)
+            let navigation = UINavigationController(rootViewController: rootController)
+            navigation.setNavigationBarHidden(true, animated: false)
 
-        guard let windowScene = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .first(where: { $0.activationState == .foregroundActive }),
-              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
-            return
+            guard let windowScene = UIApplication.shared.connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .first(where: { $0.activationState == .foregroundActive }),
+                  let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+                return
+            }
+
+            window.rootViewController = navigation
+            window.makeKeyAndVisible()
         }
-
-        window.rootViewController = nav
-        window.makeKeyAndVisible()
     }
 
     private func showAlert(title: String, message: String) {

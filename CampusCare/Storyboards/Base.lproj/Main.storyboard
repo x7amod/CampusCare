@@ -10,7 +10,7 @@
         <!--Login-->
         <scene sceneID="Q5p-cV-KZk">
             <objects>
-                <viewController storyboardIdentifier="Login" id="ToF-ub-TDA" customClass="Login" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="ToF-ub-TDA" customClass="Login" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gm7-W1-NRn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,8 +129,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1mo-3l-CYw">
                                 <rect key="frame" x="-15" y="167" width="423" height="738"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your email address and we will send a link to reset your password." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pm-ZE-J4e">
-                                        <rect key="frame" x="57" y="0.0" width="309" height="87"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your email address and we will send a link to reset your password." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pm-ZE-J4e">
+                                        <rect key="frame" x="40" y="0.0" width="348.33333333333331" height="87"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="87" id="gUD-cl-AAd"/>
                                         </constraints>
@@ -141,7 +141,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.93722134830000003" green="0.93333536390000005" blue="0.93333327769999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="9pm-ZE-J4e" firstAttribute="leading" secondItem="1mo-3l-CYw" secondAttribute="leading" constant="57" id="8eO-Pp-4YA"/>
+                                    <constraint firstItem="9pm-ZE-J4e" firstAttribute="leading" secondItem="1mo-3l-CYw" secondAttribute="leading" constant="40" id="8eO-Pp-4YA"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9pm-ZE-J4e" secondAttribute="trailing" constant="20" symbolic="YES" id="9ck-Af-oai"/>
                                     <constraint firstItem="9pm-ZE-J4e" firstAttribute="top" secondItem="1mo-3l-CYw" secondAttribute="top" id="bzt-5K-JQb"/>
                                 </constraints>
@@ -155,17 +155,20 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="email"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UuC-1S-vwJ">
-                                <rect key="frame" x="38" y="298" width="316" height="39"/>
+                                <rect key="frame" x="38" y="292" width="316" height="39"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Send">
                                     <color key="baseBackgroundColor" red="0.066666662690000003" green="0.1294117719" blue="0.270588249" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="forgetPasswordTapped:" destination="rc5-Aa-fU2" eventType="touchUpInside" id="fek-Yu-e5O"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="avI-Ro-MOU"/>
                         <color key="backgroundColor" red="0.93722134830000003" green="0.93333536390000005" blue="0.93333327769999996" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="UuC-1S-vwJ" firstAttribute="top" secondItem="vh9-XU-WjR" secondAttribute="bottom" constant="19" id="00W-LS-orz"/>
+                            <constraint firstItem="UuC-1S-vwJ" firstAttribute="top" secondItem="vh9-XU-WjR" secondAttribute="bottom" constant="13" id="00W-LS-orz"/>
                             <constraint firstItem="avI-Ro-MOU" firstAttribute="trailing" secondItem="UuC-1S-vwJ" secondAttribute="trailing" constant="39" id="9nf-ZK-hep"/>
                             <constraint firstItem="1mo-3l-CYw" firstAttribute="top" secondItem="avI-Ro-MOU" secondAttribute="top" constant="108" id="Ia4-SP-hsc"/>
                             <constraint firstItem="UuC-1S-vwJ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vh9-XU-WjR" secondAttribute="trailing" id="dMC-IP-aho"/>
@@ -178,6 +181,9 @@
                             <constraint firstItem="UuC-1S-vwJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vh9-XU-WjR" secondAttribute="leading" id="sxM-v8-sqs"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="forgetPasswordText" destination="vh9-XU-WjR" id="fzT-JO-Zy2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vP8-cI-rj1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

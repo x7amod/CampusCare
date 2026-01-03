@@ -33,9 +33,8 @@ final class AddUserViewController: UIViewController {
 
         title = "Add New User"
 
-        // Password secure
-        userPasswordTextField.isSecureTextEntry = true
-        confirmPassword.isSecureTextEntry = true
+        configurePasswordField(userPasswordTextField)
+        configurePasswordField(confirmPassword)
 
         confirmPasswordErrorLabel.text = ""
         confirmPasswordErrorLabel.textColor = .systemRed
@@ -44,60 +43,77 @@ final class AddUserViewController: UIViewController {
         userPasswordTextField.addTarget(self, action: #selector(passwordFieldsChanged), for: .editingChanged)
         confirmPassword.addTarget(self, action: #selector(passwordFieldsChanged), for: .editingChanged)
 
-        
         applyRoleButtonStyle(title: "Select")
         setupRoleMenu()
     }
 
-    
-   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        
         let current = selectedRole ?? "Select"
         applyRoleButtonStyle(title: current)
     }
 
-   
+    private func configurePasswordField(_ textField: UITextField) {
+        textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.smartDashesType = .no
+        textField.smartQuotesType = .no
+        textField.spellCheckingType = .no
+        textField.textContentType = .oneTimeCode
+
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        button.tintColor = .systemGray
+        button.frame = CGRect(x: 0, y: 0, width: 34, height: 30)
+        button.addTarget(self, action: #selector(togglePasswordVisibility(_:)), for: .touchUpInside)
+
+        let container = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 30))
+        button.center = CGPoint(x: container.bounds.width - 18, y: container.bounds.height / 2)
+        container.addSubview(button)
+
+        textField.rightView = container
+        textField.rightViewMode = .always
+    }
+
+    @objc private func togglePasswordVisibility(_ sender: UIButton) {
+        guard
+            let container = sender.superview,
+            let textField = container.superview as? UITextField
+        else { return }
+
+        let wasFirstResponder = textField.isFirstResponder
+        let currentText = textField.text
+
+        textField.isSecureTextEntry.toggle()
+        sender.setImage(UIImage(systemName: textField.isSecureTextEntry ? "eye.slash" : "eye"), for: .normal)
+
+        textField.text = ""
+        textField.text = currentText
+
+        if wasFirstResponder {
+            textField.becomeFirstResponder()
+        }
+    }
+
     private func applyRoleButtonStyle(title: String) {
-
         var config = UIButton.Configuration.plain()
-
-        
         config.title = title
         config.baseForegroundColor = .label
         config.titleAlignment = .leading
-
-        
         config.image = UIImage(systemName: "chevron.down")
         config.imagePlacement = .trailing
         config.imagePadding = 8
-
-        
-        config.contentInsets = NSDirectionalEdgeInsets(
-            top: 12,
-            leading: 12,
-            bottom: 12,
-            trailing: 12
-        )
+        config.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 12)
 
         roleBtn.configuration = config
-
-       
         roleBtn.backgroundColor = .systemBackground
         roleBtn.layer.cornerRadius = 10
         roleBtn.clipsToBounds = true
-
-        
         roleBtn.layer.borderWidth = 1
         roleBtn.layer.borderColor = UIColor.separator.withAlphaComponent(0.3).cgColor
-
-       
         roleBtn.contentHorizontalAlignment = .fill
     }
-
-
 
     private func setupRoleMenu() {
         let roles = ["Student", "Staff", "Technician", "Manager"]
@@ -107,7 +123,7 @@ final class AddUserViewController: UIViewController {
                 guard let self else { return }
                 self.selectedRole = role
                 self.applyRoleButtonStyle(title: role)
-                self.setupRoleMenu() // refresh checkmarks
+                self.setupRoleMenu()
             }
         }
 
@@ -115,7 +131,15 @@ final class AddUserViewController: UIViewController {
         roleBtn.showsMenuAsPrimaryAction = true
     }
 
-    
+    private func isStrongPassword(_ password: String) -> Bool {
+        guard password.count >= 6 else { return false }
+        let hasUpper = password.range(of: "[A-Z]", options: .regularExpression) != nil
+        let hasLower = password.range(of: "[a-z]", options: .regularExpression) != nil
+        let hasNumber = password.range(of: "[0-9]", options: .regularExpression) != nil
+        let hasSymbol = password.range(of: "[!@#$%*.]", options: .regularExpression) != nil
+        return hasUpper && hasLower && hasNumber && hasSymbol
+    }
+
     @objc private func passwordFieldsChanged() {
         let password = (userPasswordTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let confirm  = (confirmPassword.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
@@ -129,15 +153,20 @@ final class AddUserViewController: UIViewController {
         if password != confirm {
             confirmPasswordErrorLabel.text = "Password is different from User Password"
             confirmPasswordErrorLabel.isHidden = false
-        } else {
-            confirmPasswordErrorLabel.text = ""
-            confirmPasswordErrorLabel.isHidden = true
+            return
         }
+
+        if !password.isEmpty && !isStrongPassword(password) {
+            confirmPasswordErrorLabel.text = "Password must be at least 6 characters and include uppercase, lowercase, number, and symbol (! @ # $ % * .)"
+            confirmPasswordErrorLabel.isHidden = false
+            return
+        }
+
+        confirmPasswordErrorLabel.text = ""
+        confirmPasswordErrorLabel.isHidden = true
     }
 
-  
     @IBAction func AddUserButton(_ sender: UIButton) {
-
         let firstName = (firstNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let lastName  = (lastNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
         let email     = (userNameTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
@@ -160,8 +189,8 @@ final class AddUserViewController: UIViewController {
             return
         }
 
-        guard password.count >= 6 else {
-            showAlert(title: "Add User", message: "Password must be at least 6 characters")
+        guard isStrongPassword(password) else {
+            showAlert(title: "Add User", message: "Password must be at least 6 characters and include uppercase, lowercase, number, and symbol (! @ # $ % * .)")
             return
         }
 
@@ -177,13 +206,13 @@ final class AddUserViewController: UIViewController {
             return
         }
 
-        let confirm = UIAlertController(
+        let confirmAlert = UIAlertController(
             title: "Confirm",
             message: "Are you sure you want to add this user?\n\nEmail: \(email)\nRole: \(role)",
             preferredStyle: .alert
         )
 
-        confirm.addAction(UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
+        confirmAlert.addAction(UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
             self?.createUser(
                 firstName: firstName,
                 lastName: lastName,
@@ -194,8 +223,8 @@ final class AddUserViewController: UIViewController {
             )
         })
 
-        confirm.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(confirm, animated: true)
+        confirmAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(confirmAlert, animated: true)
     }
 
     private func createUser(firstName: String,
@@ -236,11 +265,7 @@ final class AddUserViewController: UIViewController {
 
                 try? self.secondaryAuth.signOut()
 
-                let success = UIAlertController(
-                    title: "User Successfully Added!",
-                    message: nil,
-                    preferredStyle: .alert
-                )
+                let success = UIAlertController(title: "User Successfully Added!", message: nil, preferredStyle: .alert)
                 success.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] _ in
                     self?.navigationController?.popViewController(animated: true)
                 })

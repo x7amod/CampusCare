@@ -1475,19 +1475,19 @@ Cg
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Strong Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXD-3I-RRN">
-                                <rect key="frame" x="23.666666666666671" y="376.66666666666669" width="197.33333333333331" height="20.333333333333314"/>
+                                <rect key="frame" x="28" y="415.66666666666652" width="197.33333333333326" height="20.333333333333485"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use at least 6 Characters, It MUST Include:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zhC-82-x9l">
-                                <rect key="frame" x="23.666666666666657" y="405" width="296" height="17"/>
+                                <rect key="frame" x="28" y="446" width="296" height="17"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="aHH-OF-mh8">
-                                <rect key="frame" x="23.666666666666671" y="430" width="170.33333333333331" height="89"/>
+                                <rect key="frame" x="28" y="472" width="170.33333333333334" height="89"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- UpperCase Letters (A-Z)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GnI-Yn-c3T">
                                         <rect key="frame" x="0.0" y="0.0" width="170.33333333333334" height="17"/>
@@ -1536,10 +1536,10 @@ Cg
                             <constraint firstItem="OC6-hr-0Gr" firstAttribute="leading" secondItem="LXD-3I-RRN" secondAttribute="leading" id="Cww-AD-JWN"/>
                             <constraint firstItem="OC6-hr-0Gr" firstAttribute="trailing" secondItem="TiU-Sh-nCS" secondAttribute="trailing" id="DUx-jT-qQ5"/>
                             <constraint firstItem="OC6-hr-0Gr" firstAttribute="leading" secondItem="TiU-Sh-nCS" secondAttribute="leading" id="J3h-FL-voB"/>
-                            <constraint firstItem="OC6-hr-0Gr" firstAttribute="top" secondItem="aHH-OF-mh8" secondAttribute="bottom" constant="46" id="L7q-mm-2Is"/>
+                            <constraint firstItem="OC6-hr-0Gr" firstAttribute="top" secondItem="aHH-OF-mh8" secondAttribute="bottom" constant="26" id="L7q-mm-2Is"/>
                             <constraint firstItem="OC6-hr-0Gr" firstAttribute="centerX" secondItem="vzb-wE-UES" secondAttribute="centerX" id="geP-GM-a2Z"/>
-                            <constraint firstItem="zhC-82-x9l" firstAttribute="top" secondItem="LXD-3I-RRN" secondAttribute="bottom" constant="8" id="i3H-1F-ZZN"/>
-                            <constraint firstItem="aHH-OF-mh8" firstAttribute="top" secondItem="zhC-82-x9l" secondAttribute="bottom" constant="8" id="jqq-A5-TWD"/>
+                            <constraint firstItem="zhC-82-x9l" firstAttribute="top" secondItem="LXD-3I-RRN" secondAttribute="bottom" constant="10" id="i3H-1F-ZZN"/>
+                            <constraint firstItem="aHH-OF-mh8" firstAttribute="top" secondItem="zhC-82-x9l" secondAttribute="bottom" constant="9" id="jqq-A5-TWD"/>
                             <constraint firstItem="pce-iL-F8O" firstAttribute="bottom" secondItem="OC6-hr-0Gr" secondAttribute="bottom" constant="169" id="p5A-yi-6if"/>
                             <constraint firstItem="OC6-hr-0Gr" firstAttribute="leading" secondItem="zhC-82-x9l" secondAttribute="leading" id="sGh-zm-96s"/>
                             <constraint firstItem="OC6-hr-0Gr" firstAttribute="leading" secondItem="aHH-OF-mh8" secondAttribute="leading" id="y7E-Nl-9HW"/>
