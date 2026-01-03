@@ -31,12 +31,12 @@ final class FirestoreService {
     // MARK: - Load technicians from users
     func fetchTechnicians(completion: @escaping ([RewardsUser]) -> Void) {
         db.collection(UsersCollection)
-            .whereField("role", isEqualTo: "technician")
+            .whereField("Role", isEqualTo: "Technician")
             .getDocuments { snapshot, _ in
 
                 let technicians = snapshot?.documents.compactMap { doc -> RewardsUser? in
-                    let name = doc["name"] as? String ?? "Unknown"
-                    let role = doc["role"] as? String ?? ""
+                    let name = doc["Username"] as? String ?? "Unknown"
+                    let role = doc["Role"] as? String ?? ""
                     return RewardsUser(id: doc.documentID, name: name, role: role)
                 } ?? []
 
@@ -53,20 +53,17 @@ final class FirestoreService {
     ) {
 
         db.collection(RequestsCollection)
-            .whereField("technicianId", isEqualTo: technician.id)
+            .whereField("assignTechID", isEqualTo: technician.id)
             .getDocuments { snapshot, _ in
 
                 let docs = snapshot?.documents ?? []
                 let totalAssigned = docs.count
 
                 let completedThisWeek = docs.filter { doc in
-                    let status = doc["status"] as? String
-                    guard status == "completed" else { return false }
-
                     guard let timestamp = doc["completedDate"] as? Timestamp else { return false }
                     let date = timestamp.dateValue()
-
                     return date >= weekStart && date < weekEnd
+
                 }.count
 
                 completion(

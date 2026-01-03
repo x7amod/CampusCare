@@ -224,7 +224,9 @@ class ModifyRequestsStudStaff: UIViewController {
 
     // MARK: - Update Request
     @IBAction func updateButtonTapped(_ sender: UIButton) {
-      
+        updateButton.isEnabled = hasChanges
+        
+        
         if let image = selectedImage {
             uploadImageThenUpdate(image)
         } else {
@@ -263,6 +265,7 @@ class ModifyRequestsStudStaff: UIViewController {
             }
         }
     }
+    
 
     private func loadImageOnButton(from urlString: String?) {
         guard
