@@ -261,7 +261,7 @@
         <!--To-Do List-->
         <scene sceneID="niu-Wm-Y3e">
             <objects>
-                <navigationController id="z7s-8W-X3r" sceneMemberID="viewController">
+                <navigationController id="z7s-8W-X3r" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="To-Do List" image="calendar.badge.checkmark.rtl" catalog="system" id="rS0-wM-cJI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Id-HC-e4c">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -294,10 +294,10 @@
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" id="5ix-Y4-7PH">
-                                        <rect key="frame" x="0.0" y="50" width="399" height="47.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="399" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5ix-Y4-7PH" id="Edi-DE-VMj">
-                                            <rect key="frame" x="0.0" y="0.0" width="399" height="47.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="399" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -551,7 +551,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tableCellPlainBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

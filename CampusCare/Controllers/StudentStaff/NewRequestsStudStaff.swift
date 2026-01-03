@@ -261,7 +261,7 @@ class NewRequestsStudStaff: UIViewController {
                         self.showSimpleAlert(title: "Error", message: error.localizedDescription)
                         return
                     }
-
+                    self.notifyManagerOfNewRequest(requestID: requestID, requestTitle: title)
                     self.showSuccessAlertAndGoHome(ticketId: requestID)
                 }
             }
@@ -275,7 +275,32 @@ class NewRequestsStudStaff: UIViewController {
             }
         }
     
-
+    /// Notify manager when a new request is created
+    private func notifyManagerOfNewRequest(requestID: String, requestTitle: String) {
+        let usersCollection = UsersCollection.shared
+        let notificationsCollection = NotificationsCollection()
+        
+        usersCollection.fetchManagerUserID { managerID in
+            guard let managerID = managerID else {
+                print("[NewRequestsStudStaff] Could not find manager to notify")
+                return
+            }
+            
+            notificationsCollection.createNotification(
+                userID: managerID,
+                title: "New Request Awaits Assignment",
+                body: "\(requestTitle) has been submitted and needs a technician.",
+                type: "New",
+                requestID: requestID
+            ) { result in
+                if case .failure(let error) = result {
+                    print("[NewRequestsStudStaff] Failed to notify manager: \(error.localizedDescription)")
+                } else {
+                    print("[NewRequestsStudStaff] Manager notified of new request")
+                }
+            }
+        }
+    }
         
     func showSuccessAlertAndGoHome(ticketId: String) {
         let alert = UIAlertController(

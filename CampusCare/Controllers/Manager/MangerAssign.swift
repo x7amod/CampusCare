@@ -22,6 +22,7 @@ class MangerAssign: UIViewController {
     }
     
     private let usersCollection = UsersCollection()
+    private let requestCollection = RequestCollection()
     private var technicians: [UserModel] = []
     private var selectedTechnician: UserModel?
 
@@ -70,7 +71,6 @@ class MangerAssign: UIViewController {
                 let assignedDate = Timestamp(date: Date())
         
         
-        let requestCollection = RequestCollection()
         requestCollection.assignRequest(reqID: req.id, techID: tech.id, assignedDate: assignedDate, deadline: timestamp) { result in
             switch result {
             case .success():
