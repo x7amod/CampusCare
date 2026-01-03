@@ -14,15 +14,15 @@ import FirebaseFirestore
 
 class TechDetails: UIViewController {
     
-    //mac n cheese
+    
     var request: RequestModel?
-    private var selectedStatus: String? //chocomint
+    private var selectedStatus: String?
     private let requestCollection = RequestCollection()
     
     //components
     @IBOutlet weak var taskTitle: UILabel!
     @IBOutlet weak var taskLocation: UILabel!
-    @IBOutlet weak var subDate: UILabel! //release date ?
+    @IBOutlet weak var subDate: UILabel! //release date
     @IBOutlet weak var taskDescription: UILabel!
     @IBOutlet weak var taskCategory: UILabel!
     @IBOutlet weak var taskImg: UIImageView!
@@ -35,7 +35,7 @@ class TechDetails: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        // Setup UI first (optional styling)
+        // Setup UI first
                setupUI()
                
             
@@ -46,14 +46,14 @@ class TechDetails: UIViewController {
         
         
                    
-               }//pepsi
+               }
         
         
         
         
          
       
-    private func loadImage(from urlString: String) { //mac n cheese
+    private func loadImage(from urlString: String) {
             guard let url = URL(string: urlString) else { return }
             
             DispatchQueue.global().async {
@@ -84,9 +84,10 @@ class TechDetails: UIViewController {
            selectedStatus = request?.status
        }
     
+    
     private func setupStatusButton() {
            // Configure the dropdown menu
-           let statuses = ["In-Progress", "Complete", "Escalated"]//fry
+           let statuses = ["In-Progress", "Complete", "Escalated"]
            
            var menuChildren: [UIMenuElement] = []
            
@@ -105,7 +106,7 @@ class TechDetails: UIViewController {
            updateStatusButtonAppearance()
        }
     private func statusSelected(_ status: String) {
-        //water
+        
         guard let currentStatus = request?.status else { return }
             
             if currentStatus == "Assigned" && status == "Complete" {
@@ -128,6 +129,9 @@ class TechDetails: UIViewController {
            saveBtn.isEnabled = true
            saveBtn.backgroundColor = .buttons
        }
+    
+    
+    
        
        private func updateStatusButtonAppearance() {
            guard let status = selectedStatus else { return }
@@ -192,21 +196,19 @@ class TechDetails: UIViewController {
             
             
             
-            if !request.imageURL.isEmpty {
+            if !request.imageURL.isEmpty { //if theres no images sets the image to the app logo
                         loadImage(from: request.imageURL)
                     } else {
                         taskImg.image = UIImage(named: "cloudinary_logo")
                         taskImg.window?.safeAreaAspectFitLayoutGuide.widthAnchor.constraint(equalToConstant: 100).isActive = true
-                        //taskImg.image = UIImage(systemName:"cloudinary_logo") //kitkat
-                        //taskImg.contentMode = .scaleAspectFit
-                          //  taskImg.tintColor = .lightGray
+                       
                         
                     }
             
             
             
             
-            //initailly disable save - chocomint
+            //initailly disable save
             saveBtn.isEnabled = false
                    saveBtn.backgroundColor = UIColor(red: 120/255 , green:(120/255), blue:(120/255), alpha: 0.75)
            //
@@ -232,18 +234,7 @@ class TechDetails: UIViewController {
                     present(alert, animated: true)
                     return
                 }
-        //fry - prevent status from going back to assign 
-       // if newStatus == "Assigned" {
-         //      let alert = UIAlertController(
-           //        title: "Invalid Status",
-             //      message: "Cannot set status back to 'Assigned'.",
-               //    preferredStyle: .alert
-               //)
-               //alert.addAction(UIAlertAction(title: "OK", style: .default))
-               //present(alert, animated: true)
-               //return
-           //}
-        
+       
         
         
         
@@ -274,7 +265,7 @@ class TechDetails: UIViewController {
     }
     
     
-    //blueberry good
+    
     private func updateRequestInFirebase(requestID: String, updateData: [String: Any], loadingAlert: UIAlertController) {
         let db = Firestore.firestore()
         
@@ -299,14 +290,7 @@ class TechDetails: UIViewController {
                         // Success - update local request
                         self?.request?.status = updateData["status"] as? String ?? ""
                         
-                        // For REWARDS: Store old status
-                        //let oldStatus = self?.request?.status.lowercased()
-                        //self?.request?.status = updateData["status"] as? String ?? ""
-                        
-                        // Update rewards if completed
-                        //if updateData["status"] as? String == "Complete",
-                          // oldStatus != "complete" {
-                            //self?.increaseCompletedTasksForTechnician()
+                       
                         }
                         
                         // Disable save button again
@@ -337,36 +321,8 @@ class TechDetails: UIViewController {
     
     
     
-            
-            // Load image if URL exists
-           // if !request.imageURL.isEmpty, let url = URL(string: request.imageURL) {
-            //    loadImage(from: url)
-         //   } else {
-          //      taskImg.image = UIImage(named: "placeholder") // Add a placeholder image to your assets
-        //    }
-        //} bluberry
-        
-        
-        
-        
-     ///end
-    ///
-    ///
-    
-    
-    
-    
-    
-    //notes - code stages
-    //mac n cheese = good
-//pepsi ?good
-//choco mint ?
-    
-    
-    
-    
-    
-    
+ 
+   
     
 
 

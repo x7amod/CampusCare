@@ -95,8 +95,8 @@ class Schedule: UIViewController,
     func showSelectedDate(date: Date) {
         // Set FSCalendar to the selected date
         calendar.setCurrentPage(date, animated: true)
-        calendar.select(date) // Optional: highlight the selected date
-        updateMonthLabel(for: date) // Update your label with the full month/year
+        calendar.select(date) // highlight the selected date
+        updateMonthLabel(for: date) // Update label with the full month/year
     }
 
 
@@ -107,7 +107,7 @@ class Schedule: UIViewController,
         
         // Update FSCalendar to show selected date
         calendar.setCurrentPage(selectedDate, animated: true)
-        calendar.select(selectedDate) // Optional: highlight the date
+        calendar.select(selectedDate) //  highlight the date
         
         // Update label
         updateMonthLabel(for: selectedDate)
@@ -218,24 +218,13 @@ class Schedule: UIViewController,
         tasks.dataSource = self
         tasks.register(UITableViewCell.self, forCellReuseIdentifier: "TaskCell")
 
-        // Header
-//        let headerView = Bundle.main
-//            .loadNibNamed("CampusCareHeader", owner: nil, options: nil)?
-//            .first as! CampusCareHeader
-//        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
-//        headerView.setTitle("My Schedule")
-//        view.addSubview(headerView)
+        
         
         // Debug existing data
         debugFirestoreData()
         
         // Select today by default
-        /*DispatchQueue.main.async {
-            let today = Date()
-            self.calendar.select(today)
-            self.fetchTasks(for: today)
-            
-        }*/
+       
         let today = Date()
 
         calendar.setCurrentPage(today, animated: false)
@@ -250,14 +239,14 @@ class Schedule: UIViewController,
     func debugDateComparison() {
         print("\nDEBUG DATE COMPARISON")
         
-        // Create test dates
+        //  test dates
         let now = Date()
         let normalizedNow = now.normalized()
         
         print("Current Date: \(now.formattedString)")
         print("Normalized Current Date: \(normalizedNow.formattedString)")
         
-        // Test with your test date (Nov 26, 2025)
+        // Test with test date (Nov 26, 2025)
         var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
         components.year = 2025
         components.month = 11
@@ -290,6 +279,7 @@ class Schedule: UIViewController,
     }
     
     // Test Functions
+    //i used to test because i faced a lot of issues with the feature
     func createTestDocument() {
         let db = Firestore.firestore()
         
@@ -310,7 +300,7 @@ class Schedule: UIViewController,
         print("   Raw date: \(testDate.formattedString)")
         print("   Normalized: \(testDate.normalized().formattedString)")
         
-        // Create a clean dictionary without nil values
+        //  clean dictionary without nil values
         let testData: [String: Any] = [
             "category": "Test",
             "description": "Test task for debugging",
@@ -343,7 +333,7 @@ class Schedule: UIViewController,
     }
     
     func testQuery() {
-        print("\n TESTING QUERY...")
+        print("TESTING QUERY")
         
         let testDate = Calendar.current.date(from: DateComponents(year: 2025, month: 11, day: 26))!
         let normalizedTestDate = testDate.normalized()
@@ -352,6 +342,7 @@ class Schedule: UIViewController,
         print("   Normalized Query Date: \(normalizedTestDate.formattedString)")
         
         requestCollection.getRequestsForDate(
+            //test for tech ahmed
             assignTechID: "L9MGa8esCfQNcLOKed3VjrXHvio2",
             selectedDate: testDate
         ) { requests in
@@ -371,6 +362,8 @@ class Schedule: UIViewController,
         }
     }
     
+    
+    //calendar functions:
     // Calendar Delegate
     func calendar(_ calendar: FSCalendar,
                   didSelect date: Date,
@@ -380,7 +373,7 @@ class Schedule: UIViewController,
         fetchTasks(for: date)
     }
     
-    // MARK:- Fetch Tasks
+    
     func fetchTasks(for date: Date) {
         print("\n Fetching tasks for date: \(date.formattedString)")
         print("   Tech ID being used: \(assignTechID)")
@@ -436,7 +429,7 @@ class Schedule: UIViewController,
         
         print("\n === DEBUGGING FIRESTORE DATA ===")
         
-        // Test 1: Query ALL documents to see what's there
+        // Test 1 Query ALL documents to see what's there
         db.collection("Requests").getDocuments { snapshot, error in
             if let error = error {
                 print(" Error: \(error.localizedDescription)")
@@ -474,7 +467,6 @@ class Schedule: UIViewController,
             
             print("END DEBUG")
             
-            // Now check specifically for our technician
             self.checkTechnicianTasks()
         }
     }

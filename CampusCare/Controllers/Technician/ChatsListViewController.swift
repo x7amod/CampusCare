@@ -35,7 +35,6 @@ class ChatsListViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        // Register default UITableViewCell with identifier "ChatCell"
            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "ChatCell")
         fetchChats()
     }
@@ -46,7 +45,7 @@ class ChatsListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func fetchChats() {
         guard let techId = currentTechId else {
-            print("❌ No logged-in tech")
+            print(" No logged-in tech")
             return
         }
         
@@ -57,7 +56,7 @@ class ChatsListViewController: UIViewController, UITableViewDelegate, UITableVie
                 guard let self = self else { return }
                 
                 if let error = error {
-                    print("❌ Error fetching chats: \(error.localizedDescription)")
+                    print("Error fetching chats: \(error.localizedDescription)")
                     return
                 }
                 
@@ -81,7 +80,7 @@ class ChatsListViewController: UIViewController, UITableViewDelegate, UITableVie
             }
     }
     
-    // MARK: - TableView
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return chats.count
@@ -95,7 +94,7 @@ class ChatsListViewController: UIViewController, UITableViewDelegate, UITableVie
         // Determine the userId (the person tech chats with)
         let userId = chat.users.first { $0 != currentTechId } ?? "Unknown"
         
-        cell.textLabel?.text = "User: \(userId)" // You can replace with user's name if you store it
+        cell.textLabel?.text = "User: \(userId)" 
         cell.detailTextLabel?.text = chat.lastMessage
         cell.accessoryType = .disclosureIndicator
         return cell

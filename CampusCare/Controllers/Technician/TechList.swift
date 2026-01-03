@@ -14,7 +14,9 @@ class TechList: UIViewController {
     
     let requestCollection = RequestCollection()
     var requests: [RequestModel] = []
-    var allRequests: [RequestModel] = [] //store unfiltered , brownie
+    var allRequests: [RequestModel] = [] //store unfiltered
+    
+    private var hasShownInitialEmptyState = false
     
     //tech chat button by malak
     @IBAction func chatButtonTapped(_ sender: UIButton) {
@@ -36,7 +38,7 @@ class TechList: UIViewController {
            return UserStore.shared.currentUserID
        }
     //variables down too + outlets
-    //brownie
+    
     private var selectedPriority: String? = nil
         private var selectedStatus: String? = nil
         private var selectedSortOption: String? = "priority" // Default sort
@@ -70,15 +72,15 @@ class TechList: UIViewController {
         
         
         
-        //search bar custom
+        
         
       
-        //brownie
+        
         setupFilterMenu()
         updateFilterButtonAppearance()
         
         
-        //  techSearch.delegate = self //brownie, try to rm the comment if didnt work
+        
         fetchTechTasks()
         
         
@@ -100,7 +102,69 @@ class TechList: UIViewController {
     func fetchTechTasks() {
         guard let techID = currentTechID else {
             print("Error: No technician ID found")
-          // showEmptyState() //pasta
+            return
+        }
+        
+        requestCollection.fetchRequestsForTech(techID: techID) { [weak self] result in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let list):
+                    if list.isEmpty {
+                        // Only show once when app first loads and there are truly no tasks
+                        if !self.hasShownInitialEmptyState {
+                            self.showEmptyState()
+                            self.hasShownInitialEmptyState = true
+                        }
+                        self.requests = []
+                        self.allRequests = []
+                        self.techStack.isHidden = true
+                    } else {
+                        self.allRequests = list
+                        self.techStack.isHidden = false
+                        self.removeEmptyStateIfNeeded()
+                        self.applyFilters()
+                    }
+                case .failure(let error):
+                    print("Error fetching tech tasks: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+
+    
+    private func showEmptyState() {
+        techStack.isHidden = true
+        
+        // avoid duplicates
+        removeEmptyStateIfNeeded()
+        
+        let emptyStateView = EmptyStateView.instantiate(message: "No active tasks at the moment")
+        emptyStateView.tag = 999
+        emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emptyStateView)
+
+        NSLayoutConstraint.activate([
+            emptyStateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyStateView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 70),
+            emptyStateView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
+            emptyStateView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
+        ])
+    }
+
+    private func removeEmptyStateIfNeeded() {
+        if let existing = view.viewWithTag(999) {
+            existing.removeFromSuperview()
+        }
+    }
+
+    
+    
+    func fetchTechTasks2() {
+        guard let techID = currentTechID else {
+            print("Error: No technician ID found")
+          // showEmptyState()
             return
         }
         
@@ -110,31 +174,32 @@ class TechList: UIViewController {
                 switch result {
                 case .success(let list):
                     if list.isEmpty {
+                        
+                        
+                        
                         self?.showEmptyState()
                     } else {
-                        self?.allRequests = list //brownie
+                        self?.allRequests = list
                         self?.applyFilters()
-                        //self?.reloadStackView()brownie
+                        
                     }
                 case .failure(let error):
                     print("Error fetching tech tasks: \(error.localizedDescription)")
-                    self?.showEmptyState() //pasta
-                  //  self?.requests = []
-                  //  self?.allRequests = []
-                  //  self?.reloadStackView()
+                //    self?.showEmptyState()
+                 
                 }
             }
         }
     }
     
     
+
     
+    private func showEmptyState2() { //delete
     
-    private func showEmptyState() {
-        //kunafa
         techStack.isHidden = true
-        //kunafa2
-        // Create and add the view
+    
+        //adding a view to center the empty state message bc its hard to do with stackview
            let emptyStateView = EmptyStateView.instantiate(message: "No active tasks at the moment")
            emptyStateView.tag = 999
            emptyStateView.translatesAutoresizingMaskIntoConstraints = false
@@ -147,29 +212,11 @@ class TechList: UIViewController {
                emptyStateView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
            ])
         
-         
-         
-        
-        //clear eexisting labels //kunafa
-       // techStack.arrangedSubviews.forEach { $0.removeFromSuperview() }//pasta
-        
-        //kunafa commented
-    //    let label = UILabel()
-      //  label.text = "No tasks assigned yet"
-        //label.textAlignment = .center
-       // label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-       // label.textColor = .systemGray
-        //label.tag = 999//pasta
-        //techStack.addArrangedSubview(label)
-        //constraint to center //pasta
-      
-       
-        
-        
         
     }
-
-    private func setupFilterMenu() { //filter, brownie
+/////////
+    ///
+    private func setupFilterMenu() { //filter
         // Priority filter options
         let priorityActions = ["High", "Medium", "Low"].map { priority in
             UIAction(title: priority) { [weak self] _ in
@@ -228,7 +275,7 @@ class TechList: UIViewController {
     }
     
     
-    //brownie
+    
     private func applyFilters() {
         var filtered = allRequests
         
@@ -325,15 +372,17 @@ class TechList: UIViewController {
         // Clear previous items
         techStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
-        //check for any requests //pasta
+       
         if requests.isEmpty {
-                showEmptyState()
+               techStack.isHidden = true
+               showEmptyState()  //Shows on filters AND clearing
                return
-            }
-        //test pasta
-        //techStack.isHidden = false
+           }
         
-        
+        // Has data - hide empty state and show stack
+            techStack.isHidden = false
+            removeEmptyStateIfNeeded()
+            
         
         
         for r in requests {
@@ -364,7 +413,7 @@ class TechList: UIViewController {
             item.translatesAutoresizingMaskIntoConstraints = false
             item.heightAnchor.constraint(equalToConstant: 140).isActive = true
             techStack.addArrangedSubview(item)
-           // techSearch.searchBarStyle = .minimal
+          
         }
     }
    
@@ -393,14 +442,14 @@ class TechList: UIViewController {
 
 
 
-    // 7. Search Bar Implementation
+    //Search Bar Implementation
     extension TechList: UISearchBarDelegate {
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             
             guard let techID = currentTechID else { return }
             
             if searchText.isEmpty {
-                //at step 6, brownie
+                //at step
                 fetchTechTasks()
                 return
             }
@@ -425,7 +474,7 @@ class TechList: UIViewController {
             
             
           
-           }//comment this is rollback
+           }
         }
     }
 

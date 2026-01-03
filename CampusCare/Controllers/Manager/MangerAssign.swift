@@ -45,16 +45,24 @@ class MangerAssign: UIViewController {
     private func setupPicker() {
           picker.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: Date()) // Tomorrow onwards
       }
+    
+    
     @IBAction func Assign(_ sender: Any) {
         guard let req = self.request else {
             print(" ERROR: Request is nil")
             return
         }
         
+
+        
         guard let tech = selectedTechnician else {
-            print(" ERROR: No technician selected")
-            return
-        }
+                showAlert(
+                    title: "Technician Required",
+                    message: "Please select a technician before assigning the task."
+                )
+                return
+            }
+        
 
         let deadline = picker.date  // Date object
                 let now = Calendar.current.startOfDay(for: Date())
@@ -150,6 +158,13 @@ class MangerAssign: UIViewController {
         dropdown.menu = UIMenu(title: "Technicians", children: actions)
         dropdown.setTitle("Select Technician", for: .normal)
     }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+
 
 
 }

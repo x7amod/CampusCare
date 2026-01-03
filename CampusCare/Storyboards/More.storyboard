@@ -508,481 +508,243 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3hY-G7-qag">
-                                <rect key="frame" x="0.0" y="168" width="393" height="638"/>
+                                <rect key="frame" x="0.0" y="168" width="393" height="594"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YTT-U0-hTx">
-                                        <rect key="frame" x="6" y="63" width="405.66666666666669" height="1342"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhH-HO-lPv">
+                                        <rect key="frame" x="0.0" y="-352" width="393" height="1495"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhH-HO-lPv">
-                                                <rect key="frame" x="0.0" y="0.0" width="405.66666666666669" height="1342"/>
-                                                <subviews>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v71-FT-X5l">
-                                                        <rect key="frame" x="8" y="45" width="399" height="1111"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                        <attributedString key="attributedText">
-                                                            <fragment content="CampusCare Terms &amp; Conditions">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="18" name="HelveticaNeue-Bold"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="20" paragraphSpacing="8" paragraphSpacingBefore="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="20" paragraphSpacing="8" paragraphSpacingBefore="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="Version 1.0 | Last Updated January 1, 2026">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="20" paragraphSpacing="8" paragraphSpacingBefore="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="20" paragraphSpacing="8" paragraphSpacingBefore="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content">Welcome to CampusCare, the official Bahrain Polytechnic mobile application designed to streamline campus maintenance requests. This service enables students and staff to report facility issues such as electrical problems, plumbing leaks, network failures, and equipment malfunctions. Technicians receive assignments while administrators oversee operations through real-time analytics and task management. CampusCare was developed by Group 4 as part of the IT8108 Mobile Programming course during Semester A 2025-2026.</string>
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content">By installing the app, completing registration, or using any features, you enter into this binding agreement. Access requires acceptance of these terms. For support inquiries, navigate to the More tab within the application.</string>
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="Acceptable Use Policy">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content">CampusCare exists solely for reporting legitimate maintenance issues occurring on Bahrain Polytechnic campus premises. Users must provide accurate details including request title, location, category, priority level, description, and supporting photographs. The service prohibits submission of fraudulent requests, spam, harassment directed toward technicians or administrators, or sharing of personal contact information obtained through the app. Commercial activities, data extraction, or attempts to modify the application are strictly forbidden. The development team reserves the right to monitor usage patterns and suspend accounts for violations, which may also trigger referral to campus conduct authorities.</string>
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="Content Ownership">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content">All content submitted by users—including maintenance requests, uploaded images, and feedback ratings—remains the property of the submitting individual. However, by using CampusCare, users grant the development team a perpetual, worldwide, royalty-free license to utilize this content for application functionality, performance analytics, and operational improvements. Photographs attached to requests become permanent components of the associated ticket record and remain accessible to assigned technicians and administrators. The application's design elements, source code, user interface components, SF Symbols, data visualizations, and all other intellectual property belong exclusively to Group 4. Users receive a limited, revocable license for personal campus-related use only.</string>
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="User Accounts, Privacy, and Data Handling">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content">Account creation and management occur through administrative controls. Students and staff receive automatically provisioned credentials. Users bear full responsibility for maintaining the security of their login information and all subsequent account activity. Location data serves to accurately map requests to campus facilities when GPS functionality is enabled. Technician profiles and contact details must not be shared externally. A comprehensive Privacy Policy appears under More &gt; Privacy within the app.</string>
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="Disclaimers and Liability Limitations">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content">CampusCare operates on an "AS IS" basis for educational demonstration purposes. No guarantees exist regarding repair completion timelines, technician availability, network reliability, or uninterrupted service. The development team disclaims liability for data loss, repair delays, or any indirect damages arising from app usage. Physical maintenance work falls under technician discretion and campus facilities management protocols.</string>
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="Termination Rights and Modifications">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content">The development team may suspend or terminate user accounts without prior notice in response to policy violations. These Terms &amp; Conditions may receive updates at any time, with changes communicated through in-app notifications. Continued usage following modifications constitutes acceptance. This agreement operates under the laws of the Kingdom of Bahrain.</string>
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment>
-                                                                <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="For questions, disputes, or support:">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="Email: ">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="support@campuscaredemo.bh">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <url key="NSLink" string="mailto:support@campuscaredemo.bh"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.12941" green="0.50195999999999996" blue="0.55293999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="In-app contact: More &gt; Contact Us">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content=" ">
-                                                                <attributes>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                            <fragment content="Group 4 | IT8108 Mobile Programming | Bahrain Polytechnic ">
-                                                                <attributes>
-                                                                    <color key="NSBackgroundColor" red="0.98824000000000001" green="0.98824000000000001" blue="0.97646999999999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                    <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                                                    <real key="NSKern" value="0.0"/>
-                                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="8" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
-                                                                        <tabStops/>
-                                                                    </paragraphStyle>
-                                                                    <color key="NSStrokeColor" red="0.074510000000000007" green="0.20391999999999999" blue="0.23136999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                </attributes>
-                                                            </fragment>
-                                                        </attributedString>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                    </textView>
-                                                </subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v71-FT-X5l">
+                                                <rect key="frame" x="8" y="396" width="399" height="1267"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </view>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="CampusCare Terms &amp; Conditions">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="14" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">
+ Version 1.0 | Last Updated January 1, 2026
+
+Welcome to CampusCare, the official Bahrain Polytechnic mobile application designed to streamline campus maintenance requests. This service enables students and staff to report facility issues such as electrical problems, plumbing leaks, network failures, and equipment malfunctions. Technicians receive assignments while administrators oversee operations through real-time analytics and task management. CampusCare was developed by Group 4 as part of the IT8108 Mobile Programming course during Semester A 2025-2026.
+By installing the app, completing registration, or using any features, you enter into this binding agreement. Access requires acceptance of these terms. For support inquiries, navigate to the More tab within the application.
+
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Acceptable Use Policy">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">
+ CampusCare exists solely for reporting legitimate maintenance issues occurring on Bahrain Polytechnic campus premises. Users must provide accurate details including request title, location, category, priority level, description, and supporting photographs. The service prohibits submission of fraudulent requests, spam, harassment directed toward technicians or administrators, or sharing of personal contact information obtained through the app. Commercial activities, data extraction, or attempts to modify the application are strictly forbidden. The development team reserves the right to monitor usage patterns and suspend accounts for violations, which may also trigger referral to campus conduct authorities.
+
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Content Ownership">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">
+ All content submitted by users—including maintenance requests, uploaded images, and feedback ratings—remains the property of the submitting individual. However, by using CampusCare, users grant the development team a perpetual, worldwide, royalty-free license to utilize this content for application functionality, performance analytics, and operational improvements. Photographs attached to requests become permanent components of the associated ticket record and remain accessible to assigned technicians and administrators. The application's design elements, source code, user interface components, SF Symbols, data visualizations, and all other intellectual property belong exclusively to Group 4. Users receive a limited, revocable license for personal campus-related use only.
+
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="User Accounts, Privacy, and Data Handling">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">
+ Account creation and management occur through administrative controls. Students and staff receive automatically provisioned credentials. Users bear full responsibility for maintaining the security of their login information and all subsequent account activity. Location data serves to accurately map requests to campus facilities when GPS functionality is enabled. Technician profiles and contact details must not be shared externally. A comprehensive Privacy Policy appears under More &gt; Privacy within the app.
+
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Disclaimers and Liability Limitations">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">
+ CampusCare operates on an "AS IS" basis for educational demonstration purposes. No guarantees exist regarding repair completion timelines, technician availability, network reliability, or uninterrupted service. The development team disclaims liability for data loss, repair delays, or any indirect damages arising from app usage. Physical maintenance work falls under technician discretion and campus facilities management protocols.
+
+
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="Termination Rights and Modifications">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content">
+ The development team may suspend or terminate user accounts without prior notice in response to policy violations. These Terms &amp; Conditions may receive updates at any time, with changes communicated through in-app notifications. Continued usage following modifications constitutes acceptance. This agreement operates under the laws of the Kingdom of Bahrain.
+</string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="For questions, disputes, or support: Email: ">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="support@campuscaredemo.bh">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <url key="NSLink" string="mailto:support@campuscaredemo.bh"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment>
+                                                        <string key="content"> In-app contact: More &gt; Contact Us Group 4 | IT8108 Mobile Programming | Bahrain Polytechnic    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Finale                    </string>
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="13" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="1" defaultTabInterval="28" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                                <tabStops/>
+                                                            </paragraphStyle>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
-                                    </stackView>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="YTT-U0-hTx" secondAttribute="bottom" id="G72-3l-woO"/>
-                                    <constraint firstItem="YTT-U0-hTx" firstAttribute="width" secondItem="3hY-G7-qag" secondAttribute="width" multiplier="1.03234" id="GTy-7b-yy5"/>
-                                    <constraint firstItem="YTT-U0-hTx" firstAttribute="leading" secondItem="3hY-G7-qag" secondAttribute="leading" id="MYk-Yq-kAq"/>
-                                    <constraint firstItem="YTT-U0-hTx" firstAttribute="top" secondItem="3hY-G7-qag" secondAttribute="top" id="TyM-wm-bkB"/>
-                                    <constraint firstAttribute="trailing" secondItem="YTT-U0-hTx" secondAttribute="trailing" id="wC1-vV-8bX"/>
+                                    <constraint firstAttribute="trailing" secondItem="fhH-HO-lPv" secondAttribute="trailing" constant="-6" id="9EA-NA-46h"/>
+                                    <constraint firstItem="fhH-HO-lPv" firstAttribute="leading" secondItem="3hY-G7-qag" secondAttribute="leading" constant="-7" id="BNu-FK-Vnn"/>
+                                    <constraint firstItem="fhH-HO-lPv" firstAttribute="top" secondItem="3hY-G7-qag" secondAttribute="top" constant="-352" id="NN6-rQ-8It"/>
+                                    <constraint firstAttribute="bottom" secondItem="fhH-HO-lPv" secondAttribute="bottom" constant="-549" id="PXR-6g-KZ9"/>
+                                    <constraint firstItem="fhH-HO-lPv" firstAttribute="width" secondItem="3hY-G7-qag" secondAttribute="width" multiplier="1.03308" id="pU9-Lp-WMO"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="wuu-dw-KYu"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="oxB-Ql-5B6"/>
@@ -1001,7 +763,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xvd-Pb-nK6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1438.8059701492537" y="795.65217391304338"/>
+            <point key="canvasLocation" x="1437.4045801526718" y="795.07042253521126"/>
         </scene>
         <!--My Account-->
         <scene sceneID="E4a-BN-Teo">
@@ -1172,46 +934,40 @@ Cg
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="If you have any questions or need support, feel free to contact us through: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16W-Ql-B9u">
-                                <rect key="frame" x="23" y="137" width="385" height="95"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoC-pS-gYB">
-                                <rect key="frame" x="80" y="328" width="300" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoC-pS-gYB">
+                                <rect key="frame" x="19" y="218" width="357" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Phone Number">
-                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="21"/>
+                                <buttonConfiguration key="configuration" style="filled" title="                Phone Number">
+                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" systemColor="systemGray4Color"/>
+                                    <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="callTapped:" destination="vvs-Tj-yVg" eventType="touchUpInside" id="4op-hC-SDC"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wb-F6-0O7">
-                                <rect key="frame" x="80" y="246" width="300" height="50"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wb-F6-0O7">
+                                <rect key="frame" x="19" y="148" width="357" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <size key="titleShadowOffset" width="10" height="5"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Email">
-                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="21"/>
+                                <buttonConfiguration key="configuration" style="filled" title="                Email">
+                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" systemColor="systemGray4Color"/>
+                                    <color key="baseBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="emailTapped:" destination="vvs-Tj-yVg" eventType="touchUpInside" id="rEk-y9-TJ6"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="phone.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zq9-7q-FCF">
-                                <rect key="frame" x="28" y="325.33333333333326" width="33" height="54"/>
+                                <rect key="frame" x="44" y="216.33333333333326" width="33" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="ButtonsColor"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="envelope.stack.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="X6o-Lg-oTt">
-                                <rect key="frame" x="23" y="246" width="42" height="43"/>
+                                <rect key="frame" x="44" y="155" width="35" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="ButtonsColor"/>
                             </imageView>
@@ -1223,7 +979,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rRn-Um-eRo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1237.3134328358208" y="795.65217391304338"/>
+            <point key="canvasLocation" x="-1237.4045801526718" y="795.07042253521126"/>
         </scene>
         <!--Rewards-->
         <scene sceneID="y4P-ZZ-DIy">
@@ -1264,7 +1020,7 @@ Cg
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <color key="backgroundColor" systemColor="tableBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pWb-Z0-fd3">
                                 <rect key="frame" x="34" y="403" width="324" height="257"/>
@@ -1283,7 +1039,7 @@ Cg
                                         <color key="tintColor" red="0.90980392156862744" green="0.5725490196078431" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hlB-9Z-T1t"/>
@@ -1344,45 +1100,29 @@ Cg
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_book" translatesAutoresizingMaskIntoConstraints="NO" id="CbN-oa-JLY">
-                                <rect key="frame" x="16" y="246" width="27" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_loction" translatesAutoresizingMaskIntoConstraints="NO" id="Hwj-EF-2bR">
-                                <rect key="frame" x="13" y="695" width="24" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_wheel" translatesAutoresizingMaskIntoConstraints="NO" id="SmM-va-ZLT">
-                                <rect key="frame" x="16" y="377" width="23" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_target" translatesAutoresizingMaskIntoConstraints="NO" id="LPz-Hp-8nW">
-                                <rect key="frame" x="16" y="531" width="22" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpK-2b-fsw">
-                                <rect key="frame" x="53" y="246" width="67" height="29"/>
+                                <rect key="frame" x="31" y="118" width="67" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Objective" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2bv-DG-Oxu">
-                                <rect key="frame" x="48" y="532" width="104" height="29"/>
+                                <rect key="frame" x="26" y="404" width="104" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Version 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxm-sr-fqX">
-                                <rect key="frame" x="47" y="695" width="140" height="29"/>
+                                <rect key="frame" x="25" y="567" width="140" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="535-cr-TjO">
-                                <rect key="frame" x="49" y="569" width="341" height="97"/>
+                                <rect key="frame" x="27" y="441" width="341" height="97"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Our goal is to create a reliable, organized, and transparent system that enhances the overall campus experience by simplifying issue reporting and resolution</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1390,26 +1130,46 @@ Cg
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="• Submit maintenance requests • Track request progress • Receive real-time updates • View request history" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCK-hT-kOP">
-                                <rect key="frame" x="49" y="414" width="341" height="86"/>
+                                <rect key="frame" x="27" y="286" width="341" height="86"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Features" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6my-LX-FlO">
-                                <rect key="frame" x="49" y="377" width="95" height="29"/>
+                                <rect key="frame" x="27" y="249" width="95" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CampusCare is a digital platform designed to improve communication between campus users and facility management teams" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0B-wP-PB1">
-                                <rect key="frame" x="49" y="277" width="341" height="79"/>
+                                <rect key="frame" x="27" y="149" width="341" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="book" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uoi-2O-jaf">
+                                <rect key="frame" x="101" y="120" width="29" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="ButtonsColor"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="gearshape" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="H0D-ep-Wyh">
+                                <rect key="frame" x="124" y="249" width="24" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="ButtonsColor"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="checkmark.seal.text.page.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="1RK-K8-b7m">
+                                <rect key="frame" x="130" y="408" width="24" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="ButtonsColor"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="airtag.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KD2-79-7vh">
+                                <rect key="frame" x="169" y="566" width="25" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="ButtonsColor"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9rB-ge-3Y6"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -1418,7 +1178,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdU-Z9-OPE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="537.31343283582089" y="795.65217391304338"/>
+            <point key="canvasLocation" x="536.64122137404581" y="795.07042253521126"/>
         </scene>
         <!--Reset Password-->
         <scene sceneID="vYz-S3-6pO">
@@ -1560,15 +1320,15 @@ Cg
         </scene>
     </scenes>
     <resources>
+        <image name="airtag.fill" catalog="system" width="128" height="123"/>
         <image name="arrow.counterclockwise" catalog="system" width="110" height="128"/>
         <image name="bell" catalog="system" width="125" height="128"/>
+        <image name="book" catalog="system" width="128" height="99"/>
+        <image name="checkmark.seal.text.page.fill" catalog="system" width="115" height="128"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="doc.text" catalog="system" width="115" height="128"/>
         <image name="envelope.stack.fill" catalog="system" width="128" height="120"/>
-        <image name="icon_book" width="27" height="27"/>
-        <image name="icon_loction" width="24" height="24"/>
-        <image name="icon_target" width="22" height="22"/>
-        <image name="icon_wheel" width="23" height="23"/>
+        <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="info.circle" catalog="system" width="128" height="123"/>
         <image name="medal.fill" catalog="system" width="121" height="128"/>
         <image name="person" catalog="system" width="128" height="121"/>
@@ -1582,11 +1342,11 @@ Cg
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tableBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
