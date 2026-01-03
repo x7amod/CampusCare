@@ -131,17 +131,36 @@ class TechList: UIViewController {
     
     
     private func showEmptyState() {
-        //clear eexisting labels
-        techStack.arrangedSubviews.forEach { $0.removeFromSuperview() }//pasta
+        //kunafa
+        techStack.isHidden = true
+        //kunafa2
+        // Create and add the view
+           let emptyStateView = EmptyStateView.instantiate(message: "No active tasks at the moment")
+           emptyStateView.tag = 999
+           emptyStateView.translatesAutoresizingMaskIntoConstraints = false
+           view.addSubview(emptyStateView)
+
+           NSLayoutConstraint.activate([
+               emptyStateView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+               emptyStateView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 70),
+               emptyStateView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 40),
+               emptyStateView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -40)
+           ])
         
+         
+         
         
-        let label = UILabel()
-        label.text = "No tasks assigned yet"
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.textColor = .systemGray
-        label.tag = 999//pasta
-        techStack.addArrangedSubview(label)
+        //clear eexisting labels //kunafa
+       // techStack.arrangedSubviews.forEach { $0.removeFromSuperview() }//pasta
+        
+        //kunafa commented
+    //    let label = UILabel()
+      //  label.text = "No tasks assigned yet"
+        //label.textAlignment = .center
+       // label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+       // label.textColor = .systemGray
+        //label.tag = 999//pasta
+        //techStack.addArrangedSubview(label)
         //constraint to center //pasta
       
        
@@ -308,11 +327,6 @@ class TechList: UIViewController {
         
         //check for any requests //pasta
         if requests.isEmpty {
-            
-            
-            
-            
-            
                 showEmptyState()
                return
             }
@@ -339,7 +353,7 @@ class TechList: UIViewController {
                 // Navigate via segue
                 self.performSegue(withIdentifier: "showTechDetails", sender: r)
                 
-                //pepsi ssafe
+            
                 
                 
             }

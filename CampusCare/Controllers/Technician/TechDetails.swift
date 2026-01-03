@@ -105,6 +105,21 @@ class TechDetails: UIViewController {
            updateStatusButtonAppearance()
        }
     private func statusSelected(_ status: String) {
+        //water
+        guard let currentStatus = request?.status else { return }
+            
+            if currentStatus == "Assigned" && status == "Complete" {
+                let alert = UIAlertController(
+                    title: "Invalid Status Change",
+                    message: "Must set to 'In-Progress' first before marking Complete.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+                return
+            }
+        
+        
            selectedStatus = status
            taskStatus.setTitle("\(status)", for: .normal)
            updateStatusButtonAppearance()
@@ -179,7 +194,17 @@ class TechDetails: UIViewController {
             
             if !request.imageURL.isEmpty {
                         loadImage(from: request.imageURL)
+                    } else {
+                        taskImg.image = UIImage(named: "cloudinary_logo")
+                        taskImg.window?.safeAreaAspectFitLayoutGuide.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                        //taskImg.image = UIImage(systemName:"cloudinary_logo") //kitkat
+                        //taskImg.contentMode = .scaleAspectFit
+                          //  taskImg.tintColor = .lightGray
+                        
                     }
+            
+            
+            
             
             //initailly disable save - chocomint
             saveBtn.isEnabled = false
@@ -244,10 +269,70 @@ class TechDetails: UIViewController {
                     updateData["completedDate"] = Timestamp(date: Date())
                 }
 
-        
+        updateRequestInFirebase(requestID: request.id, updateData: updateData, loadingAlert: loadingAlert)
         
     }
     
+    
+    //blueberry good
+    private func updateRequestInFirebase(requestID: String, updateData: [String: Any], loadingAlert: UIAlertController) {
+        let db = Firestore.firestore()
+        
+        print("DEBUG: Updating request \(requestID) with data: \(updateData)")
+        
+        db.collection("Requests").document(requestID).updateData(updateData) { [weak self] error in
+            DispatchQueue.main.async {
+                loadingAlert.dismiss(animated: true) {
+                    if let error = error {
+                        // Show error
+                        print("DEBUG: Firebase update error: \(error)")
+                        let errorAlert = UIAlertController(
+                            title: "Update Failed",
+                            message: error.localizedDescription,
+                            preferredStyle: .alert
+                        )
+                        errorAlert.addAction(UIAlertAction(title: "OK", style: .default))
+                        self?.present(errorAlert, animated: true)
+                    } else {
+                        print("DEBUG: Firebase update successful")
+                        
+                        // Success - update local request
+                        self?.request?.status = updateData["status"] as? String ?? ""
+                        
+                        // For REWARDS: Store old status
+                        //let oldStatus = self?.request?.status.lowercased()
+                        //self?.request?.status = updateData["status"] as? String ?? ""
+                        
+                        // Update rewards if completed
+                        //if updateData["status"] as? String == "Complete",
+                          // oldStatus != "complete" {
+                            //self?.increaseCompletedTasksForTechnician()
+                        }
+                        
+                        // Disable save button again
+                        self?.saveBtn.isEnabled = false
+                        self?.saveBtn.backgroundColor = UIColor(red: 120/255, green: 120/255, blue: 120/255, alpha: 0.75)
+                        
+                        // Show success message
+                        let successAlert = UIAlertController(
+                            title: "Success!",
+                            message: "Status updated to \(updateData["status"] as? String ?? "")",
+                            preferredStyle: .alert
+                        )
+                        successAlert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                            // Optionally go back to list
+                            self?.navigationController?.popViewController(animated: true)
+                        })
+                        self?.present(successAlert, animated: true)
+                        
+                        // Update button appearance
+                        self?.updateStatusButtonAppearance()
+                    }
+                }
+            }
+        }
+    }
+
 
     
     
@@ -259,7 +344,7 @@ class TechDetails: UIViewController {
          //   } else {
           //      taskImg.image = UIImage(named: "placeholder") // Add a placeholder image to your assets
         //    }
-        }
+        //} bluberry
         
         
         
