@@ -14,11 +14,11 @@ class ChatViewController: UIViewController,
                           UITableViewDataSource,
                           UITextFieldDelegate {
 
-    // MARK: - Outlets
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageTextField: UITextField!
 
-    // MARK: - Properties
+    
     var chatId: String?
     var currentUserId: String?
     var receiverId: String?
@@ -28,7 +28,7 @@ class ChatViewController: UIViewController,
 
     let db = Firestore.firestore()
 
-    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,32 +37,31 @@ class ChatViewController: UIViewController,
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-       // tableView.backgroundColor = UIColor.systemGray6
+       //tableView.backgroundColor = UIColor.systemGray6
 
 
-        // TextField setup
+     
         messageTextField.delegate = self
 
         // Get current user
         currentUserId = Auth.auth().currentUser?.uid
 
         guard let currentUserId = currentUserId else {
-            print("❌ No logged-in user")
+            print("No logged-in user")
             return
         }
 
         guard let receiverId = receiverId else {
-            print("❌ receiverId not set")
+            print("receiverId not set")
             return
         }
 
-        // 🔥 IMPORTANT FIX
-        // Generate chatId ONLY if not passed (User vs Technician)
+        
         if chatId == nil {
             chatId = generateChatId(user1: currentUserId, user2: receiverId)
         }
 
-        print("🔥 Opening chat with ID:", chatId!)
+        print("Opening chat with ID:", chatId!)
 
         listenForMessages()
     }
@@ -72,62 +71,100 @@ class ChatViewController: UIViewController,
         listener?.remove()
     }
 
-    // MARK: - TableView DataSource
+
 
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
 
+   
+    
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let message = messages[indexPath.row]
 
-        // 🔥 IMPORTANT FIX: subtitle cell
-        let cell = UITableViewCell(
-            style: .subtitle,
-            reuseIdentifier: "MessageCell"
-        )
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        cell.selectionStyle = .none
+        cell.backgroundColor = .clear
 
-        cell.textLabel?.text = message.text
-        cell.textLabel?.numberOfLines = 0
+        // Bubble view
+        let bubbleView = UIView()
+        bubbleView.layer.cornerRadius = 16
+        bubbleView.translatesAutoresizingMaskIntoConstraints = false
 
-        cell.detailTextLabel?.text =
-            message.senderId == currentUserId ? "You" : "Other"
+        // Message label
+        let messageLabel = UILabel()
+        messageLabel.text = message.text
+        messageLabel.numberOfLines = 0
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        bubbleView.addSubview(messageLabel)
+        cell.contentView.addSubview(bubbleView)
+
+        // Padding inside bubble
+        NSLayoutConstraint.activate([
+            messageLabel.topAnchor.constraint(equalTo: bubbleView.topAnchor, constant: 10),
+            messageLabel.bottomAnchor.constraint(equalTo: bubbleView.bottomAnchor, constant: -10),
+            messageLabel.leadingAnchor.constraint(equalTo: bubbleView.leadingAnchor, constant: 14),
+            messageLabel.trailingAnchor.constraint(equalTo: bubbleView.trailingAnchor, constant: -14)
+        ])
+
+  
+        bubbleView.widthAnchor.constraint(
+            lessThanOrEqualTo: cell.contentView.widthAnchor,
+            multiplier: 0.75
+        ).isActive = true
 
         if message.senderId == currentUserId {
-            cell.textLabel?.textAlignment = .right
-            cell.detailTextLabel?.textAlignment = .right
+            // Sent (right)
+            bubbleView.backgroundColor = UIColor.systemBlue
+            messageLabel.textColor = .white
+
+            NSLayoutConstraint.activate([
+                bubbleView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -12),
+                bubbleView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 6),
+                bubbleView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -6)
+            ])
         } else {
-            cell.textLabel?.textAlignment = .left
-            cell.detailTextLabel?.textAlignment = .left
+            // Received (left)
+            bubbleView.backgroundColor = UIColor.systemGray4
+            messageLabel.textColor = .black
+
+            NSLayoutConstraint.activate([
+                bubbleView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 12),
+                bubbleView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 6),
+                bubbleView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -6)
+            ])
         }
 
         return cell
     }
 
-    // MARK: - Realtime Listener
+    
+
+    // Realtime Listener
 
     func listenForMessages() {
         guard let chatId = chatId else { return }
 
         listener = db.collection("Chats")
             .document(chatId)
-            .collection("Messages") // capital M (as in Firebase)
+            .collection("Messages")
             .order(by: "timestamp", descending: false)
             .addSnapshotListener { [weak self] snapshot, error in
 
                 guard let self = self else { return }
 
                 if let error = error {
-                    print("❌ Listen error:", error.localizedDescription)
+                    print("Listen error:", error.localizedDescription)
                     return
                 }
 
                 guard let documents = snapshot?.documents else { return }
 
-                print("🔥 Messages fetched:", documents.count)
+                print("Messages fetched:", documents.count)
 
                 self.messages = documents.compactMap { doc in
                     let data = doc.data()
@@ -163,7 +200,7 @@ class ChatViewController: UIViewController,
             }
     }
 
-    // MARK: - Send Message
+    
 
     @IBAction func sendButtonTapped(_ sender: UIButton) {
         sendMessage()
@@ -181,7 +218,7 @@ class ChatViewController: UIViewController,
             let receiverId = receiverId,
             let chatId = chatId
         else {
-            print("❌ Missing data")
+            print("Missing data")
             return
         }
 
@@ -195,7 +232,7 @@ class ChatViewController: UIViewController,
 
         chatRef.collection("Messages").addDocument(data: messageData) { error in
             if let error = error {
-                print("❌ Send error:", error.localizedDescription)
+                print("Send error:", error.localizedDescription)
                 return
             }
 

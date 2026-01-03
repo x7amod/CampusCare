@@ -6,139 +6,106 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class MyAccount: UIViewController {
+final class MyAccount: UIViewController {
 
-    @IBOutlet weak var tableview: UITableView!
-
-    private enum Row: Int, CaseIterable {
-        case resetPassword
-        case logout
-
-        var title: String {
-            switch self {
-            case .resetPassword: return "Reset Password"
-            case .logout: return "Log Out"
-            }
-        }
-
-        var iconSystemName: String {
-            switch self {
-            case .resetPassword: return "arrow.clockwise"
-            case .logout: return "rectangle.portrait.and.arrow.right"
-            }
-        }
-    }
+    @IBOutlet weak var MyAccountCard: UIView!
+    @IBOutlet weak var ChagePassword: UIView!
+    @IBOutlet weak var Logout: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        title = "My Account"
-
-        tableview.dataSource = self
-        tableview.delegate = self
-        tableview.tableFooterView = UIView()
-        tableview.isScrollEnabled = false
-
-        // Bigger rows
-        tableview.rowHeight = 64
-
-        // Remove default separators (we'll space via sections)
-        tableview.separatorStyle = .none
+        setupTapGestures()
+        setupCardStyles()
     }
 
-    private func openResetPassword() {
-        let sb = UIStoryboard(name: "More", bundle: nil)
-        let vc = sb.instantiateViewController(withIdentifier: "ResetPassword")
+    private func setupCardStyles() {
+        applyCardStyle(to: MyAccountCard)
+
+        ChagePassword.layer.cornerRadius = 0
+        ChagePassword.layer.masksToBounds = true
+
+        Logout.layer.cornerRadius = 0
+        Logout.layer.masksToBounds = true
+    }
+
+    private func applyCardStyle(to view: UIView) {
+        view.layer.cornerRadius = 15
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowRadius = 10
+        view.layer.shadowOffset = CGSize(width: 0, height: 6)
+        view.layer.masksToBounds = false
+    }
+
+    private func setupTapGestures() {
+        ChagePassword.isUserInteractionEnabled = true
+        Logout.isUserInteractionEnabled = true
+
+        let changeTap = UITapGestureRecognizer(target: self, action: #selector(changePasswordTapped))
+        ChagePassword.addGestureRecognizer(changeTap)
+
+        let logoutTap = UITapGestureRecognizer(target: self, action: #selector(logoutTapped))
+        Logout.addGestureRecognizer(logoutTap)
+    }
+
+    @objc private func changePasswordTapped() {
+        let storyboard = UIStoryboard(name: "More", bundle: nil)
+
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "ResetPassword") as? ResetPassword else {
+            showAlert(title: "Error", message: "ResetPassword screen not found.")
+            return
+        }
+
         navigationController?.pushViewController(vc, animated: true)
     }
 
-    private func confirmLogout() {
-        let alert = UIAlertController(title: nil,
-                                      message: "Are you trying to logout?",
-                                      preferredStyle: .alert)
+    @objc private func logoutTapped() {
+        let alert = UIAlertController(
+            title: "Logout",
+            message: "Are you sure you want to logout?",
+            preferredStyle: .alert
+        )
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel))
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
-            self?.logoutNow()
+            self?.performLogout()
         })
 
         present(alert, animated: true)
     }
 
-    private func logoutNow() {
-        let result = FirebaseAuthService.shared.signOut()
+    private func performLogout() {
+        do {
+            try Auth.auth().signOut()
+            resetAppToLogin()
+        } catch {
+            showAlert(title: "Logout Failed", message: error.localizedDescription)
+        }
+    }
 
-        if case .failure(let error) = result {
-            print("Sign out error: \(error.localizedDescription)")
+    private func resetAppToLogin() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "login")
+
+        let nav = UINavigationController(rootViewController: loginVC)
+        nav.setNavigationBarHidden(true, animated: false)
+
+        guard let windowScene = UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first(where: { $0.activationState == .foregroundActive }),
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+            return
         }
 
-        navigationController?.popToRootViewController(animated: true)
-    }
-}
-
-extension MyAccount: UITableViewDataSource, UITableViewDelegate {
-
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        Row.allCases.count
+        window.rootViewController = nav
+        window.makeKeyAndVisible()
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
-    }
-
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell", for: indexPath)
-
-        guard let row = Row(rawValue: indexPath.section) else { return cell }
-
-        var content = cell.defaultContentConfiguration()
-        content.text = row.title
-        content.textProperties.font = .systemFont(ofSize: 18, weight: .medium)
-
-        content.image = UIImage(systemName: row.iconSystemName)
-        content.imageProperties.tintColor = (row == .logout) ? .systemRed : .systemOrange
-        content.imageProperties.maximumSize = CGSize(width: 26, height: 26)
-        content.imageToTextPadding = 16
-
-        cell.contentConfiguration = content
-        cell.accessoryType = .disclosureIndicator
-        cell.selectionStyle = .default
-
-        if row == .logout {
-            content.textProperties.color = .systemRed
-            cell.contentConfiguration = content
-        }
-
-        
-        cell.layer.cornerRadius = 12
-        cell.clipsToBounds = true
-
-        return cell
-    }
-
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        16
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        UIView()
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
-        guard let row = Row(rawValue: indexPath.section) else { return }
-
-        switch row {
-        case .resetPassword:
-            openResetPassword()
-        case .logout:
-            confirmLogout()
-        }
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
 }
