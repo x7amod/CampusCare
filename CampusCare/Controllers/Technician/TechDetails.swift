@@ -116,7 +116,7 @@ class TechDetails: UIViewController {
                 )
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 present(alert, animated: true)
-                return 
+                return
             }
         
         
@@ -194,7 +194,17 @@ class TechDetails: UIViewController {
             
             if !request.imageURL.isEmpty {
                         loadImage(from: request.imageURL)
+                    } else {
+                        taskImg.image = UIImage(named: "cloudinary_logo")
+                        taskImg.window?.safeAreaAspectFitLayoutGuide.widthAnchor.constraint(equalToConstant: 100).isActive = true
+                        //taskImg.image = UIImage(systemName:"cloudinary_logo") //kitkat
+                        //taskImg.contentMode = .scaleAspectFit
+                          //  taskImg.tintColor = .lightGray
+                        
                     }
+            
+            
+            
             
             //initailly disable save - chocomint
             saveBtn.isEnabled = false
