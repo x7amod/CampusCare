@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2le-00-gYS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2le-00-gYS">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" searchBarStyle="minimal" text="" translatesAutoresizingMaskIntoConstraints="NO" id="Xfn-xy-PhQ">
-                                <rect key="frame" x="12" y="111" width="236" height="56"/>
+                                <rect key="frame" x="12" y="111" width="266" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.89803922179999995" green="0.89803922179999995" blue="0.91372549530000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -26,18 +26,6 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="bfD-9o-rsm"/>
                                 </connections>
                             </searchBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xix-XF-baM">
-                                <rect key="frame" x="257" y="119" width="125" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="Filter"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-Wi-4IK">
                                 <rect key="frame" x="0.0" y="229" width="402" height="528"/>
                                 <subviews>
@@ -55,6 +43,20 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="LHA-Sv-oI0"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="eg3-xs-IGS"/>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xix-XF-baM">
+                                <rect key="frame" x="288" y="122" width="79" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="ButtonsColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="slider.horizontal.3" catalog="system"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
@@ -501,6 +503,7 @@
                 <navigationController title="Requests" id="TWQ-73-Uh8" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Requests" image="calendar" catalog="system" id="5c6-KW-h1a"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4B6-oP-1Ik">
+                        <rect key="frame" x="0.0" y="124" width="402" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -517,7 +520,7 @@
                 <navigationController title="Analytics" id="bzk-fU-l9L" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Analytics" image="chart.bar.xaxis" catalog="system" id="TxY-3N-TlA"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zur-zJ-34A">
-                        <rect key="frame" x="0.0" y="124" width="402" height="54"/>
+                        <rect key="frame" x="0.0" y="124" width="402" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -534,6 +537,7 @@
                 <navigationController title="More" id="DJ5-y0-JHh" customClass="AppNavigationController" customModule="CampusCare" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="ellipsis" catalog="system" id="e7g-Nb-f78"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Aq8-py-sVl">
+                        <rect key="frame" x="0.0" y="124" width="402" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -552,6 +556,7 @@
         <image name="ellipsis" catalog="system" width="128" height="37"/>
         <image name="hourglass" catalog="system" width="103" height="128"/>
         <image name="list.clipboard" catalog="system" width="98" height="128"/>
+        <image name="slider.horizontal.3" catalog="system" width="128" height="99"/>
         <namedColor name="ButtonsColor">
             <color red="0.058823529411764705" green="0.16862745098039217" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
