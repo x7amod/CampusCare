@@ -25,13 +25,17 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("✅ Modify page loaded with request ID:", requestData?.id ?? "NIL")
+
         setupUI()
         
         if let data = requestData {
             populateRequestDetails(data)
         }
     }
+    
+    
+
     
     private func setupUI() {
         // Apply styling to buttons
@@ -60,23 +64,27 @@ class PendingRequestVC: RequestDetailsBaseViewController {
     
     
 
-
-    
     
     // MARK: - IBActions
     @IBAction func modifyRequestButtonTapped(_ sender: UIButton) {
-        guard let storyboard = self.storyboard else { return }
         
-        let modifyRequestVC = storyboard.instantiateViewController(withIdentifier: "ModifyRequestsStudStaff")
-        
-        // Pass the request data to the modify controller
-       if let modifyVC = modifyRequestVC as? ModifyRequestsStudStaff {
-           modifyVC.requestData = self.requestData
+            guard let request = self.requestData else {
+                print("❌ requestData is nil")
+                return
+            }
+
+            guard let modifyVC = storyboard?.instantiateViewController(
+                withIdentifier: "ModifyRequestsStudStaff"
+            ) as? ModifyRequestsStudStaff else {
+                return
+            }
+
+            //
+            modifyVC.requestData = request
+
+            navigationController?.pushViewController(modifyVC, animated: true)
         }
-        
-        // Present the modify request page
-        self.navigationController?.pushViewController(modifyRequestVC, animated: true)
-    }
+
     
     @IBAction func cancelRequestButtonTapped(_ sender: UIButton) {
         

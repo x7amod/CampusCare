@@ -61,7 +61,7 @@ class NewRequestsStudStaff: UIViewController {
         addDashedBorder()
     }
     
-    
+   
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
@@ -205,88 +205,92 @@ class NewRequestsStudStaff: UIViewController {
     
     
     @IBAction func submitButtonTapped(_ sender: Any) {
-        let title = titleTextField.text?
-            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
 
-        let location = locationTextField.text?
-            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let title = titleTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let location = locationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let description = descriptionTextView.text.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        let description = descriptionTextView.text
-            .trimmingCharacters(in: .whitespacesAndNewlines)
+            let category = categoryButton.configuration?.title ?? ""
+            let priority = priorityButton.configuration?.title ?? ""
 
-        let category = categoryButton.configuration?.title ?? ""
-        let priority = priorityButton.configuration?.title ?? ""
+            guard
+                !title.isEmpty,
+                !location.isEmpty,
+                !description.isEmpty,
+                category != "Select",
+                priority != "Select",
+                let uid = Auth.auth().currentUser?.uid
+            else {
+                showSimpleAlert(title: "Error", message: "Please fill all fields")
+                return
+            }
 
-        guard
-            !title.isEmpty,
-            !location.isEmpty,
-            !description.isEmpty,
-            category != "Select",
-            priority != "Select",
-            let uid = Auth.auth().currentUser?.uid
-        else {
-            showSimpleAlert(title: "Error", message: "Please fill all fields")
-            return
-        }
+            (sender as? UIButton)?.isEnabled = false
 
-        // Prevent multiple taps
-        (sender as? UIButton)?.isEnabled = false
-
-        func saveRequest(imageURL: String) {
-            let data: [String: Any] = [
-                "title": title,
-                "location": location,
-                "category": category,
-                "priority": priority,
-                "description": description,
-                "status": "Pending",
-                "creatorID": uid,
-                "imageURL": imageURL,
-                "releaseDate": Timestamp()
-            ]
-
-            Firestore.firestore()
+            let docRef = Firestore.firestore()
                 .collection("Requests")
-                .addDocument(data: data) { error in
+                .document()
 
+            let requestID = docRef.documentID
+
+            func saveRequest(imageURL: String) {
+
+                let data: [String: Any] = [
+                                "title": title,
+                                "location": location,
+                                "category": category,
+                                "priority": priority,
+                                "description": description,
+                                "status": "Pending",
+                                "creatorID": uid,
+                                "creatorRole": "student",
+                                "imageURL": imageURL,
+                                "releaseDate": Timestamp(),
+                                "completedDate": NSNull(),
+                                "deadline": NSNull(),
+                                "assignedDate": NSNull(),
+                                "assignTechID": "",
+                                "inProgressDate": NSNull(),
+                                "lastUpdateDate": NSNull()
+                ]
+
+                docRef.setData(data) { error in
                     (sender as? UIButton)?.isEnabled = true
 
                     if let error = error {
-                        self.showSimpleAlert(
-                            title: "Error",
-                            message: error.localizedDescription
-                        )
+                        self.showSimpleAlert(title: "Error", message: error.localizedDescription)
                         return
                     }
 
-                    self.showSuccessAlertAndGoHome()
+                    self.showSuccessAlertAndGoHome(ticketId: requestID)
                 }
-        }
-
-        // Upload image if exists
-        if let image = selectedImage {
-            CloudinaryManager.shared.uploadImage(image: image) { imageURL in
-                saveRequest(imageURL: imageURL ?? "")
             }
-        } else {
-            saveRequest(imageURL: "")
+
+            if let image = selectedImage {
+                CloudinaryManager.shared.uploadImage(image: image) { imageURL in
+                    saveRequest(imageURL: imageURL ?? "")
+                }
+            } else {
+                saveRequest(imageURL: "")
+            }
         }
-       }
+    
+
         
-    func showSuccessAlertAndGoHome() {
+    func showSuccessAlertAndGoHome(ticketId: String) {
         let alert = UIAlertController(
             title: "Success",
-            message: "Request submitted successfully.",
+            message: "Request submitted successfully.\nTicket ID: \(ticketId)",
             preferredStyle: .alert
         )
 
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            self.tabBarController?.selectedIndex = 0
             self.navigationController?.popToRootViewController(animated: true)
         })
 
         present(alert, animated: true)
     }
+
 
         
     }
