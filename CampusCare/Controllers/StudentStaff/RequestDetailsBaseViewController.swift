@@ -70,12 +70,23 @@ class RequestDetailsBaseViewController: UIViewController {
             let urlString = urlString,
             !urlString.isEmpty,
             let url = URL(string: urlString)
-        else { return }
+        else {
+            DispatchQueue.main.async {
+                button.isHidden = true
+            }
+            return
+        }
 
         URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data, let image = UIImage(data: data) else { return }
+            guard let data = data, let image = UIImage(data: data) else {
+                DispatchQueue.main.async {
+                    button.isHidden = true
+                }
+                return
+            }
 
             DispatchQueue.main.async {
+                button.isHidden = false
                 button.setImage(image, for: .normal)
                 button.setTitle("", for: .normal)
                 button.imageView?.contentMode = .scaleAspectFill
@@ -84,6 +95,7 @@ class RequestDetailsBaseViewController: UIViewController {
             }
         }.resume()
     }
+
     
     func fetchTechnicianDetails(techID: String, nameLabel: UILabel, phoneLabel: UILabel) {
         UsersCollection.shared.fetchUserFullName(userID: techID) { fullName in
