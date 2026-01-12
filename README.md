@@ -9,7 +9,7 @@ https://github.com/hhelal12/CampusCare
 |-------------------|------------|
 | Malak Hasan       | 202302052  |
 | Reem Albalooshi   | 202302093  |
-| Fatema            | 202304063  |
+| Fatema Abdulla    | 202304063  |
 | Kawthar Abdulla   | 202302702  |
 | Hussain Abbas     | 202201389  |
 | Ahmed Alhalal     | 202303581  |
